@@ -6,7 +6,11 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/21 22:21:42 by mbalagui         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/21 22:13:34 by asouinia         ###   ########.fr       */
+>>>>>>> c7860bff362b976e168704b0ea4d8a92f0711cc4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +85,10 @@ int	check_end_start_pipes(char *line)
  * @brief check if all opened quotes and double quotes are closed
  * 
  * @param line the line read from prompt
+ * @param end check until this index
  * @return int 0 if at least one quote still open and 1 if all quotes are closed
  */
-int	check_quotes(char *line)
+int	check_quotes(char *line, int end)
 {
 	int	i;
 	int	signleq[2];
