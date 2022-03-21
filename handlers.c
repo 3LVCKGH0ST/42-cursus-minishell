@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/21 21:53:08 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/21 22:21:42 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	readinputs(char **read)
 		printf("quote checker %d\n", check_quotes(str));
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
+		quotescheckers(str);
 		free(str);
 		//i = 0;
 		//while (cmds && cmds[++i])
