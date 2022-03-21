@@ -1,22 +1,25 @@
-NAME = minishell
+NAME	:= minishell
+SRC		:=  main.c  minishell.c handlers.c  strings.c
+SRCB	:=  
+OBJ		:= $(patsubst %.c, %.o, $(SRC)) 
+OBJB	:= $(patsubst %.c, %.o, $(SRCB)) 
+CC		:= gcc
+FLAGS	:= -Wall -Wextra -Werror  -g -fsanitize=address 
 
-SRCS = minishell.c \
-		handlers.c \
-		strings.c \
+.PHONY: all clean fclean re bonus
 
-OBJS = $(SRCS:.c=.o)
+all: $(NAME)
+$(NAME): $(OBJ)
+	@$(CC) $(FLAGS) -lreadline $(OBJ) -o $(NAME)
+%.o: %.c
+	$(CC) $(FLAGS) -c $<  -o $@
+clean:
+	@rm -f $(OBJ) $(OBJB)
+fclean: clean
+	@rm -f $(NAME)
+re: fclean all
+bonus: $(OBJB)
+	@$(CC) $(FLAGS) $(OBJB) -o $(NAME)
 
-FLAGS	=	-Wall -Werror -Wextra -lreadline
-
-all		:	$(NAME)
-
-$(NAME)	:	$(SRCS)
-			cc $(FLAGS) $(SRCS) -o $(NAME)
-
-clean	:
-		rm -f $(OBJS)
-
-fclean	:	clean
-		rm -f $(OBJS) $(NAME)
-
-re		:	fclean all
+t: $(NAME)
+	./$(NAME)
