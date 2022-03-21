@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/21 18:17:09 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:30:46 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
 
 int	skiplfspace(char *str, int index)
 {
-	while (str[index] == ' ')
+	while (str && str[index] == ' ')
 		index++;
 	return (index);
 }
@@ -34,7 +34,9 @@ int	skiprtspace(char *str)
 	int	index;
 
 	index = ft_strlen(str) - 1;
-	while (str[index] == ' ')
+	if (index < 0)
+		return (0);
+	while (str && str[index] == ' ')
 		index--;
 	return (index);
 }

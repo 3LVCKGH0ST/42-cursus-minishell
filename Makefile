@@ -1,5 +1,5 @@
 NAME	:= minishell
-SRC		:=  main.c  minishell.c handlers.c  strings.c
+SRC		:=   handlers.c  strings.c minishell.c parse.c
 SRCB	:=  
 OBJ		:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB	:= $(patsubst %.c, %.o, $(SRCB)) 
