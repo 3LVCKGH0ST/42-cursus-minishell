@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 13:28:34 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:55:17 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:56:42 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	emptypipes(char *str)
 {
 	int	i;
 	int	c;
-	int d;
+	int	d;
 
 	i = skiplfspace(str, 0);
 	c = 0;
