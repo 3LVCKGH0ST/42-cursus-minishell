@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:15:48 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 19:03:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 21:04:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	*get_pipe_idxs(char *line)
 }
 
 /**
- * @brief copies strings to cmds array using pipes idxs
+ * @brief copies strings to cmds array using pipes idxs and 
+ * trim spaces from front and back
  * 
  * @param pipes 
  * @param cmds 
@@ -50,9 +51,10 @@ int	*get_pipe_idxs(char *line)
  */
 static void	fill_piped_parts(int *pipes, char **cmds, char *line)
 {
-	int	dupft[2];
-	int	i;
-	int	j;
+	int		dupft[2];
+	int		i;
+	int		j;
+	char	*tmp;
 
 	j = -1;
 	i = -1;
@@ -60,13 +62,17 @@ static void	fill_piped_parts(int *pipes, char **cmds, char *line)
 	while (pipes[++i] > 0)
 	{
 		dupft[1] = pipes[i] - 1;
-		cmds[++j] = ft_strdup_v2(line, dupft[0], dupft[1]);
+		tmp = ft_strdup_v2(line, dupft[0], dupft[1]);
+		cmds[++j] = ft_strtrim(tmp, " ");
+		free(tmp);
 		dupft[0] = pipes[i] + 1;
 	}
 	dupft[1] = ft_strlen(line) - 1;
 	if (dupft[1] < 0)
 		dupft[1] = 0;
-	cmds[++j] = ft_strdup_v2(line, dupft[0], dupft[1]);
+	tmp = ft_strdup_v2(line, dupft[0], dupft[1]);
+	cmds[++j] = ft_strtrim(tmp, " ");
+	free(tmp);
 }
 
 /**
