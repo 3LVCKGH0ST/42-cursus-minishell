@@ -1,44 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   multipipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:30:20 by mbalagui         ###   ########.fr       */
+/*   Created: 2022/03/22 13:28:34 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/03/22 13:55:17 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strlen(char *str)
+int	emptypipes(char *str)
 {
 	int	i;
+	int	c;
+	int d;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str && str[i])
+	i = skiplfspace(str, 0);
+	c = 0;
+	d = 0;
+	if (str[i] != '|')
+		return (-1);
+	while (str[i])
+	{
+		if (str[i] != '|')
+		{
+			if (c > d)
+				d = c;
+			c = 0;
+		}
+		if (str[i] == '|')
+			c++;
 		i++;
-	return (i);
-}
-
-int	skiplfspace(char *str, int index)
-{
-	while (str && str[index] == ' ')
-		index++;
-	return (index);
-}
-
-int	skiprtspace(char *str)
-{
-	int	index;
-
-	index = ft_strlen(str) - 1;
-	if (index < 0)
+	}
+	if (c > d)
+		d = c;
+	if (d == 1)
 		return (0);
-	while (str && str[index] == ' ')
-		index--;
-	return (index);
+	return (d);
 }

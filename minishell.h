@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:02:05 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:36:01 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int		skiplfspace(char *str, int defaultval);
 int		skiprtspace(char *str);
 char	**split_cmds(char *line);
 int		quotescheckers(char *str, int end);
+int		emptypipes(char *str);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:02:32 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:36:19 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	readinputs(char **read)
 		
 		printf("pipe checker %d\n", check_end_start_pipes(str));
 		printf("quote checker %d\n", quotescheckers(str,  ft_strlen(str)));
+		printf("multipipes : %d\n", emptypipes(str));
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
 		//quotescheckers(str);
