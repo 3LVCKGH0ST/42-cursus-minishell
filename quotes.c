@@ -6,20 +6,12 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:00:20 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:21:44 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:27:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static void	initchecker(int *t1, int *t2, int *index)
-// {
-// 	t1[0] = 0;
-// 	t1[1] = 0;
-// 	t2[0] = 0;
-// 	t2[1] = 0;
-// 	*index = 0;
-// }
 /**
  * @brief check if all opened quotes and double quotes are closed
  * 

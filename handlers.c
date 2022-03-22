@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:21:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:22:36 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	readinputs(char **read)
 {
 	char	*str;
 	//char	**cmds;
-	int		i;
-	int		*pipes;
+	//int		i;
+	//int		*pipes;
 	str = *read;
 	while (1)
 	{
@@ -94,25 +94,25 @@ void	readinputs(char **read)
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
 		//quotescheckers(str);
-		pipes = get_pipe_idxs(str);
-		i = -1;
-		int	dupft[2];
-		dupft[0] = 0;
-		//printf("|||%s\n", 	ft_strdup_v2(str, 0,4));
-		while (pipes[++i] > 0)
-		{
-			//printf("--%d--\n", pipes[i]);
-			dupft[1] = pipes[i] - 1;
-			//printf("--%d*%d--\n", dupft[0], dupft[1]);
-			//0123|5678
-			printf("%s\n", 	ft_strdup_v2(str, dupft[0],dupft[1]));
-			dupft[0] = pipes[i] + 1;
-		}
-		dupft[1] = ft_strlen(str) - 1;
-		if (dupft[1] < 0)
-			dupft[1] = 0;
-		//printf("--%d*%d--\n", dupft[0], dupft[1]);
-		printf("%s\n", 	ft_strdup_v2(str, dupft[0], dupft[1]));
+		//pipes = get_pipe_idxs(str);
+		//i = -1;
+		//int	dupft[2];
+		//dupft[0] = 0;
+		////printf("|||%s\n", 	ft_strdup_v2(str, 0,4));
+		//while (pipes[++i] > 0)
+		//{
+		//	//printf("--%d--\n", pipes[i]);
+		//	dupft[1] = pipes[i] - 1;
+		//	//printf("--%d*%d--\n", dupft[0], dupft[1]);
+		//	//0123|5678
+		//	printf("%s\n", 	ft_strdup_v2(str, dupft[0],dupft[1]));
+		//	dupft[0] = pipes[i] + 1;
+		//}
+		//dupft[1] = ft_strlen(str) - 1;
+		//if (dupft[1] < 0)
+		//	dupft[1] = 0;
+		////printf("--%d*%d--\n", dupft[0], dupft[1]);
+		//printf("%s\n", 	ft_strdup_v2(str, dupft[0], dupft[1]));
 		//printf("%s\n", 	ft_strdup_v2(str,0,pipes[1]));
 		free(str);
 		//i = 0;
