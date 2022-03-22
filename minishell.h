@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 16:47:13 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:11:55 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		emptypipes(char *str);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 void	ft_echo(char *str);
 char	**ft_split(char const *s, char c);
+int		count_max_multiple_pipes(char *str);
+int		check_end_start_pipes(char *line);
 
 #endif
