@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:00:20 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/21 22:50:18 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/22 09:06:59 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@
 // 	t2[1] = 0;
 // 	*index = 0;
 // }
-
-int	quotescheckers(char *str)
+/**
+ * @brief check if all opened quotes and double quotes are closed
+ * 
+ * @param str the line read from prompt
+ * @param end check until index end - 1
+ * @return int 0 if at least one quote still open and 1 if all quotes are closed
+ */
+int	quotescheckers(char *str, int end)
 {
 	int	singleq;
 	int	doubleq;
@@ -30,18 +36,13 @@ int	quotescheckers(char *str)
 	i = 0;
 	singleq = 0;
 	doubleq = 0;
-	while (str[++i])
+	while (str && str[i] && i < end)
 	{
 		if (str[i] == '"' && singleq == 0)
-		{
 			doubleq = !doubleq;
-		}
 		if (str[i] == '\'' && doubleq == 0)
-		{
 			singleq = !singleq;
-		}
+		++i;
 	}
-	printf("=> double : %d\n", doubleq);
-	printf("=> sinmg : %d\n", singleq);
-	return (0);
+	return (!(doubleq || singleq));
 }

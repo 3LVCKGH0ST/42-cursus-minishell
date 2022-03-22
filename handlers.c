@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/21 22:21:42 by mbalagui         ###   ########.fr       */
-=======
-/*   Updated: 2022/03/21 22:13:34 by asouinia         ###   ########.fr       */
->>>>>>> c7860bff362b976e168704b0ea4d8a92f0711cc4
+/*   Updated: 2022/03/22 09:02:32 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,42 +77,6 @@ int	check_end_start_pipes(char *line)
 	return (1);
 }
 
-/**
- * @brief check if all opened quotes and double quotes are closed
- * 
- * @param line the line read from prompt
- * @param end check until this index
- * @return int 0 if at least one quote still open and 1 if all quotes are closed
- */
-int	check_quotes(char *line, int end)
-{
-	int	i;
-	int	signleq[2];
-	int	doubleq[2];
-
-	i = 0;	
-	signleq[0] = 0;
-	signleq[1] = 1;
-	doubleq[0] = 0;
-	doubleq[1] = 1;
-	while (line && line[i])
-	{
-		if (line[i] != '\'' && line[i] != '"')
-		{
-			signleq[1] = signleq[1] * -1;
-			doubleq[1] = doubleq[1] * -1;
-		}
-		if (line[i] == '\'')
-			signleq[0] += signleq[1];
-		if (line[i] == '"')
-			doubleq[0] += doubleq[1];
-		++i;
-	}
-	if (doubleq[0] || signleq[0])
-		return (0);
-	return (1);
-}
-
 void	readinputs(char **read)
 {
 	char	*str;
@@ -129,10 +89,10 @@ void	readinputs(char **read)
 		printf("=> %s\n", str);
 		
 		printf("pipe checker %d\n", check_end_start_pipes(str));
-		printf("quote checker %d\n", check_quotes(str));
+		printf("quote checker %d\n", quotescheckers(str,  ft_strlen(str)));
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
-		quotescheckers(str);
+		//quotescheckers(str);
 		free(str);
 		//i = 0;
 		//while (cmds && cmds[++i])
