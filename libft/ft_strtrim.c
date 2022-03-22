@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 15:20:27 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 09:49:28 by asouinia         ###   ########.fr       */
+/*   Updated: 2021/11/14 15:20:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 static int	check_ft_set(char c, char const *set)
 {
@@ -45,7 +45,7 @@ static char	*fill_new_str(char const *s1, int start, int end)
 	return (news1);
 }
 
-char	*ft_strtrim(char *s1, char *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		i;
 	int		start;

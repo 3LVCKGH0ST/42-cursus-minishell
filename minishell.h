@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 19:11:55 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:26:02 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "./libft/libft.h"
 
 void	readinputs(char **read);
 size_t	ft_strlen(const char *c);
@@ -25,12 +26,8 @@ int		skiprtspace(char *str);
 char	**split_cmds(char *line);
 int		quotescheckers(char *str, int end);
 int		*get_pipe_idxs(char *line);
-char	*ft_strdup(char *s1);
-char	*ft_strtrim(char *s1, char *set);
 char	*ft_strdup_v2(char *s1, int idx_start, int idx_end);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		emptypipes(char *str);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
 void	ft_echo(char *str);
 char	**ft_split(char const *s, char c);
 int		count_max_multiple_pipes(char *str);

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 18:02:56 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 09:35:55 by asouinia         ###   ########.fr       */
+/*   Created: 2021/11/15 23:45:21 by asouinia          #+#    #+#             */
+/*   Updated: 2021/11/15 23:45:22 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	size_t	i;
-
-	i = -1;
-	if (!dst && !src)
-		return (NULL);
-	while (++i < n)
-	{
-		*((unsigned char *)(dst + i)) = *((unsigned char *)(src + i));
-	}
-	return (dst);
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
 }
