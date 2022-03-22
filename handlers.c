@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:46:28 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:21:38 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	readinputs(char **read)
 {
 	char	*str;
 	//char	**cmds;
-	//int		i;
+	int		i;
 	int		*pipes;
 	str = *read;
 	while (1)
@@ -95,7 +95,25 @@ void	readinputs(char **read)
 		//cmds = split_cmds(str);
 		//quotescheckers(str);
 		pipes = get_pipe_idxs(str);
-		printf("%s\n", 	ft_strdup_v2(str,0,pipes[1]));
+		i = -1;
+		int	dupft[2];
+		dupft[0] = 0;
+		//printf("|||%s\n", 	ft_strdup_v2(str, 0,4));
+		while (pipes[++i] > 0)
+		{
+			//printf("--%d--\n", pipes[i]);
+			dupft[1] = pipes[i] - 1;
+			//printf("--%d*%d--\n", dupft[0], dupft[1]);
+			//0123|5678
+			printf("%s\n", 	ft_strdup_v2(str, dupft[0],dupft[1]));
+			dupft[0] = pipes[i] + 1;
+		}
+		dupft[1] = ft_strlen(str) - 1;
+		if (dupft[1] < 0)
+			dupft[1] = 0;
+		//printf("--%d*%d--\n", dupft[0], dupft[1]);
+		printf("%s\n", 	ft_strdup_v2(str, dupft[0], dupft[1]));
+		//printf("%s\n", 	ft_strdup_v2(str,0,pipes[1]));
 		free(str);
 		//i = 0;
 		//while (cmds && cmds[++i])
@@ -104,33 +122,35 @@ void	readinputs(char **read)
 		//}
 	}
 }
+
 /**
  * @brief Get the pipe idxs list to parse line with it
  * 
  * @param line line from prompt
  * @return int* array of pipes indexs (not in quotes) followed by value -1
  */
-int *get_pipe_idxs(char *line)
+int	*get_pipe_idxs(char *line)
 {
-	//int	i;
 	int	*pipes;
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	pipes = malloc(sizeof(int) * ft_strlen(line) + 1);
+	i = -1;
+	j = 0;
+	while (line && line[++i])
+		if (line[i] == '|' && !quotescheckers(line, i))
+			j++;
+	pipes = malloc(sizeof(int) * (j + 1));
 	if (!pipes)
 		return (NULL);
+	pipes[j] = -1;
 	i = -1;
-	j = -1;
+	j = 0;
 	while (line && line[++i])
-	{
-		if (line[i] == '|' && quotescheckers(line, i))
-			pipes[++j] = i;
-	}
-	pipes[++j] = -1;
+		if (line[i] == '|' && !quotescheckers(line, i))
+			pipes[j++] = i;
 	return (pipes);
 }
-
 
 char **split_cmds(char *line)
 {

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 22:00:20 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:06:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:21:44 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * 
  * @param str the line read from prompt
  * @param end check until index end - 1
- * @return int 0 if at least one quote still open and 1 if all quotes are closed
+ * @return int 1 if signle quote is open 2 if double quote is open 0 if all qotes are closed
  */
 int	quotescheckers(char *str, int end)
 {
@@ -44,5 +44,5 @@ int	quotescheckers(char *str, int end)
 			singleq = !singleq;
 		++i;
 	}
-	return (!(doubleq || singleq));
+	return (singleq + doubleq * 2);
 }
