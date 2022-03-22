@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:49:22 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:45:19 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 void	readinputs(char **read);
 int		ft_strlen(char *str);

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:22:36 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 13:40:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,6 @@ char **split_cmds(char *line)
 	cmds[i + 1] = NULL;
 	if (!cmds)
 		return (NULL);
-	
+	//fill_piped_parts(pipes, );
 	return (NULL);
 }
