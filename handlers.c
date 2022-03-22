@@ -6,11 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/22 13:36:19 by mbalagui         ###   ########.fr       */
-=======
-/*   Updated: 2022/03/22 13:40:40 by asouinia         ###   ########.fr       */
->>>>>>> e4c0685a600545f3b63d9b28af44a47375924f12
+/*   Updated: 2022/03/22 16:44:04 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +92,7 @@ void	readinputs(char **read)
 		printf("pipe checker %d\n", check_end_start_pipes(str));
 		printf("quote checker %d\n", quotescheckers(str,  ft_strlen(str)));
 		printf("multipipes : %d\n", emptypipes(str));
+		ft_echo(str);
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
 		//quotescheckers(str);

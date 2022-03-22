@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 16:42:29 by mbalagui         ###   ########.fr       */
+/*   Created: 2022/03/22 16:40:50 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/03/22 16:41:18 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ft_strlen(const char *c)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	size_t	len;
+	char	*res;
+	size_t	i;
+	size_t	j;
+	size_t	l;
 
-	len = 0;
-	while (c[len])
-		len++;
-	return (len);
-}
-
-int	skiplfspace(char *str, int index)
-{
-	while (str && str[index] == ' ')
-		index++;
-	return (index);
-}
-
-int	skiprtspace(char *str)
-{
-	int	index;
-
-	index = ft_strlen(str) - 1;
-	if (index < 0)
-		return (0);
-	while (str && str[index] == ' ')
-		index--;
-	return (index);
+	if (!s)
+		return (NULL);
+	l = ft_strlen((char *)s);
+	if (len > l)
+		res = malloc(l + 1);
+	else
+		res = malloc(len + 1);
+	j = 0;
+	i = start;
+	if (!res)
+		return (NULL);
+	while (i < ft_strlen((char *)s) && j < len)
+		res[j++] = s[i++];
+	res[j] = '\0';
+	return (res);
 }

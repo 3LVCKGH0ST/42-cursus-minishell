@@ -1,5 +1,5 @@
 NAME	:= minishell
-SRC		:=   handlers.c  strings.c minishell.c parse.c quotes.c ft_memcpy.c ft_strdup.c ft_strtrim.c multipipes.c
+SRC		:=   handlers.c  strings.c minishell.c parse.c quotes.c ft_memcpy.c ft_strdup.c ft_strtrim.c multipipes.c ft_split.c ft_substr.c echo.c
 SRCB	:=  
 OBJ		:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB	:= $(patsubst %.c, %.o, $(SRCB)) 
