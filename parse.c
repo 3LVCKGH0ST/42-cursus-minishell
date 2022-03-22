@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:15:48 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 17:00:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:03:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static void	fill_piped_parts(int *pipes, char **cmds, char *line)
 	while (pipes[++i] > 0)
 	{
 		dupft[1] = pipes[i] - 1;
-		cmds[++j] = ft_strdup_v2(line, dupft[0],dupft[1]);
+		cmds[++j] = ft_strdup_v2(line, dupft[0], dupft[1]);
 		dupft[0] = pipes[i] + 1;
 	}
 	dupft[1] = ft_strlen(line) - 1;
 	if (dupft[1] < 0)
 		dupft[1] = 0;
-	cmds[++j] = ft_strdup_v2(line, dupft[0],dupft[1]);
+	cmds[++j] = ft_strdup_v2(line, dupft[0], dupft[1]);
 }
 
 /**
@@ -75,10 +75,10 @@ static void	fill_piped_parts(int *pipes, char **cmds, char *line)
  * @param line 
  * @return char** NULL or array of char * ended with NULL
  */
-char **split_cmds(char *line)
+char	**split_cmds(char *line)
 {
-	int	*pipes;
-	int	i;
+	int		*pipes;
+	int		i;
 	char	**cmds;
 
 	pipes = get_pipe_idxs(line);
@@ -96,10 +96,12 @@ char **split_cmds(char *line)
 }
 
 /**
- * @brief checks the end and start of line if it starts or ends with pipe return 0
+ * @brief checks the end and start of line if
+ *  it starts or ends with pipe return 0
  * 
  * @param line the line read from prompt
- * @return int 0 if pipe in end or start and 1 if line start with anything other than pipe |
+ * @return int 0 if pipe in end or start and 1 if line start
+ * 			 with anything other than pipe |
  */
 int	check_end_start_pipes(char *line)
 {

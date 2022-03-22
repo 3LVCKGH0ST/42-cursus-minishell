@@ -6,19 +6,19 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:53:06 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 17:53:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:01:34 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief checkheredoc returns value : \n
+ * @brief checkheredoc returns value :
  *	-1	:	parsing error
  *	 0	:	<< not found
  *	 1	:	0 errors
  * @param str 
- * @return int 
+ * @return  
  */
 int	checkheredoc(char *str)
 {
