@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 13:30:20 by mbalagui         ###   ########.fr       */
+/*   Created: 2022/03/22 13:04:13 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/03/22 13:14:10 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strlen(char *str)
+/**
+ * @brief wirte a string in the console
+ * 
+ * @param str string
+ * @param newline = 1 ? with new ligne : without
+ */
+
+void	ft_echo(char *str, int newline)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-int	skiplfspace(char *str, int index)
-{
-	while (str && str[index] == ' ')
-		index++;
-	return (index);
-}
-
-int	skiprtspace(char *str)
-{
-	int	index;
-
-	index = ft_strlen(str) - 1;
-	if (index < 0)
-		return (0);
-	while (str && str[index] == ' ')
-		index--;
-	return (index);
+	if (str)
+	{
+		printf("%s", str);
+		if (newline)
+			printf("\n");
+	}
 }

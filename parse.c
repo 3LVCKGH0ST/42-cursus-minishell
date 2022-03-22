@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:15:48 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 16:57:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:00:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,30 @@ char **split_cmds(char *line)
 		return (NULL);
 	fill_piped_parts(pipes, cmds, line);
 	return (cmds);
+}
+
+/**
+ * @brief checks the end and start of line if it starts or ends with pipe return 0
+ * 
+ * @param line the line read from prompt
+ * @return int 0 if pipe in end or start and 1 if line start with anything other than pipe |
+ */
+int	check_end_start_pipes(char *line)
+{
+	int	s;
+
+	s = 0;
+	while (line && line[s] && line[s] == ' ')
+		++s;
+	if (line && line[s] == '|')
+		return (0);
+	s = ft_strlen(line);
+	if (s == 0)
+		return (1);
+	s--;
+	while (line && line[s] && line[s] == ' ')
+		--s;
+	if (line && line[s] == '|')
+		return (0);
+	return (1);
 }
