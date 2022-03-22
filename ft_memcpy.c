@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:44:27 by asouinia         ###   ########.fr       */
+/*   Created: 2021/11/06 18:02:56 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/22 09:35:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*input;
+	size_t	i;
 
-	readinputs(&input);
-	return (0);
+	i = -1;
+	if (!dst && !src)
+		return (NULL);
+	while (++i < n)
+	{
+		*((unsigned char *)(dst + i)) = *((unsigned char *)(src + i));
+	}
+	return (dst);
 }

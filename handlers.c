@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:39 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 09:02:32 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/22 09:46:28 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	readinputs(char **read)
 	char	*str;
 	//char	**cmds;
 	//int		i;
+	int		*pipes;
 	str = *read;
 	while (1)
 	{
@@ -93,6 +94,8 @@ void	readinputs(char **read)
 		//printf("here_doc checker %d\n", checkheredoc(str));
 		//cmds = split_cmds(str);
 		//quotescheckers(str);
+		pipes = get_pipe_idxs(str);
+		printf("%s\n", 	ft_strdup_v2(str,0,pipes[1]));
 		free(str);
 		//i = 0;
 		//while (cmds && cmds[++i])
@@ -101,28 +104,50 @@ void	readinputs(char **read)
 		//}
 	}
 }
-
-int count_pipes(char *line)
+/**
+ * @brief Get the pipe idxs list to parse line with it
+ * 
+ * @param line line from prompt
+ * @return int* array of pipes indexs (not in quotes) followed by value -1
+ */
+int *get_pipe_idxs(char *line)
 {
 	//int	i;
-	int	signleq[2];
-	int	doubleq[2];
-	int	pipe[2];
+	int	*pipes;
+	int i;
+	int j;
 
-	signleq[0] = 0;
-	signleq[1] = 0;
-	doubleq[0] = 0;
-	doubleq[1] = 0;
-	pipe[0] = 0;
-	pipe[1] = 0;
-	(void )line;
-	return 0;
+	pipes = malloc(sizeof(int) * ft_strlen(line) + 1);
+	if (!pipes)
+		return (NULL);
+	i = -1;
+	j = -1;
+	while (line && line[++i])
+	{
+		if (line[i] == '|' && quotescheckers(line, i))
+			pipes[++j] = i;
+	}
+	pipes[++j] = -1;
+	return (pipes);
 }
 
 
 char **split_cmds(char *line)
 {
-	//int	*pipe_idxs;
-	(void )line;
+	int	*pipes;
+	int	i;
+	char	**cmds;
+
+	pipes = get_pipe_idxs(line);
+	if (!pipes)
+		return (NULL);
+	i = -1;
+	while (pipes[++i] >= 0)
+		;
+	cmds = malloc(sizeof(char *) * (i + 2));
+	cmds[i + 1] = NULL;
+	if (!cmds)
+		return (NULL);
+	
 	return (NULL);
 }
