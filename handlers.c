@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:01:53 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/22 19:11:36 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:42:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	readinputs(char **read)
 {
 	char	*str;
 	char	**cmds;
+	char	**sss;
 	int		i;
+	int		j;
 
 	str = *read;
 	while (1)
@@ -34,6 +36,12 @@ void	readinputs(char **read)
 		while (cmds && cmds[++i])
 		{
 			printf("=>\t%s\n", cmds[i]);
+			j = -1;
+			sss = split_line(cmds[i]);
+			while (sss && sss[++j])
+			{
+				printf("========>\t%s\n", sss[j]);
+			}
 		}
 	}
 }

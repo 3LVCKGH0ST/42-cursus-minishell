@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/22 19:26:02 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:40:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int		*get_pipe_idxs(char *line);
 char	*ft_strdup_v2(char *s1, int idx_start, int idx_end);
 int		emptypipes(char *str);
 void	ft_echo(char *str);
-char	**ft_split(char const *s, char c);
 int		count_max_multiple_pipes(char *str);
 int		check_end_start_pipes(char *line);
+
+char	**split_line(char *li);
 
 #endif

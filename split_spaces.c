@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   split_spaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/23 14:44:09 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/23 13:08:31 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/23 14:52:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+/**
+ * @brief 
+ * 
+ * @param li
+ * @return char** 
+ */
+char	**split_line(char *li)
 {
-	char	*input;
+	//char **lst={"1","2",NULL};
 
-	(void)argc;
-	(void)argv;
-	(void)input;
-	(void)envp;
-	readinputs(&input);
-	return (0);
+	(void)li;
+	return (NULL);
 }
