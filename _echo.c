@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   _echo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/24 13:25:57 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:32:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @param i 
+ * @return int 
+ */
 int	getfrom(char *str, int i)
 {
 	while (str[++i])
@@ -39,7 +46,13 @@ int	getfrom(char *str, int i)
 	}
 	return (-1);
 }
-
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @param i 
+ * @return int 
+ */
 int	withnewline(char *str, int i)
 {
 	while (str[++i])
@@ -60,6 +73,11 @@ int	withnewline(char *str, int i)
 	return (0);
 }
 
+/**
+ * @brief 
+ * 
+ * @param str 
+ */
 void	ft_echo(char *str)
 {
 	int	i;
