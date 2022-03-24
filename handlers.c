@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:01:53 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/24 22:35:37 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/24 22:41:59 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ int parse_squote(char *line)
 	return(i);
 }
 
+int parse_char(char *line, char end)
+{
+	int i;
+
+	i = 0;
+	while (line && line[i] && line[i] != end)
+			i++;
+	return(i);
+}
+
 int	parse_pipe(char *line)
 {
 	int i;
@@ -39,13 +49,11 @@ int	parse_pipe(char *line)
 	while (line && line[i] && line[i] != '|')
 	{
 		if (line[i] == '"')
-			i += parse_dquote(line + i + 1);
+			i += parse_char(line + i + 1, '"');
 		else if (line[i] == '\'')
-			i += parse_squote(line + i + 1);
+			i += parse_char(line + i + 1, '\'');
 		i++;
-		//if (line[i] == '"' || line[i] == '\'')
-		//	i++;
-		printf("{%s}", line +i);
+		//printf("{%s}", line +i);
 	}
 	return(i);
 }
@@ -58,9 +66,9 @@ int	parse (char *line)
 	while (line && line[i] && line[i] != ' ')
 	{
 		if (line[i] == '"')
-			i += parse_dquote(line + i + 1);
+			i += parse_char(line + i + 1, '"');
 		else if (line[i] == '\'')
-			i += parse_squote(line + i + 1);
+			i += parse_char(line + i + 1, '\'');
 		i++;
 		if (line[i] == '"' || line[i] == '\'')
 			i++;
