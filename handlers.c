@@ -6,30 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:01:53 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/24 22:41:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/24 22:46:41 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int parse_dquote(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line && line[i] && line[i] != '"')
-			i++;
-	return(i);
-}
-int parse_squote(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line && line[i] && line[i] != '\'')
-			i++;
-	return(i);
-}
 
 int parse_char(char *line, char end)
 {
@@ -83,6 +64,8 @@ void	readinputs(char **read)
 	//char	**sss;
 	int		i;
 	int		j;
+	int		ii;
+	int		jj;
 	int		k;
 	int		l;
 	char	*tmp;
@@ -92,6 +75,22 @@ void	readinputs(char **read)
 	{
 		str = readline("minishell$ : ");
 		//printf("==>==>==>==>\t%s\n", ft_strdup_v2(str, 0, parse(str)));
+		ii = 0;
+		while (ii < (int)ft_strlen(str))
+		{
+			j = parse_char(str + ii, ')');
+			tmp = ft_strdup_v2(str, i, i + j - 1);
+			printf("==>\t%s\n", tmp);
+			k = 0;
+			while (k < (int)ft_strlen(tmp))
+			{
+				l = parse(tmp + k);
+				printf("\t\t\t%s\n", ft_strdup_v2(tmp, k, k + l - 1));
+				k += l + 1;
+			}
+			ii += jj + 1;
+		}
+
 		i = 0;
 		while (i < (int)ft_strlen(str))
 		{

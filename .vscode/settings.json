@@ -2,6 +2,7 @@
 	"files.associations": {
 		"minishell.h": "c",
 		"readline.h": "c",
-		"doublelinkedlist.h": "c"
+		"doublelinkedlist.h": "c",
+		"lexer.h": "c"
 	}
 }
