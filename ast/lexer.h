@@ -1,6 +1,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 # include <stdio.h>
+# include "../libft/libft.h"
 # include "./token.h"
 
 typedef struct s_lexer
@@ -10,6 +11,9 @@ typedef struct s_lexer
 	char	*c;
 }	 t_lexer;
 
-
+t_lexer	init_lexer(char *src);
+t_token	*lexer(t_lexer *lexer);
+void 	advance_lexer(t_lexer *lexer);
+void	skip_whitespace_lexer(t_lexer *lexer);
 
 #endif
