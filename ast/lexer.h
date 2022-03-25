@@ -15,5 +15,5 @@ t_lexer	init_lexer(char *src);
 t_token	*lexer(t_lexer *lexer);
 void 	advance_lexer(t_lexer *lexer);
 void	skip_whitespace_lexer(t_lexer *lexer);
-
+t_token	*get_next_token(t_lexer *lexer);
 #endif

@@ -72,3 +72,74 @@ void	skip_whitespace_lexer(t_lexer *lexer)
 //		lexer->c++;
 //}
 
+
+t_token	*get_next_token(t_lexer *lexer)
+{
+	t_token	*token;
+
+	skip_whitespace_lexer(lexer);
+	if (!lexer->c || !*lexer->c)
+		return (NULL);
+	if (*lexer->c == '(')
+	{
+		token = init_token("(", TOKEN_LPAREN);
+		lexer->c++;
+	}
+	else if (*lexer->c == ')')
+	{
+		token = init_token(")", TOKEN_RPAREN);
+		lexer->c++;
+	}
+	else if (*lexer->c == '|' && *(lexer->c + 1) == '|')
+	{
+		token = init_token("||", TOKEN_OR);
+		lexer->c++;
+	}
+	else if (*lexer->c == '|')
+	{
+		token = init_token("|", TOKEN_PIPE);
+		lexer->c++;
+	}
+	else if (*lexer->c == '&' && *(lexer->c + 1) == '&')
+	{
+		token = init_token("&&", TOKEN_AND);
+		lexer->c++;
+	}
+	else if (*lexer->c == '<' && *(lexer->c + 1) == '<')
+	{
+		token = init_token("<<", TOKEN_RIN);
+		lexer->c++;
+	}
+	else if (*lexer->c == '<')
+	{
+		token = init_token("<", TOKEN_RIN);
+		lexer->c++;
+	}
+	else if (*lexer->c == '>' && *(lexer->c + 1) == '>')
+	{
+		token = init_token(">>", TOKEN_ROUT);
+		lexer->c++;
+	}
+	else if (*lexer->c == '>')
+	{
+		token = init_token(">", TOKEN_ROUT);
+		lexer->c++;
+	}
+	else if (*lexer->c == '\'')
+	{
+		token = init_token("'", TOKEN_SQUOTE);
+		lexer->c++;
+	}
+	else if (*lexer->c == '"')
+	{
+		token = init_token("\"", TOKEN_DQUOTE);
+		lexer->c++;
+	}
+	else
+	{
+		token = init_token(lexer->c, TOKEN_TEXT);
+		while (lexer->c && *lexer->c && *lexer->c != ' ' && *lexer->c != '\t' && *lexer->c != '\n')
+			lexer->c++;
+	}
+	return (token);
+}
