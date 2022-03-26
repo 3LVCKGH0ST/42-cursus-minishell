@@ -143,3 +143,54 @@ t_token	*get_next_token(t_lexer *lexer)
 	}
 	return (token);
 }
+t_token	*collect_string(t_lexer *lexer)
+{
+	t_token	*token;
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = NULL;
+	if (*lexer->c == '\'')
+	{
+		lexer->c++;
+		while (lexer->c && *lexer->c && *lexer->c != '\'')
+		{
+			str = ft_strjoin(str, ft_strdup(lexer->c));
+			lexer->c++;
+		}
+		if (lexer->c && *lexer->c)
+			lexer->c++;
+		token = init_token(str, TOKEN_SQUOTE);
+	}
+	else if (*lexer->c == '"')
+	{
+		lexer->c++;
+		while (lexer->c && *lexer->c && *lexer->c != '"')
+		{
+			str = ft_strjoin(str, ft_strdup(lexer->c));
+			lexer->c++;
+		}
+		if (lexer->c && *lexer->c)
+			lexer->c++;
+		token = init_token(str, TOKEN_DQUOTE);
+	}
+	return (token);
+}
+
+t_token	*collect_text(t_lexer *lexer)
+{
+	t_token	*token;
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = NULL;
+	while (lexer->c && *lexer->c && *lexer->c != ' ' && *lexer->c != '\t' && *lexer->c != '\n')
+	{
+		str = ft_strjoin(str, ft_strdup(lexer->c));
+		lexer->c++;
+	}
+	token = init_token(str, TOKEN_TEXT);
+	return (token);
+}
