@@ -11,3 +11,4 @@ t_token	*init_token(char *value, t_e_token type)
 	tmp->value = value;
 	return (tmp);
 }
+
