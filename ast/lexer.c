@@ -6,24 +6,25 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:21:23 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/26 16:03:40 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/26 22:56:39 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_lexer	init_lexer(char *src)
+t_lexer	*init_lexer(char *src)
 {
-	t_lexer	lexer;
+	t_lexer	*lexer;
 
-	lexer.src = src;
-	lexer.i = 0;
+	lexer = malloc(sizeof(t_lexer));
+	lexer->src = src;
+	lexer->i = 0;
 	return (lexer);
 }
 
 void	advance_lexer(t_lexer *lexer)
 {
-	while (lexer->src[lexer->i] && lexer->i < ft_strlen(lexer->src))
+	if (lexer->src[lexer->i] && lexer->i < ft_strlen(lexer->src))
 		lexer->i++;
 }
 
@@ -34,7 +35,7 @@ void	skip_whitespace_lexer(t_lexer *lexer)
 		lexer->i++;
 }
 
-char	*to_string(char c)
+char	*to_str(char c)
 {
 	char	*str;
 
@@ -47,13 +48,15 @@ char	*to_string(char c)
 t_token	*collect_quoted_string(t_lexer *lexer,	char quote)
 {
 	char	*value;
+	char	*tmp;
 
 	advance_lexer(lexer);
-	value = to_string(lexer->src[lexer->i]);
+	value = ft_strdup("");
 	while (lexer->src[lexer->i] && lexer->src[lexer->i] != quote)
 	{
-		value = ft_strlcat(value, to_string(lexer->src[lexer->i]), \
-							ft_strlen(value) + 1);
+		tmp = value;
+		value = ft_strjoin(value, to_str(lexer->src[lexer->i]));
+		free(tmp);
 		lexer->i++;
 	}
 	advance_lexer(lexer);
@@ -66,11 +69,10 @@ t_token	*collect_text(t_lexer *lexer)
 {
 	char	*value;
 
-	value = to_string(lexer->src[lexer->i]);
+	value = to_str(lexer->src[lexer->i]);
 	while (lexer->src[lexer->i] && ft_isalnum(lexer->src[lexer->i]))
 	{
-		value = ft_strlcat(value, to_string(lexer->src[lexer->i]), \
-						ft_strlen(value) + 1);
+		value = ft_strjoin(value, to_str(lexer->src[lexer->i]));
 		lexer->i++;
 	}
 	return (init_token(value, TOKEN_TEXT));
@@ -82,28 +84,41 @@ t_token	*get_next_token(t_lexer *lexer)
 	{
 		if (lexer->src[lexer->i] == ' ' || lexer->src[lexer->i] == '\t')
 			skip_whitespace_lexer(lexer);
-		else if (ft_isalnum(lexer->src[lexer->i]))
-			return (collect_text(lexer));
 		else if (lexer->src[lexer->i] == '\'' || lexer->src[lexer->i] == '"')
 			return (collect_quoted_string(lexer, lexer->src[lexer->i]));
+		else if (ft_isalnum(lexer->src[lexer->i]))
+			return (collect_text(lexer));
 		else if (lexer->src[lexer->i] == '|' && lexer->src[lexer->i + 1] == '|')
-			return (init_token(ft_strdup("||"), TOKEN_OR));
+			return (adv_w_tok(lexer, init_token(ft_strdup("||"), TOKEN_OR)));
 		else if (lexer->src[lexer->i] == '&' && lexer->src[lexer->i + 1] == '&')
-			return (init_token(ft_strdup("&&"), TOKEN_AND));
+			return (adv_w_tok(lexer, init_token(ft_strdup("&&"), TOKEN_AND)));
 		else if (lexer->src[lexer->i] == '>' && lexer->src[lexer->i + 1] == '>')
-			return (init_token(ft_strdup(">>")), TOKEN_DROUT);
+			return (adv_w_tok(lexer, init_token(ft_strdup(">>"), TOKEN_DROUT)));
 		else if (lexer->src[lexer->i] == '<' && lexer->src[lexer->i + 1] == '<')
-			return (init_token(ft_strdup("<<")), TOKEN_DRIN);
+			return (adv_w_tok(lexer, init_token(ft_strdup("<<"), TOKEN_DRIN)));
 		else if (lexer->src[lexer->i] == '(')
-			return (init_token(to_string(lexer->src[lexer->i]), TOKEN_LPAREN));
+			return (adv_w_ton(lexer, init_token(ft_strdup("("), TOKEN_LPAREN)));
 		else if (lexer->src[lexer->i] == ')')
-			return (init_token(to_string(lexer->src[lexer->i]), TOKEN_RPAREN));
+			return (adv_w_tok(lexer, init_token(ft_strdup(")"), TOKEN_RPAREN)));
 		else if (lexer->src[lexer->i] == '|')
-			return (init_token(to_string(lexer->src[lexer->i]), TOKEN_PIPE));
+			return (adv_w_tok(lexer, init_token(ft_strdup("|"), TOKEN_PIPE)));
 		else if (lexer->src[lexer->i] == '>')
-			return (init_token(to_string(lexer->src[lexer->i]), TOKEN_ROUT));
+			return (adv_w_tok(lexer, init_token(ft_strdup(">"), TOKEN_ROUT)));
 		else if (lexer->src[lexer->i] == '<')
-			return (init_token(to_string(lexer->src[lexer->i]), TOKEN_RIN));
+			return (adv_w_tok(lexer, init_token(ft_strdup("<"), TOKEN_RIN)));
 	}
-	return (init_token(to_string('\0'), TOKEN_EOF));
+	return (init_token(to_str('\0'), TOKEN_EOF));
+}
+
+t_token	*adv_w_tok(t_lexer *lexer, t_token *token)
+{
+	size_t	i;
+
+	i = 1;
+	while (i < ft_strlen(token->value))
+	{
+		advance_lexer(lexer);
+		i++;
+	}
+	return (token);
 }

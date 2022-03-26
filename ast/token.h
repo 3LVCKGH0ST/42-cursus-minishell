@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 22:25:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/26 15:25:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/26 21:07:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 # include "../libft/libft.h"
 
 typedef enum e_token {
-	TOKEN_TEXT,		//? text
-	TOKEN_LPAREN,	//? (
-	TOKEN_RPAREN,	//? )
-	TOKEN_OR,		//? ||
-	TOKEN_AND,		//? &&
-	TOKEN_PIPE,		//? |
-	TOKEN_RIN,		//? <
-	TOKEN_ROUT,		//? >
-	TOKEN_DRIN,		//? <<
-	TOKEN_DROUT,	//? >>
-	TOKEN_SQUOTE,	//? '
-	TOKEN_DQUOTE,	//? "
-	TOKEN_EOF,		//? 0
+	TOKEN_TEXT,		//! text
+	TOKEN_LPAREN,	//! (
+	TOKEN_RPAREN,	//! )
+	TOKEN_OR,		//! ||
+	TOKEN_AND,		//! &&
+	TOKEN_PIPE,		//! |
+	TOKEN_RIN,		//! <
+	TOKEN_ROUT,		//! >
+	TOKEN_DRIN,		//! <<
+	TOKEN_DROUT,	//! >>
+	TOKEN_SQUOTE,	//! '
+	TOKEN_DQUOTE,	//! "
+	TOKEN_EOF,		//! 0
 }	t_e_token;
 
 typedef struct s_token
