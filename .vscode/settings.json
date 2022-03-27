@@ -5,6 +5,7 @@
 		"doublelinkedlist.h": "c",
 		"lexer.h": "c",
 		"token.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"libft.h": "c"
 	}
 }

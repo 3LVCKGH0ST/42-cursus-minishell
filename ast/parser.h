@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/25 22:25:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/27 09:26:27 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 09:31:14 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/27 10:06:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 # include "../libft/libft.h"
+# include "./lexer.h"
 
-typedef enum e_token {
-	TOKEN_TEXT,		//! text
-	TOKEN_LPAREN,	//! (
-	TOKEN_RPAREN,	//! )
-	TOKEN_OR,		//! ||
-	TOKEN_AND,		//! &&
-	TOKEN_PIPE,		//! |
-	TOKEN_RIN,		//! <
-	TOKEN_ROUT,		//! >
-	TOKEN_DRIN,		//! <<
-	TOKEN_DROUT,	//! >>
-	TOKEN_SQUOTE,	//! '
-	TOKEN_DQUOTE,	//! "
-	TOKEN_EOF,		//! 0
-}	t_e_token;
 
-typedef struct s_token
+typedef struct	s_parser
 {
-	char		*value;
-	t_e_token	type;
-}	t_token;
+	t_lexer			*lexer;
+	t_token			*token;
+}			t_parser;
 
-t_token	*init_token(char *value, t_e_token type);
-
+t_parser	*init_parser(t_lexer *lexer);
+t_token		*parser_advance(t_parser *parser);
+t_ast *parse(t_parser *parser);
 #endif
