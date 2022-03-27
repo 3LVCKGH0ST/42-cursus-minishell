@@ -1,4 +1,4 @@
-NAME		:= minishell
+NAME		:= ss
 SRC			:=   $(wildcard *.c)
 SRCB		:=  
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 

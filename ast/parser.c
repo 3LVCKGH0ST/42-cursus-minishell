@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/27 10:18:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/27 14:08:20 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,38 @@ t_parser	*init_parser(t_lexer *lexer)
 	return (parser);
 }
 
-t_token		*parser_eat(t_parser *parser, int type)
+t_token	*parser_eat(t_parser *parser, t_e_token type)
 {
-	if (parser->token->type == type)
+	if (parser->token->type != type)
 	{
 		printf("[Parser]: Unexpected token near %s\n", parser->token->value);
 		exit(1);
 	}
+	parser->token = get_next_token(parser->lexer);
 	return (parser->token);
 }
 
-t_ast *parse(t_parser *parser)
+t_ast	*parse(t_parser *parser)
 {
-	return (NULL);
+	(void)parser;
+	return (init_ast(AST_LIST));
+}
+
+t_ast		*parse_text(t_parser *parser)
+{
+	t_ast	*ast;
+	char	*text;
+
+	text = ft_strdup(parser->token->value);
+	parser_eat(parser, TOKEN_TEXT);
+	if(parser->token->type == TOKEN_TEXT)
+	{
+		ast = init_ast(AST_LIST);
+		ast->value = text;
+		return (ast);
+	}
+	ast = init_ast(AST_LIST);
+	ast->value = parser->token->value;
+	parser_eat(parser, TOKEN_TEXT);
+	return (ast);
 }

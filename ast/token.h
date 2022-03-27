@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 22:25:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/27 09:26:27 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/27 13:28:10 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../libft/libft.h"
 
 typedef enum e_token {
+	TOKEN_ID,		//! ID
 	TOKEN_TEXT,		//! text
 	TOKEN_LPAREN,	//! (
 	TOKEN_RPAREN,	//! )
