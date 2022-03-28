@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:07:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/28 21:10:10 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/28 22:38:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define AST_H
 # include "../libft/libft.h"
 # include "./DoubleLinkedList.h"
+#include "./lexer.h"
 
 typedef enum e_type_node {
 	AST_LIST, // args and redirs : ls < abc > abc -la
@@ -41,7 +42,7 @@ typedef struct s_ast
 	t_e_token 	type_token;
 	//! AST_ID AST_TXT	AST_SQOUTE AST_DQOUTE AST_REDIR
 	char		*value;
-	//! AST_ID 
+	//! AST_ID AST_PIPELINE
 	t_d_list	*children; //? AST_TXT AST_SQOUTE AST_DQOUTE
 }	t_ast;
 
