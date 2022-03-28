@@ -10,7 +10,7 @@ int	main(int argc, char **argv)
 	t_token	*token;
 	t_parser	*parser;
 	t_ast	*ast;
-	lexer = init_lexer("'hello '|'world' (<< 1'2'3) 55");
+	lexer = init_lexer(" 'asd ' 'hello '|'world' (<< 1'2'3) 55");
 	parser = init_parser(lexer);
 	ast = parse(parser);
 	//printf("%p\n",ast);

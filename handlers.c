@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 17:01:53 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/24 22:46:41 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:17:27 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,50 +62,51 @@ void	readinputs(char **read)
 	char	*str;
 	//char	**cmds;
 	//char	**sss;
-	int		i;
-	int		j;
-	int		ii;
-	int		jj;
-	int		k;
-	int		l;
-	char	*tmp;
+	//int		i;
+	//int		j;
+	//int		ii;
+	//int		jj;
+	//int		k;
+	//int		l;
+	//char	*tmp;
 
 	str = *read;
 	while (1)
 	{
 		str = readline("minishell$ : ");
+		ft_echo(str);
 		//printf("==>==>==>==>\t%s\n", ft_strdup_v2(str, 0, parse(str)));
-		ii = 0;
-		while (ii < (int)ft_strlen(str))
-		{
-			j = parse_char(str + ii, ')');
-			tmp = ft_strdup_v2(str, i, i + j - 1);
-			printf("==>\t%s\n", tmp);
-			k = 0;
-			while (k < (int)ft_strlen(tmp))
-			{
-				l = parse(tmp + k);
-				printf("\t\t\t%s\n", ft_strdup_v2(tmp, k, k + l - 1));
-				k += l + 1;
-			}
-			ii += jj + 1;
-		}
+		//ii = 0;
+		//while (ii < (int)ft_strlen(str))
+		//{
+		//	j = parse_char(str + ii, ')');
+		//	tmp = ft_strdup_v2(str, i, i + j - 1);
+		//	printf("==>\t%s\n", tmp);
+		//	k = 0;
+		//	while (k < (int)ft_strlen(tmp))
+		//	{
+		//		l = parse(tmp + k);
+		//		printf("\t\t\t%s\n", ft_strdup_v2(tmp, k, k + l - 1));
+		//		k += l + 1;
+		//	}
+		//	ii += jj + 1;
+		//}
 
-		i = 0;
-		while (i < (int)ft_strlen(str))
-		{
-			j = parse_pipe(str + i);
-			tmp = ft_strdup_v2(str, i, i + j - 1);
-			printf("==>\t%s\n", tmp);
-			k = 0;
-			while (k < (int)ft_strlen(tmp))
-			{
-				l = parse(tmp + k);
-				printf("\t\t\t%s\n", ft_strdup_v2(tmp, k, k + l - 1));
-				k += l + 1;
-			}
-			i += j + 1;
-		}
+		//i = 0;
+		//while (i < (int)ft_strlen(str))
+		//{
+		//	j = parse_pipe(str + i);
+		//	tmp = ft_strdup_v2(str, i, i + j - 1);
+		//	printf("==>\t%s\n", tmp);
+		//	k = 0;
+		//	while (k < (int)ft_strlen(tmp))
+		//	{
+		//		l = parse(tmp + k);
+		//		printf("\t\t\t%s\n", ft_strdup_v2(tmp, k, k + l - 1));
+		//		k += l + 1;
+		//	}
+		//	i += j + 1;
+		//}
 
 		//printf("pipe checker %d\n", check_end_start_pipes(str));
 		//printf("quote checker %d\n", quotescheckers(str, ft_strlen(str)));

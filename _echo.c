@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/24 13:32:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/28 14:14:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	ft_echo(char *str)
 		printf("\n");
 }
 
-int	main(void)
-{
-	ft_echo("-n  n-n-n-n-n lol");
-	return (0);
-}
+//int	main(void)
+//{
+//	ft_echo(" -n -n -n -n -n -n -nnnnnn daf");
+//	return (0);
+//}
