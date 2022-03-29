@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 22:11:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:36:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_token	*parser_eat(t_parser *parser, t_e_token type)
 	return (parser->token);
 }
 
-t_ast	*parse(t_parser *parser)
+t_ast	*parse_term(t_parser *parser)
 {
 	if (parser->token->type == TOKEN_LPAREN)
 		return (parse_paren(parser));
@@ -194,10 +194,12 @@ void	print_tree(t_ast *ast)
 {
 	if (ast && ast->type == AST_LIST)
 		print_tree_list(ast);
-	if (ast && ast->type == AST_PIPELINE)
+	else if (ast && ast->type == AST_PIPELINE)
 		print_tree_pipline(ast);
-	if (ast && ast->type == AST_PAREN)
+	else if (ast && ast->type == AST_PAREN)
 		print_tree_paren(ast);
+	else if (ast && ast->type == AST_OP)
+		print_tree_op(ast);
 }
 
 t_ast		*parse_pipeline(t_parser *parser)
@@ -262,6 +264,20 @@ void	print_tree_pipline(t_ast *ast)
 	}
 }
 
+void	print_tree_op(t_ast *ast)
+{
+
+	if (ast && ast->type == AST_OP)
+	{
+			print_tree(ast->left);
+			if (ast->type_token == TOKEN_AND)
+				printf("  &&  ");
+			else
+				printf(" ||  ");
+			print_tree(ast->right);
+	}
+}
+
 void	print_tree_paren(t_ast *ast)
 {
 	t_d_list	*tmp2;
@@ -277,4 +293,30 @@ void	print_tree_paren(t_ast *ast)
 			tmp2 = tmp2->next;
 		}
 	}
+}
+
+t_ast		*parse(t_parser *parser)//? parse op exp
+{
+	t_ast	*ast;
+	t_ast	*ast1;
+	
+	ast1 = parse_term(parser);
+	if (parser->token->type == TOKEN_AND || parser->token->type == TOKEN_OR)
+	{
+		ast = init_ast(AST_OP);			
+		if (parser->token->type == TOKEN_AND)
+		{
+			ast->type_token = TOKEN_AND;
+			parser_eat(parser, TOKEN_AND);
+		}
+		else
+		{
+			ast->type_token = TOKEN_OR;
+			parser_eat(parser, TOKEN_OR);
+		}
+		ast->left = ast1;
+		ast->right = parse(parser);
+		return (ast);
+	}
+	return (ast1);
 }
