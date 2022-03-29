@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/27 14:08:20 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:55:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_parser	*init_parser(t_lexer *lexer)
 }
 
 t_token	*parser_eat(t_parser *parser, t_e_token type)
-{
+{ 
 	if (parser->token->type != type)
 	{
 		printf("[Parser]: Unexpected token near %s\n", parser->token->value);
-		exit(1);
+		exit(127);
 	}
 	parser->token = get_next_token(parser->lexer);
 	return (parser->token);
@@ -35,8 +35,7 @@ t_token	*parser_eat(t_parser *parser, t_e_token type)
 
 t_ast	*parse(t_parser *parser)
 {
-	(void)parser;
-	return (init_ast(AST_LIST));
+	return (parse_list(parser));
 }
 
 t_ast		*parse_text(t_parser *parser)
@@ -57,3 +56,138 @@ t_ast		*parse_text(t_parser *parser)
 	parser_eat(parser, TOKEN_TEXT);
 	return (ast);
 }
+
+//t_ast		*parse_text(t_parser *parser)
+//{
+//	t_ast	*ast;
+//	char	*text;
+
+//	text = ft_strdup(parser->token->value);
+//	if(parser->token->type == TOKEN_TEXT)
+//	{
+//		ast = init_ast(AST_TXT);
+//		ast->value = text;
+//		return (ast);
+//	}
+//	ast = init_ast(AST_LIST);
+//	ast->value = parser->token->value;
+//	parser_eat(parser, TOKEN_TEXT);
+//	return (ast);
+//}
+
+t_ast		*parse_id(t_parser *parser)
+{
+	t_ast	*ast;
+	char	*text;
+
+	text = ft_strdup(parser->token->value);
+	if(parser->token->type == TOKEN_ID)
+	{
+		ast = init_ast(AST_ID);
+		ast->value = text;
+		return (ast);
+	}
+	parser_eat(parser, TOKEN_ID);
+	return (NULL);
+}
+
+t_ast		*parse_quote(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if(parser->token->type == parser->token->type)
+	{
+		ast = init_ast(AST_QOUTE);
+		ast->type_token = parser->token->type;	
+		ast->value = ft_strdup(parser->token->value);
+		return (ast);
+	}
+	parser_eat(parser, parser->token->type);
+	return (NULL);
+}
+
+t_ast		*parse_redir(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if(parser->token->type == TOKEN_RIN || parser->token->type == TOKEN_ROUT || parser->token->type == TOKEN_DRIN || parser->token->type == TOKEN_DROUT)
+	{
+		ast = init_ast(AST_REDIR);
+		ast->type_token = parser->token->type;
+		parser_eat(parser, parser->token->type);
+		if (parser->token->type == TOKEN_ID || parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE)
+		{
+			//printf("{%s}", parser->token->value);	
+			ast->value = ft_strdup(parser->token->value);
+		}
+		else
+		{
+			parser_eat(parser, TOKEN_PIPE);
+			if (parser->token->type == TOKEN_ID || parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE)
+			{
+				ast->value = ft_strdup(parser->token->value);
+			}
+		}
+		//parser_eat(parser, parser->token->type);
+		return (ast);
+	}
+	parser_eat(parser, TOKEN_TEXT);
+	return (NULL);	
+}
+
+t_ast		*parse_list(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if(parser->token->type == TOKEN_ID || parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE || \
+		parser->token->type == TOKEN_RIN || parser->token->type == TOKEN_ROUT || parser->token->type == TOKEN_DRIN || parser->token->type == TOKEN_DROUT
+	)
+	{
+		ast = init_ast(AST_LIST);
+		while (parser->token->type == TOKEN_ID || parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE || \
+		parser->token->type == TOKEN_RIN || parser->token->type == TOKEN_ROUT || parser->token->type == TOKEN_DRIN || parser->token->type == TOKEN_DROUT)
+		{
+			if (parser->token->type == TOKEN_ID || parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE)
+				if (parser->token->type == TOKEN_ID)
+					ft_d_lstadd_back(&(ast->args), ft_d_lstnew(parse_id(parser)));
+				else
+					ft_d_lstadd_back(&(ast->args), ft_d_lstnew(parse_quote(parser)));
+			else
+				ft_d_lstadd_back(&(ast->redir), ft_d_lstnew(parse_redir(parser)));
+			parser_eat(parser, parser->token->type);
+		}
+		return (ast);
+	}
+	//parser_eat(parser, TOKEN_ID);
+	return (NULL);
+}
+
+
+void	print_tree_list(t_ast *ast)
+{
+	t_d_list	*tmp2;
+
+	if (ast && ast->type == AST_LIST)
+	{
+		tmp2 = ast->args;
+		while (tmp2)
+		{
+			printf(" %s ", ((t_ast *)tmp2->content)->value);
+			tmp2 = tmp2->next;
+		}
+		tmp2 = ast->redir;
+		if (tmp2)
+			printf("  <>  ");
+		while (tmp2)
+		{
+			printf(" %s ", ((t_ast *)tmp2->content)->value);
+			tmp2 = tmp2->next;
+		}
+	}
+}
+
+//void	print_tree(t_ast *ast)
+//{
+//	t_ast	*tmp;
+	
+//}
