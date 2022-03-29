@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 16:55:50 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:33:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*parser_eat(t_parser *parser, t_e_token type)
 
 t_ast	*parse(t_parser *parser)
 {
-	return (parse_list(parser));
+	return (parse_pipeline(parser));
 }
 
 t_ast		*parse_text(t_parser *parser)
@@ -191,3 +191,39 @@ void	print_tree_list(t_ast *ast)
 //	t_ast	*tmp;
 	
 //}
+
+t_ast		*parse_pipeline(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if(parser->token->type != TOKEN_LPAREN)
+	{
+		ast = init_ast(AST_PIPELINE);
+		//print_tree_list((t_ast *)ast2);
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
+		while (parser->token->type == TOKEN_PIPE)
+		{
+			parser_eat(parser, TOKEN_PIPE);
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
+		}
+		return (ast);
+	}
+	parser_eat(parser, TOKEN_PIPE);
+	return (NULL);
+}
+
+void	print_tree_pipline(t_ast *ast)
+{
+	t_d_list	*tmp2;
+
+	if (ast && ast->type == AST_PIPELINE)
+	{
+		tmp2 = ast->children;
+		while (tmp2)
+		{
+			print_tree_list((t_ast *)tmp2->content);
+			printf("\n");
+			tmp2 = tmp2->next;
+		}
+	}
+}

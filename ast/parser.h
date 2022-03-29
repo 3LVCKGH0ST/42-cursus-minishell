@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 16:33:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:22:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_ast		*parse_pipeline(t_parser *parser);
 t_ast		*parse_op(t_parser *parser);
 t_ast		*parse_paren(t_parser *parser);
 void		print_tree_list(t_ast *ast);
+void		print_tree_pipline(t_ast *ast);
 
 
 

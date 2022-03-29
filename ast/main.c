@@ -10,10 +10,10 @@ int	main(int argc, char **argv)
 	//t_token	*token;
 	t_parser	*parser;
 	t_ast	*ast;
-	lexer = init_lexer("echo hello \"world\" > test << ggg  test");
+	lexer = init_lexer(" ls > asdas <ads >dsa| >s lss >3513| sd <asda");
 	parser = init_parser(lexer);
 	ast = parse(parser);
-	print_tree_list(ast);
+	print_tree_pipline(ast);
 	//printf("%p\n",ast);
 	//printf("|||||   %d   |||\n", ft_isalnum('<'));
 	//token = collect_id(lexer);

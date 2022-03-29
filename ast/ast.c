@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 16:28:40 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:24:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_ast	*init_ast(t_type_node type)
 	
 	ast->args = NULL;
 	ast->redir = NULL;
+	ast->children = NULL;
 	ast->right = NULL;
 	ast->left = NULL;
 	ast->value = NULL;

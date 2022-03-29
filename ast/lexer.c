@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:21:23 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 16:29:22 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:05:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ t_token	*collect_quoted_string(t_lexer *lexer,	char quote)
 		free(tmp);
 		lexer->i++;
 	}
+	if (lexer->src[lexer->i] != quote)
+	{
+		fprintf(stderr, "Error: Unmatched quote\n");
+		exit(1);
+	}
+		advance_lexer(lexer);
 	advance_lexer(lexer);
 	if (quote == '\'')
 		return (init_token(value, TOKEN_SQUOTE));
