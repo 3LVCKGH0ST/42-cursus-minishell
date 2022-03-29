@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 22:05:10 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:07:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,9 +270,9 @@ void	print_tree_paren(t_ast *ast)
 		tmp2 = ast->children;
 		while (tmp2)
 		{
-			printf("\n------\n");
+			printf("(");
 			print_tree((t_ast *)tmp2->content);
-			printf("\n------\n");
+			printf(")");
 			tmp2 = tmp2->next;
 		}
 	}
