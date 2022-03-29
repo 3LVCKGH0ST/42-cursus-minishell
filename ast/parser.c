@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 22:07:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:11:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	print_tree_list(t_ast *ast)
 		}
 		tmp2 = ast->redir;
 		if (tmp2)
-			printf("  <>  ");
+			printf(" <> ");
 		while (tmp2)
 		{
 			printf(" %s ", ((t_ast *)tmp2->content)->value);
@@ -255,7 +255,8 @@ void	print_tree_pipline(t_ast *ast)
 		while (tmp2)
 		{
 			print_tree((t_ast *)tmp2->content);
-			printf("\n");
+			if (tmp2 ->next)
+			printf("  |  ");
 			tmp2 = tmp2->next;
 		}
 	}
