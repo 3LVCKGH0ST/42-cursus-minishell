@@ -10,10 +10,10 @@ int	main(int argc, char **argv)
 	//t_token	*token;
 	t_parser	*parser;
 	t_ast	*ast;
-	lexer = init_lexer(" ls > asdas <ads >dsa| >s lss >3513| sd <asda");
+	lexer = init_lexer(" (ls) | cat >s | wc | sss ");
 	parser = init_parser(lexer);
-	ast = parse(parser);
-	print_tree_pipline(ast);
+	ast = parse_pipeline(parser);
+	print_tree(ast);
 	//printf("%p\n",ast);
 	//printf("|||||   %d   |||\n", ft_isalnum('<'));
 	//token = collect_id(lexer);

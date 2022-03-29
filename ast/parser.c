@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/29 19:33:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:05:10 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ t_token	*parser_eat(t_parser *parser, t_e_token type)
 
 t_ast	*parse(t_parser *parser)
 {
+	if (parser->token->type == TOKEN_LPAREN)
+		return (parse_paren(parser));
+	if (parser->token->type == TOKEN_EOF)
+		return (NULL);
 	return (parse_pipeline(parser));
 }
 
@@ -186,29 +190,58 @@ void	print_tree_list(t_ast *ast)
 	}
 }
 
-//void	print_tree(t_ast *ast)
-//{
-//	t_ast	*tmp;
-	
-//}
+void	print_tree(t_ast *ast)
+{
+	if (ast && ast->type == AST_LIST)
+		print_tree_list(ast);
+	if (ast && ast->type == AST_PIPELINE)
+		print_tree_pipline(ast);
+	if (ast && ast->type == AST_PAREN)
+		print_tree_paren(ast);
+}
 
 t_ast		*parse_pipeline(t_parser *parser)
 {
 	t_ast	*ast;
 
-	if(parser->token->type != TOKEN_LPAREN)
-	{
 		ast = init_ast(AST_PIPELINE);
 		//print_tree_list((t_ast *)ast2);
-		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
+		if (parser->token->type == TOKEN_LPAREN)
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse(parser)));
+		else
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
 		while (parser->token->type == TOKEN_PIPE)
 		{
 			parser_eat(parser, TOKEN_PIPE);
-			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
+			if (parser->token->type == TOKEN_LPAREN)
+				ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse(parser)));
+			else
+				ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse_list(parser)));
 		}
+		if (parser->token->type == TOKEN_PIPE)	
+			parser_eat(parser, TOKEN_PIPE);
+		return (ast);
+}
+
+t_ast		*parse_paren(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if(parser->token->type == TOKEN_LPAREN)
+	{
+		parser_eat(parser, TOKEN_LPAREN);
+		ast = init_ast(AST_PAREN);
+		//print_tree_list((t_ast *)ast2);
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse(parser)));
+		while (parser->token->type == TOKEN_PIPE)
+		{
+			parser_eat(parser, TOKEN_PIPE);
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parse(parser)));
+		}
+		parser_eat(parser, TOKEN_RPAREN);
 		return (ast);
 	}
-	parser_eat(parser, TOKEN_PIPE);
+	//parser_eat(parser, TOKEN_PIPE);
 	return (NULL);
 }
 
@@ -221,8 +254,25 @@ void	print_tree_pipline(t_ast *ast)
 		tmp2 = ast->children;
 		while (tmp2)
 		{
-			print_tree_list((t_ast *)tmp2->content);
+			print_tree((t_ast *)tmp2->content);
 			printf("\n");
+			tmp2 = tmp2->next;
+		}
+	}
+}
+
+void	print_tree_paren(t_ast *ast)
+{
+	t_d_list	*tmp2;
+
+	if (ast && ast->type == AST_PAREN)
+	{
+		tmp2 = ast->children;
+		while (tmp2)
+		{
+			printf("\n------\n");
+			print_tree((t_ast *)tmp2->content);
+			printf("\n------\n");
 			tmp2 = tmp2->next;
 		}
 	}
