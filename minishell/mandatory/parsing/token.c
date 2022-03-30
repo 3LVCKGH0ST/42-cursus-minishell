@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                              :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 16:26:58 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 11:39:02 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/27 11:39:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "token.h"
 
-t_ast	*init_ast(t_type_node type)
+t_token	*init_token(char *value, t_e_token type)
 {
-	t_ast	*ast;
+	t_token	*tmp;
 
-	ast = malloc(sizeof(t_ast));
-	ast->type = type;
-	ast->args = NULL;
-	ast->redir = NULL;
-	ast->children = NULL;
-	ast->right = NULL;
-	ast->left = NULL;
-	ast->value = NULL;
-	return (ast);
+	tmp = malloc(sizeof(t_token));
+	if (!tmp)
+		return (NULL);
+	tmp->type = type;
+	tmp->value = value;
+	return (tmp);
 }

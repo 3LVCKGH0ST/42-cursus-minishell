@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                              :+:      :+:    :+:   */
+/*   minishell_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 16:26:58 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/03/30 18:00:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+//#include "minishell.h"
 
-t_ast	*init_ast(t_type_node type)
+# include "./parsing/parser_bonus.h"
+
+int	main(int argc, char **argv)
 {
-	t_ast	*ast;
 
-	ast = malloc(sizeof(t_ast));
-	ast->type = type;
-	ast->args = NULL;
-	ast->redir = NULL;
-	ast->children = NULL;
-	ast->right = NULL;
-	ast->left = NULL;
-	ast->value = NULL;
-	return (ast);
+	(void)argc;
+	(void)argv;
+	t_lexer	*lexer;
+	t_parser	*parser;
+	t_ast	*ast;
+	lexer = init_lexer(" '\"ssssss\"' ");
+	parser = init_parser(lexer);
+	ast = parse_pipeline(parser);
+	print_tree(ast);
+	return (0);
 }

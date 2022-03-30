@@ -6,11 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:10:09 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/23 21:18:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:45:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./DoubleLinkedList.h"
+#include "./double_linked_list.h"
 
 t_d_list	*ft_d_lstnew(void *content)
 {
@@ -25,19 +25,19 @@ t_d_list	*ft_d_lstnew(void *content)
 	return (ret);
 }
 
-void	ft_d_lstadd_front(t_d_list **lst, t_d_list *new)
+void	ft_d_lstadd_front(t_d_list **lst, t_d_list *newnode)
 {
 	if (*lst)
 	{
-		new->next = *lst;
-		new->prev = NULL;
-		(*lst)->prev = new;
-		*lst = new;
+		newnode->next = *lst;
+		newnode->prev = NULL;
+		(*lst)->prev = newnode;
+		*lst = newnode;
 	}
 	else
 	{
-		new->prev = NULL;
-		*lst = new;
+		newnode->prev = NULL;
+		*lst = newnode;
 	}
 }
 
@@ -66,23 +66,23 @@ t_d_list	*ft_d_lstlast(t_d_list *lst)
 	return (tmp);
 }
 
-void	ft_d_lstadd_back(t_d_list **lst, t_d_list *new)
+void	ft_d_lstadd_back(t_d_list **lst, t_d_list *newnode)
 {
 	t_d_list	*last;
 
-	if (!new)
+	if (!newnode)
 		exit(15);
 	if (*lst)
 	{
 		last = ft_d_lstlast(*lst);
-		new->next = NULL;
-		last->next = new;
-		new->prev = last;
+		newnode->next = NULL;
+		last->next = newnode;
+		newnode->prev = last;
 	}
 	else
 	{
-		new->next = NULL;
-		new->prev = NULL;
-		*lst = new;
+		newnode->next = NULL;
+		newnode->prev = NULL;
+		*lst = newnode;
 	}
 }

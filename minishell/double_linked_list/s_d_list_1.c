@@ -6,11 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:10:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/23 21:18:56 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:45:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./DoubleLinkedList.h"
+#include "./double_linked_list.h"
 
 void	ft_d_lstdelone(t_d_list *lst, void (*del)(void *))
 {

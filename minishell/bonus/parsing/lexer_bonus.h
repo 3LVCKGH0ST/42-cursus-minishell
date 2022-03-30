@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   lexer_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 16:27:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:56:21 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 # include <stdio.h>
-# include "../libft/libft.h"
-# include "./token.h"
+# include "../../libft/libft.h"
+# include "./token_bonus.h"
 
 typedef struct s_lexer
 {

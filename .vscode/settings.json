@@ -6,6 +6,11 @@
 		"lexer.h": "c",
 		"token.h": "c",
 		"stdio.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"double_linked_list.h": "c",
+		"ast.h": "c",
+		"parser.h": "c",
+		"parser_bonus.h": "c",
+		"token_bonus.h": "c"
 	}
 }
