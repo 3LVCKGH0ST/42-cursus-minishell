@@ -6,13 +6,13 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:07:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 17:48:47 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/30 19:01:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
-# include "../../libft/libft.h"
+# include "../../../libft/libft.h"
 # include "../../double_linked_list/double_linked_list.h"
 # include "./token.h"
 

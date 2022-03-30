@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 11:39:02 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/27 11:39:03 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/03/30 19:21:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "../../libft/libft.h"
 
-t_token	*init_token(char *value, t_e_token type)
-{
-	t_token	*tmp;
-
-	tmp = malloc(sizeof(t_token));
-	if (!tmp)
-		return (NULL);
-	tmp->type = type;
-	tmp->value = value;
-	return (tmp);
-}
+#endif

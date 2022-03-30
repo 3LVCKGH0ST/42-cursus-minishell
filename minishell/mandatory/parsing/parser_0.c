@@ -1,27 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_spaces.c                                     :+:      :+:    :+:   */
+/*   parser_0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 13:08:31 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/23 14:52:18 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/30 19:22:10 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-/**
- * @brief 
- * 
- * @param li
- * @return char** 
- */
-char	**split_line(char *li)
-{
-	//char **lst={"1","2",NULL};
-
-	(void)li;
-	return (NULL);
-}
+#include "./inc/parser.h"	
