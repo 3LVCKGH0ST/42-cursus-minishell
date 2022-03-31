@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 17:56:27 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:58:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_ast		*parse_quote(t_parser *parser)
 {
 	t_ast	*ast;
 
-	if(parser->token->type == parser->token->type)
+	if(parser->token->type == TOKEN_DQUOTE || parser->token->type == TOKEN_SQUOTE)
 	{
 		ast = init_ast(AST_QOUTE);
 		ast->type_token = parser->token->type;	

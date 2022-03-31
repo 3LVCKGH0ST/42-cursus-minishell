@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:07:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 17:56:14 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:51:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_type_node {
 	AST_PIPELINE,
 	AST_OP
 }	t_type_node;
+
 typedef struct s_ast
 {
 	t_type_node		type;
