@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/31 20:22:57 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/03/31 21:49:35 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ int		check_end_start_pipes(char *line);
 char	**split_line(char *li);
 void	showenv(char **envp);
 char	**addenv(char **env, char *key, char *val);
+char	*get_path(char **envp);
+void	addoldpwd(char ***env);
 #endif

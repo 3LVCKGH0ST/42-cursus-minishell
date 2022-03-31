@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _pwd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/24 13:33:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:02:38 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ char	*get_path(char **envp)
 	return (envp[i] + 4);
 }
 
-int	main(int ac, char **av, char **env)
+void	addoldpwd(char ***env)
 {
-	char	*path;
+	int		i;
 
-	path = get_path(env);
-	printf("=> %s\n", path);
-	return (0);
+	i = -1;
+	while ((*env)[++i])
+	{
+		if (ft_strnstr((*env)[i], "OLDPWD", 7))
+			(*env)[i] = "hello world";
+	}
 }
