@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:21:23 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:26:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 09:54:20 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	lexer_advance(t_lexer *lexer)
 	{
 		lexer->i++;
 		lexer->c = lexer->src[lexer->i];
+		lexer->c = lexer->src[lexer->i + 1];
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:23:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 09:53:36 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
  * 			(iterate over the input && get all the tokens)
  * @param 	src is the input to tokenize
  * @param 	c is the current char
+ * @param 	cc is the next char
  * @param 	i is the current index
  * @param 	tokens is the list of tokens (to be free at the end)
  */
@@ -29,14 +30,13 @@ typedef struct s_lexer
 {
 	char		*src;
 	char		c;
+	char		cc;
 	size_t		i;
 	t_d_list	*tokens;
 }				t_lexer;
 
 t_lexer	*lexer_init_lexer(char *src);
 t_token	*lexer_get_next_token(t_lexer *lexer);
-t_token	*lexer_collect_quoted_string(t_lexer *lexer,	char quote);
-t_token	*lexer_collect_text(t_lexer *lexer);
 t_token	*lexer_collect_id(t_lexer *lexer);
 t_token	*lexer_advance_w_token(t_lexer *lexer, t_token *token);
 void	lexer_advance(t_lexer *lexer);

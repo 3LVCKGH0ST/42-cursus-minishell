@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:47:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 09:57:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,37 @@
 
 t_token	*lexer_get_next_token(t_lexer *lexer)
 {
-	return (NULL);
+	while (lexer->c && lexer->i < ft_strlen(lexer->src))
+	{
+		if (lexer->c == ' ' || lexer->c == '\t')
+			lexer_skip_whitespace_lexer(lexer);
+		else if (!is_reserved_token(lexer->c))
+			return (lexer_collect_id(lexer));
+		else if (lexer->c == '|' && lexer->cc == '|')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("||"), TOKEN_OR)));
+		else if (lexer->c == '&' && lexer->cc == '&')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("&&"), TOKEN_AND)));
+		else if (lexer->c == '>' && lexer->cc == '>')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup(">>"), TOKEN_DROUT)));
+		else if (lexer->c == '<' && lexer->cc == '<')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("<<"), TOKEN_DRIN)));
+		else if (lexer->c == '(')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("("), TOKEN_LPAREN)));
+		else if (lexer->c == ')')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup(")"), TOKEN_RPAREN)));
+		else if (lexer->c == '|')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("|"), TOKEN_PIPE)));
+		else if (lexer->c == '>')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup(">"), TOKEN_ROUT)));
+		else if (lexer->c == '<')
+			return (lexer_advance_w_token(lexer, init_token(ft_strdup("<"), TOKEN_RIN)));
+		else
+		{
+			fprintf(stderr, "Error: Unexpected token : %c\n", lexer->c);
+			exit(1);
+		}
+	}
+	return (init_token(ft_strdup("'\\n'"), TOKEN_EOF));
 }
 
 static char	*get_str_quoted(char *prev, t_lexer *lexer)
