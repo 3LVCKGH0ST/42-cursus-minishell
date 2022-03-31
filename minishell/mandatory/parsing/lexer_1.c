@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 14:44:02 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:47:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,25 @@ int	is_reserved_token(char c)
 	if (ft_strchr("()<>;&| \t", c))
 		return (1);
 	return (0);
+}
+
+/**
+ * @brief 
+ * 
+ * @param lexer 
+ * @param str 
+ */
+void	lexer_syntax_error(char *str)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("`\n", 2);
+	exit(1);
+}
+void	lexer_quote_error(char *str)
+{
+	ft_putstr_fd("minishell: Unmatched quote `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("`\n", 2);
+	exit(1);
 }

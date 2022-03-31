@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/31 15:22:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:48:22 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 
 int	main(int argc, char **argv)
 {
-
 	(void)argc;
 	(void)argv;
 	t_lexer		*lexer;
 	//t_parser	*parser;
 	//t_ast		*ast;
 	t_token		*token;
-	//lexer = lexer_init_lexer(" (ls) || cat >s | ((wc || ss) && sss) ");
-	lexer = lexer_init_lexer("-ls 😃 😀  > < >> << | ls ls  😀");
+	lexer = lexer_init_lexer(" (ls) || cat >s | ((wc || ss) && sss) ");
+	//lexer = lexer_init_lexer("(\"ls\") '||' cat >s | ((wc || ss) && sss) ");
+	//lexer = lexer_init_lexer("ssss \"aaalol & sss 'ss'");
 	//parser = init_parser(lexer);
 	//ast = parse_pipeline(parser);
 	//print_tree(ast);

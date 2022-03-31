@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 15:18:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:44:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ static t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type)
 	char	*str;
 	t_token	*token;
 
-	if (type == TOKEN_ID)
-		str = value;
-	else
-		str = ft_strdup(value);
+	str = ft_strdup(value);
 	token = init_token(str, type);
 	ft_d_lstadd_back(&(lexer->tokens), ft_d_lstnew(token));
 	return (lexer_advance_w_token(lexer, token));
 }
+
 /**
  * @brief get the next token and advance the
  * 		 lexer if an unexpected char is found will exit
@@ -45,7 +43,6 @@ t_token	*lexer_next_token(t_lexer *lexer)
 {
 	while (lexer->c && lexer->i < ft_strlen(lexer->src))
 	{
-		//printf("lexer->c: %c\n", lexer->c);
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace_lexer(lexer);
 		else if (lexer->c == '|' && lexer->cc == '|')
@@ -69,10 +66,7 @@ t_token	*lexer_next_token(t_lexer *lexer)
 		else if (!is_reserved_token(lexer->c))
 			return (lexer_collect_id(lexer));
 		else
-		{
-			fprintf(stderr, "Error: Unexpected token : %c\n", lexer->c);
-			exit(1);
-		}
+			lexer_syntax_error(to_str(lexer->c));
 	}
 	return (init_token(ft_strdup("'\\n'"), TOKEN_EOF));
 }
@@ -80,28 +74,27 @@ t_token	*lexer_next_token(t_lexer *lexer)
 static char	*get_str_quoted(char *prev, t_lexer *lexer)
 {
 	char	quote;
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 
 	quote = lexer->c;
-	tmp = prev;
-	prev = ft_strjoin(prev, to_str(lexer->c));
-	free(tmp);
 	lexer_advance(lexer);
 	while (lexer->c && lexer->c != quote)
 	{
-		tmp = prev;
-		prev = ft_strjoin(prev, to_str(lexer->c));
-		free(tmp);
+		tmp1 = prev;
+		tmp2 = to_str(lexer->c);
+		prev = ft_strjoin(prev, tmp2);
+		free(tmp1);
+		free(tmp2);
 		lexer_advance(lexer);
 	}
-	tmp = prev;
-	prev = ft_strjoin(prev, to_str(lexer->c));
-	free(tmp);
 	if (lexer->c != quote)
-	{
-		fprintf(stderr, "Error: Unmatched quote\n");
-		exit(1);
-	}
+		lexer_quote_error(to_str(quote));
+	tmp1 = prev;
+	tmp2 = to_str(lexer->c);
+	prev = ft_strjoin(prev, tmp2);
+	free(tmp1);
+	free(tmp2);
 	return (prev);
 }
 
@@ -115,26 +108,23 @@ static char	*get_str_quoted(char *prev, t_lexer *lexer)
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 	t_token	*token;
 
-	value = to_str(lexer->c);
-	lexer_advance(lexer);
+	value = to_str('\0');
 	while (lexer->c && !is_reserved_token(lexer->c))
 	{
+		tmp1 = value;
+		tmp2 = to_str(lexer->c);
+		value = ft_strjoin(value, tmp2);
+		free(tmp1);
+		free(tmp2);
 		if (lexer->c == '\'' || lexer->c == '"')
-		{
 			value = get_str_quoted(value, lexer);
-			tmp = value;
-			value = ft_strjoin(value, to_str(lexer->c));
-			free(tmp);
-		}
-		tmp = value;
-		value = ft_strjoin(value, to_str(lexer->c));
-		free(tmp);
 		lexer_advance(lexer);
 	}
 	token = init_token(value, TOKEN_ID);
-	ft_d_lstadd_back(&(lexer->tokens), ft_d_lstnew(token));	
+	ft_d_lstadd_back(&(lexer->tokens), ft_d_lstnew(token));
 	return (token);
 }

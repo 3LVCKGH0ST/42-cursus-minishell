@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 15:17:56 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 18:45:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,7 @@ void	lexer_advance(t_lexer *lexer);
 void	lexer_skip_whitespace_lexer(t_lexer *lexer);
 char	*to_str(char c);
 int		is_reserved_token(char c);
+void	lexer_syntax_error(char *str);
+void	lexer_quote_error(char *str);
+
 #endif
