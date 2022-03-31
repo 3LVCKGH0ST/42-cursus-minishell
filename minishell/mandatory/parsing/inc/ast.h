@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:07:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 13:28:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 20:18:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef enum e_type_node {
 	AST_ARG,
 	AST_REDIR,
 	AST_ID,
-	AST_TXT,
-	AST_QOUTE,
+	//AST_TXT,
+	//AST_QOUTE,
 	AST_PAREN,
 	AST_PIPELINE,
 	AST_OP
@@ -35,9 +35,10 @@ typedef struct s_ast
 	t_d_list		*children;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	struct s_ast	*child;
 	char			*value;
 	t_e_token		type_token;
 }	t_ast;
 
-t_ast	*init_ast(t_type_node type);
+t_ast	*ast_init_ast(t_type_node type);
 #endif

@@ -11,6 +11,7 @@
 		"ast.h": "c",
 		"parser.h": "c",
 		"parser_bonus.h": "c",
-		"token_bonus.h": "c"
+		"token_bonus.h": "c",
+		"print_tree.h": "c"
 	}
 }
