@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:33:04 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 14:44:02 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char	*to_str(char c)
 /**
  * @brief check if the character is not a reserved token 
  * 
- * @param c 
+ * @param c charachter
  * @return int *1* if reserved *0* if not
  */
 int	is_reserved_token(char c)
 {
-	if (ft_strchr("&|()<> \t", c))
+	if (ft_strchr("()<>;&| \t", c))
 		return (1);
 	return (0);
 }

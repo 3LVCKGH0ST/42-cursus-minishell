@@ -1,9 +1,12 @@
 NAME		:= minishell
 
 PARSING		:=	./mandatory/parsing/ast.c \
-				./mandatory/parsing/lexer.c \
-				./mandatory/parsing/lexer1.c \
-				./mandatory/parsing/parser.c \
+				./mandatory/parsing/lexer_0.c \
+				./mandatory/parsing/lexer_1.c \
+				./mandatory/parsing/lexer_2.c \
+				./mandatory/parsing/parser_0.c \
+				./mandatory/parsing/parser_1.c \
+				./mandatory/parsing/print_tree.c \
 				./mandatory/parsing/token.c	\
 		
 EXECUTION	:=
@@ -27,7 +30,7 @@ SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror  -g #-fsanitize=address 
 
 .PHONY: all clean fclean re bonus
 

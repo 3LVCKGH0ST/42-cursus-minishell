@@ -6,16 +6,16 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:53:36 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:17:56 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 # include <stdio.h>
-# include "../../libft/libft.h"
-# include "../../double_linked_list/double_linked_list.h"
-# include "./token.h"
+# include "../../../libft/libft.h"
+# include "../../../double_linked_list/double_linked_list.h"
+# include "token.h"
 
 /**
  * @brief 	lexer is used to tokenize the input 
@@ -36,7 +36,7 @@ typedef struct s_lexer
 }				t_lexer;
 
 t_lexer	*lexer_init_lexer(char *src);
-t_token	*lexer_get_next_token(t_lexer *lexer);
+t_token	*lexer_next_token(t_lexer *lexer);
 t_token	*lexer_collect_id(t_lexer *lexer);
 t_token	*lexer_advance_w_token(t_lexer *lexer, t_token *token);
 void	lexer_advance(t_lexer *lexer);

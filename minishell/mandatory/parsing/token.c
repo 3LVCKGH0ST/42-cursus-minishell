@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:39:02 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:07:41 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:24:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ t_token	*init_token(char *value, t_e_token type)
 	return (tmp);
 }
 
-void	free_token(t_token *token)
+void	free_token(void *token)
 {
+	t_token	*tmp;
+
 	if (token)
 	{
-		if (token->value)
-			free(token->value);
-		free(token);
+		tmp = (t_token *)token;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
 	}
 }

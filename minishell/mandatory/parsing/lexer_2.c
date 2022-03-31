@@ -6,38 +6,68 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:57:30 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:18:26 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/lexer.h"
 
-t_token	*lexer_get_next_token(t_lexer *lexer)
+/**
+ * @brief create and add the token to lexer tokens to free them later
+ * 			and will advance the lexer
+ * 
+ * @param lexer 
+ * @param value "<<" ">>" or whatever token value
+ * @param type token type
+ * @return t_token* will return the created token
+ */
+static t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type)
+{
+	char	*str;
+	t_token	*token;
+
+	if (type == TOKEN_ID)
+		str = value;
+	else
+		str = ft_strdup(value);
+	token = init_token(str, type);
+	ft_d_lstadd_back(&(lexer->tokens), ft_d_lstnew(token));
+	return (lexer_advance_w_token(lexer, token));
+}
+/**
+ * @brief get the next token and advance the
+ * 		 lexer if an unexpected char is found will exit
+ * 
+ * @param lexer 
+ * @return t_token* return the next token
+ */
+t_token	*lexer_next_token(t_lexer *lexer)
 {
 	while (lexer->c && lexer->i < ft_strlen(lexer->src))
 	{
+		//printf("lexer->c: %c\n", lexer->c);
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace_lexer(lexer);
+		else if (lexer->c == '|' && lexer->cc == '|')
+			return (lexer_set_token(lexer, "||", TOKEN_OR));
+		else if (lexer->c == '&' && lexer->cc == '&')
+			return (lexer_set_token(lexer, "&&", TOKEN_AND));
+		else if (lexer->c == '>' && lexer->cc == '>')
+			return (lexer_set_token(lexer, ">>", TOKEN_DROUT));
+		else if (lexer->c == '<' && lexer->cc == '<')
+			return (lexer_set_token(lexer, "<<", TOKEN_DRIN));
+		else if (lexer->c == '(')
+			return (lexer_set_token(lexer, "(", TOKEN_LPAREN));
+		else if (lexer->c == ')')
+			return (lexer_set_token(lexer, ")", TOKEN_RPAREN));
+		else if (lexer->c == '|')
+			return (lexer_set_token(lexer, "|", TOKEN_PIPE));
+		else if (lexer->c == '>')
+			return (lexer_set_token(lexer, ">", TOKEN_ROUT));
+		else if (lexer->c == '<')
+			return (lexer_set_token(lexer, "<", TOKEN_RIN));
 		else if (!is_reserved_token(lexer->c))
 			return (lexer_collect_id(lexer));
-		else if (lexer->c == '|' && lexer->cc == '|')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("||"), TOKEN_OR)));
-		else if (lexer->c == '&' && lexer->cc == '&')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("&&"), TOKEN_AND)));
-		else if (lexer->c == '>' && lexer->cc == '>')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup(">>"), TOKEN_DROUT)));
-		else if (lexer->c == '<' && lexer->cc == '<')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("<<"), TOKEN_DRIN)));
-		else if (lexer->c == '(')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("("), TOKEN_LPAREN)));
-		else if (lexer->c == ')')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup(")"), TOKEN_RPAREN)));
-		else if (lexer->c == '|')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("|"), TOKEN_PIPE)));
-		else if (lexer->c == '>')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup(">"), TOKEN_ROUT)));
-		else if (lexer->c == '<')
-			return (lexer_advance_w_token(lexer, init_token(ft_strdup("<"), TOKEN_RIN)));
 		else
 		{
 			fprintf(stderr, "Error: Unexpected token : %c\n", lexer->c);
@@ -80,20 +110,18 @@ static char	*get_str_quoted(char *prev, t_lexer *lexer)
  * 
  * @param lexer 
  * @return ** t_token*  token type => TOKEN_ID and 
- * 			token value ex: ss"hello   "sss kks  ==> ss"hello"sss
+ * 			token value ex: ss"hello   "sss kks  ==> ss"hello   "sss
  */
 t_token	*lexer_collect_id(t_lexer *lexer)
 {
 	char	*value;
 	char	*tmp;
+	t_token	*token;
 
 	value = to_str(lexer->c);
 	lexer_advance(lexer);
 	while (lexer->c && !is_reserved_token(lexer->c))
 	{
-		tmp = value;
-		value = ft_strjoin(value, to_str(lexer->c));
-		free(tmp);
 		if (lexer->c == '\'' || lexer->c == '"')
 		{
 			value = get_str_quoted(value, lexer);
@@ -101,7 +129,12 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 			value = ft_strjoin(value, to_str(lexer->c));
 			free(tmp);
 		}
+		tmp = value;
+		value = ft_strjoin(value, to_str(lexer->c));
+		free(tmp);
 		lexer_advance(lexer);
 	}
-	return (init_token(value, TOKEN_ID));
+	token = init_token(value, TOKEN_ID);
+	ft_d_lstadd_back(&(lexer->tokens), ft_d_lstnew(token));	
+	return (token);
 }

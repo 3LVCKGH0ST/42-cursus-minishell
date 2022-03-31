@@ -6,13 +6,13 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 22:25:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 09:07:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:23:57 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
-# include "../../libft/libft.h"
+# include "../../../libft/libft.h"
 
 typedef enum e_token {
 	TOKEN_ID,
@@ -38,5 +38,5 @@ typedef struct s_token
 }	t_token;
 
 t_token	*init_token(char *value, t_e_token type);
-void	free_token(t_token *token);
+void	free_token(void *token);
 #endif
