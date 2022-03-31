@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/28 14:15:15 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/03/31 20:22:57 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int		count_max_multiple_pipes(char *str);
 int		check_end_start_pipes(char *line);
 
 char	**split_line(char *li);
-
+void	showenv(char **envp);
+char	**addenv(char **env, char *key, char *val);
 #endif

@@ -10,7 +10,7 @@ int	main(int argc, char **argv)
 	//t_token	*token;
 	t_parser	*parser;
 	t_ast	*ast;
-	lexer = init_lexer(" (ls) || cat >s | ((wc || ss) && sss) ");
+	lexer = init_lexer("> hello world |  ||test");
 	parser = init_parser(lexer);
 	ast = parse_pipeline(parser);
 	print_tree(ast);
