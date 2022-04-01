@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 18:45:07 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:16:21 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_token	*lexer_collect_id(t_lexer *lexer);
 t_token	*lexer_advance_w_token(t_lexer *lexer, t_token *token);
 void	lexer_advance(t_lexer *lexer);
 void	lexer_skip_whitespace_lexer(t_lexer *lexer);
-char	*to_str(char c);
-int		is_reserved_token(char c);
 void	lexer_syntax_error(char *str);
 void	lexer_quote_error(char *str);
+char	*to_str(char c);
+int		is_reserved_token(char c);
 
 #endif

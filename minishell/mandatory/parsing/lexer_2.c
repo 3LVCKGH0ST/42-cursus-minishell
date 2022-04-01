@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 18:44:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:14:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,13 @@ t_token	*lexer_next_token(t_lexer *lexer)
 	}
 	return (init_token(ft_strdup("'\\n'"), TOKEN_EOF));
 }
-
+/**
+ * @brief Get the str quoted object
+ * 
+ * @param prev 
+ * @param lexer 
+ * @return char* 
+ */
 static char	*get_str_quoted(char *prev, t_lexer *lexer)
 {
 	char	quote;

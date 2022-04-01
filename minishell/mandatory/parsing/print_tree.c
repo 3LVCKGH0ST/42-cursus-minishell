@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:30:04 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 21:43:46 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:47:31 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	print_tree(t_ast *ast)
 		print_tree_list(ast);	
 	else if (ast->type == AST_PIPELINE)
 		print_tree_pipline(ast);	
-	else if (ast->type == AST_PAREN)
-		print_tree_paren(ast);	
 	else if (ast->type == AST_OP)
 		print_tree_op(ast);	
 }
@@ -81,23 +79,10 @@ void	print_tree_pipline(t_ast *ast)
 	}
 }
 
-void	print_tree_paren(t_ast *ast)
-{
-	ft_putchar_fd('(', 1);
-	t_d_list	*tmp;
-
-	tmp = ast->children;
-	while (tmp)
-	{
-		print_tree((t_ast *)tmp->content);
-		tmp = tmp->next;
-	}
-	ft_putchar_fd(')', 1);	
-}
-
 void	print_tree_op(t_ast *ast)
 {
 	print_tree(ast->left);
+	//printf("left: %d\n", ast->type_token);
 	if (ast->type_token == TOKEN_AND)
 		ft_putstr_fd(" && ", 1);
 	if (ast->type_token == TOKEN_OR)

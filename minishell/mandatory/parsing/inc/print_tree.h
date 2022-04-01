@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:28:40 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 20:45:54 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:23:45 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	print_tree_id(t_ast *ast);
 void	print_tree_redir(t_ast *ast);
 void	print_tree_list(t_ast *ast);
 void	print_tree_pipline(t_ast *ast);
-void	print_tree_paren(t_ast *ast);
 void	print_tree_op(t_ast *ast);
 #endif

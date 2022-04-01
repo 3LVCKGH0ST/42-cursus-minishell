@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/31 21:42:43 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/01 21:17:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,18 @@ t_ast		*parser_parse_list(t_parser *parser)
 	token = parser->token;
 	if (token->type != TOKEN_ID && !is_redir(token))
 		parser_syntax_error(token->value);
-	while (token->type == TOKEN_ID || is_redir(token))
+	while (token->type == TOKEN_ID || is_redir(token) || token->type == TOKEN_LPAREN)
 	{
 		if (token->type == TOKEN_ID)
 			ft_d_lstadd_back(&(ast->args), ft_d_lstnew(parser_parse_id(parser)));
-		else
+		else if (is_redir(token))
 			ft_d_lstadd_back(&(ast->redir), ft_d_lstnew(parser_parse_redir(parser)));
+		else
+		{
+			if (token->type == TOKEN_LPAREN)
+				parser_parser_advance(parser, TOKEN_LPAREN);
+			parser_syntax_error(parser->token->value);
+		}
 		token = parser->token;
 	}
 	return (ast);
@@ -76,12 +82,9 @@ t_ast		*parser_parse_paren(t_parser *parser)
 	t_ast	*ast;
 
 	parser_parser_advance(parser, TOKEN_LPAREN);
-	ast = ast_init_ast(AST_PAREN);
-	//parser_parser_advance(parser, TOKEN_LPAREN);
-	while (parser->token->type != TOKEN_RPAREN && parser->token->type != TOKEN_EOF)
-	{
-		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse(parser)));
-	}
+	ast = parser_parse(parser);
 	parser_parser_advance(parser, TOKEN_RPAREN);
+	if (parser->token->type == TOKEN_ID)
+		parser_syntax_error(parser->token->value);
 	return (ast);
 }
