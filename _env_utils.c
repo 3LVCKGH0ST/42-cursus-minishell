@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:01:11 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 18:46:45 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/01 21:42:55 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	handldup(char ***env, char *key, char *val)
 	char		*chck;
 	const char	*expv = exportval(key, val);
 	int			i;
+	char		*tmp1;
 
 	i = -1;
 	chck = ft_strjoin(key, "=");
@@ -37,12 +38,15 @@ int	handldup(char ***env, char *key, char *val)
 	{
 		if (startwith((*env)[i], chck))
 		{
+			free((*env)[i]);
+			tmp1 = ft_strdup((char *)expv);
+			(*env)[i] = tmp1;
+			free((void *)expv);
 			free(chck);
-			(*env)[i] = 0;
-			(*env)[i] = (char *)expv;
 			return (1);
 		}
 	}
 	free(chck);
+	free((void *)expv);
 	return (0);
 }

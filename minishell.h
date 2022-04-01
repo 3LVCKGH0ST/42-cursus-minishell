@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 18:44:21 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/01 21:14:46 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ char	*get_path(char **envp);
 void	createclone(char ***to, char **from);
 char	*exportval(char *key, char *val);
 int		handldup(char ***env, char *key, char *val);
+int		getlenenv(char	**env);
 #endif

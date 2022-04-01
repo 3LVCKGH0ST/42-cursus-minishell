@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 18:45:01 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/01 21:42:26 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	createclone(char ***to, char **from)
 	(*to) = malloc(sizeof(char *) * getlenenv(from) * 2);
 	while (from[++i])
 	{
-		(*to)[i] = from[i];
+		(*to)[i] = ft_strdup(from[i]);
 	}
 	(*to)[i] = NULL;
 }
