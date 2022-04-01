@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 15:03:58 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/01 18:45:01 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	addenv(char ***env, char *key, char *val)
 	char	**tmp;
 	int		i;
 
-	(void)key;
-	(void)val;
+	if (handldup(&(*env), key, val))
+		return ;
 	tmp = *(env);
 	i = -1;
 	(*env) = malloc(sizeof(char *) * getlenenv(tmp) + sizeof(char *) * 2);
