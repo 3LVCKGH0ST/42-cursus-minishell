@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/31 21:48:25 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:03:58 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ int	getlenenv(char	**env)
 	return (i);
 }
 
+void	createclone(char ***to, char **from)
+{
+	int	i;
+
+	i = -1;
+	(*to) = malloc(sizeof(char *) * getlenenv(from) * 2);
+	while (from[++i])
+	{
+		(*to)[i] = from[i];
+	}
+	(*to)[i] = NULL;
+}
+
 char	*exportval(char *key, char *val)
 {
 	char	*ret;
@@ -47,19 +60,19 @@ char	*exportval(char *key, char *val)
 	return (ret);
 }
 
-char	**addenv(char **env, char *key, char *val)
+void	addenv(char ***env, char *key, char *val)
 {
 	char	**tmp;
-	char	*exp;
 	int		i;
 
+	(void)key;
+	(void)val;
+	tmp = *(env);
 	i = -1;
-	tmp = malloc(sizeof(char *) * getlenenv(env) + sizeof(char *) * 2);
-	while (env[++i])
-		tmp[i] = env[i];
-	exp = exportval(key, val);
-	tmp[i] = exp;
-	tmp[i + 1] = NULL;
-	free(exp);
-	return (tmp);
+	(*env) = malloc(sizeof(char *) * getlenenv(tmp) + sizeof(char *) * 2);
+	while (tmp[++i])
+		(*env)[i] = tmp[i];
+	(*env)[i++] = exportval(key, val);
+	(*env)[i] = NULL;
+	free(tmp);
 }

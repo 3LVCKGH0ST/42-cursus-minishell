@@ -4,7 +4,7 @@ SRCB		:=
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror 
+FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address
 LIBFTDIR	:= ./libft/
 LIBFT		:= ./libft/libft.a
 .PHONY: all clean fclean re bonus
