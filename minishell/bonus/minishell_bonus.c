@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   minishell_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/04/02 21:06:23 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+//#include "minishell.h"
 
-void	change_dir(char ***env, char *to)
+# include "./parsing/parser_bonus.h"
+
+int	main(int argc, char **argv, char **envp)
 {
-	char	*pwd;
-	char	*path;
+	char	**env;
 
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	createclone(&env, envp);
+	//readinputs(&input);
+	//expand_id("$PWD$PWD ", env);
+	unset_env(&env, "SHELL");
+	showenv(env);
+	return (0);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _pwd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 17:24:56 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:10:35 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+//#include "../minishell.h"
 /**
  * @brief Get the path object
  * 

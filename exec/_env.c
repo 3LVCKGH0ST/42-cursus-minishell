@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _env.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 17:24:43 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:10:22 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+//#include "../minishell.h"
 
 void	showenv(char **envp)
 {

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   ast_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/30 17:55:58 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+#include "ast_bonus.h"
 
-void	change_dir(char ***env, char *to)
+t_ast	*init_ast(t_type_node type)
 {
-	char	*pwd;
-	char	*path;
+	t_ast	*ast;
 
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
+	ast = malloc(sizeof(t_ast));
+	ast->type = type;
+	ast->args = NULL;
+	ast->redir = NULL;
+	ast->children = NULL;
+	ast->right = NULL;
+	ast->left = NULL;
+	ast->value = NULL;
+	return (ast);
 }

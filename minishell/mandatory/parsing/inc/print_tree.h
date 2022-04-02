@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   print_tree.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/30 19:28:40 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/01 19:23:45 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+#ifndef PRINT_TREE_H
+# define PRINT_TREE_H
+# include "parser.h"
+# include "../../../libft/libft.h"
+# include "../../../double_linked_list/double_linked_list.h"
 
-void	change_dir(char ***env, char *to)
-{
-	char	*pwd;
-	char	*path;
-
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
-}
+void	print_tree(t_ast *ast);
+void	print_tree_id(t_ast *ast);
+void	print_tree_redir(t_ast *ast);
+void	print_tree_list(t_ast *ast);
+void	print_tree_pipline(t_ast *ast);
+void	print_tree_op(t_ast *ast);
+#endif

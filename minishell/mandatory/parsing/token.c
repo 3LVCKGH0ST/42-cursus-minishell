@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 11:39:02 by asouinia          #+#    #+#             */
+/*   Updated: 2022/03/31 15:24:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+#include "./inc/token.h"
 
-void	change_dir(char ***env, char *to)
+t_token	*init_token(char *value, t_e_token type)
 {
-	char	*pwd;
-	char	*path;
+	t_token	*tmp;
 
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
+	tmp = malloc(sizeof(t_token));
+	if (!tmp)
+		return (NULL);
+	tmp->type = type;
+	tmp->value = value;
+	return (tmp);
+}
+
+void	free_token(void *token)
+{
+	t_token	*tmp;
+
+	if (token)
+	{
+		tmp = (t_token *)token;
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp);
+	}
 }

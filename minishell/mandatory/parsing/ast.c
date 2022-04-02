@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/02 21:14:33 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+#include "./inc/ast.h"
 
-void	change_dir(char ***env, char *to)
+t_ast	*ast_init_ast(t_type_node type)
 {
-	char	*pwd;
-	char	*path;
+	t_ast	*ast;
 
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
+	ast = (t_ast *)malloc(sizeof(t_ast));
+	if (!ast)
+		return (NULL);
+	ast->type = type;
+	ast->args = NULL;
+	ast->redir = NULL;
+	ast->children = NULL;
+	ast->left = NULL;
+	ast->right = NULL;
+	ast->child = NULL;
+	ast->value = NULL;
+	ast->type_token = 0;
+	return (ast);
 }

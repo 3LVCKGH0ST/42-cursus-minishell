@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _cd.c                                              :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 21:10:50 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/01 22:54:14 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/02 02:33:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
+#ifndef STRUCTS_H
+# define STRUCTS_H
+//# include "../../libft/libft.h"
+# include "../../double_linked_list/double_linked_list.h"
+# include "../parsing/inc/token.h"
 
-void	change_dir(char ***env, char *to)
+typedef struct s_redir		
 {
-	char	*pwd;
-	char	*path;
+	t_e_token		type;
+	int				fd;
+	char			*file;
+}	t_redir;
 
-	(void)to;
-	pwd = get_path(*env);
-	addenv(&(*env), "OLDPWD", pwd);
-	chdir(to);
-	path = getcwd(NULL, 0);
-	addenv(&(*env), "PWD", path);
-	free(path);
-}
+typedef struct		s_cmd
+{
+	char			**args;
+	int				inout[2];
+	int				*pipefd;
+	t_d_list		*redir_in;
+	t_d_list		*redir_out;
+}					t_cmd;
+
+
+#endif
