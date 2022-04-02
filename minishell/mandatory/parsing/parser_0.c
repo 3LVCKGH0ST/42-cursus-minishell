@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/01 21:17:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:31:15 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,19 @@ t_ast		*parser_parse_pipeline(t_parser *parser)
 {
 	t_ast	*ast;
 
+	printf("WOHOOOOOOO\n");
 	ast = ast_init_ast(AST_PIPELINE);
-	ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
+	if (parser->token->type == TOKEN_LPAREN)
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_paren(parser)));
+	else		
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
 	while (parser->token->type == TOKEN_PIPE)
 	{
 		parser_parser_advance(parser, TOKEN_PIPE);
-		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
+		if (parser->token->type == TOKEN_LPAREN)
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_paren(parser)));
+		else		
+			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
 	}
 	return (ast);
 }

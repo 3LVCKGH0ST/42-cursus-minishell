@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 21:13:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:23:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
 	if (*lst)
 	{
 		last = ft_d_lstlast(*lst);
+		newnode->prev = last->prev;
 		last->next = newnode;
-		newnode->prev = last;
 	}
 	else
 	{
-		newnode->prev = NULL;
 		*lst = newnode;
 	}
 }
@@ -104,7 +103,7 @@ t_d_list *get_tree_builder_pipline(t_ast *ast)
 		if (((t_ast *)tmp->content)->type == AST_PIPELINE)
 			ft_d_lstadd_back_v2(&build, get_tree_builder_pipline((t_ast *)tmp->content));
 		else if (((t_ast *)tmp->content)->type == AST_OP)
-			ft_d_lstadd_back(&build, ft_d_lstnew(get_tree_builder_op((t_ast *)tmp->content)));
+			ft_d_lstadd_back(&build, get_tree_builder_op((t_ast *)tmp->content));
 		else
 			ft_d_lstadd_back(&build, ft_d_lstnew(get_tree_builder_list((t_ast *)tmp->content)));
 		tmp = tmp->next;
