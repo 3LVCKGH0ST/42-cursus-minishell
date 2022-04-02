@@ -1,10 +1,10 @@
 NAME		:= minishell
-SRC			:=   handlers.c  strings.c minishell.c parse.c quotes.c ./strings/ft_strdup_v2.c multipipes.c  here_doc_check.c  split_spaces.c _echo.c _env.c _env_utils.c _pwd.c
+SRC			:=   handlers.c  strings.c minishell.c parse.c quotes.c ./strings/ft_strdup_v2.c multipipes.c  here_doc_check.c  split_spaces.c _echo.c _env.c _env_utils.c _pwd.c handlvar.c
 SRCB		:=  
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address
+FLAGS		:= -Wall -Wextra -Werror # -g -fsanitize=address
 LIBFTDIR	:= ./libft/
 LIBFT		:= ./libft/libft.a
 .PHONY: all clean fclean re bonus

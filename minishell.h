@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 21:14:46 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 00:50:41 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,6 @@ void	createclone(char ***to, char **from);
 char	*exportval(char *key, char *val);
 int		handldup(char ***env, char *key, char *val);
 int		getlenenv(char	**env);
+char	*expand_id(char	*str, char **env);
+void	chartostr(char **str, char c);
 #endif
