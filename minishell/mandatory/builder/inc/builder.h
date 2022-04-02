@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 01:36:30 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 02:37:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,9 @@ t_builder	*get_tree_builder_list(t_ast *ast);
 t_redir		*get_tree_builder_redir(t_ast *ast);
 char		*get_tree_builder_id(t_ast *ast);
 void		ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode);
+void		print_builder(t_d_list *build);
+void		print_builder_pipline(t_d_list *build);
+void		print_builder_op(t_builder *build);
+
 
 #endif

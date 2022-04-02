@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 01:20:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 02:43:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ int	main(int argc, char **argv)
 	t_parser	*parser;
 	t_ast		*ast;
 	//t_token		*token;
-	lexer = lexer_init_lexer("  echo \"hello world\"  ");
+	lexer = lexer_init_lexer("  ls   || asdasd  ");
 	//lexer = lexer_init_lexer("(\"ls\") '||' cat >s | ((wc || ss) && sss) ");
 	//lexer = lexer_init_lexer("'");
 	parser = parser_init_parser(lexer);
 	ast = parser_parse(parser);
-	print_tree(ast);
-	printf("\n");
+	t_d_list	*builder;
+
+	builder = get_tree_builder(ast);
+	print_builder(builder);
+	//print_tree(ast);
+	//printf("\n");
 	//token = lexer_next_token(lexer);
 	//while (token->type != TOKEN_EOF)
 	//{

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:54:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/01 23:07:00 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 02:33:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 # define STRUCTS_H
 //# include "../../libft/libft.h"
 # include "../../double_linked_list/double_linked_list.h"
-typedef enum e_redir_types
-{
-	R_IN,
-	R_HEREDOC,
-	R_OUT,
-	R_OUTAPPEND
-}						t_redir_types;
+# include "../parsing/inc/token.h"
 
 typedef struct s_redir		
 {
-	t_redir_types	type;
+	t_e_token		type;
 	int				fd;
 	char			*file;
 }	t_redir;

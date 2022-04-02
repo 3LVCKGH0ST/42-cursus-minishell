@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/31 20:07:31 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 02:26:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 # include <unistd.h>
 # include "../parsing/inc/parser.h"
 # include "../parsing/inc/print_tree.h"
+# include "../builder/inc/builder.h"
 
 #endif

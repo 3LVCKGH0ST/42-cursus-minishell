@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 01:36:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 02:51:15 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_builder *get_tree_builder_list(t_ast *ast)
 	build->cmd = malloc(sizeof(t_cmd));
 	build->cmd->redir_in = NULL;
 	build->cmd->redir_out = NULL;
-	build->cmd->args = malloc(sizeof(char *) * (ft_d_list_size(tmp) + 1));
-	build->cmd->args[ft_d_list_size(tmp)] = NULL;
+	build->cmd->args = malloc(sizeof(char *) * (ft_d_lstsize(tmp) + 1));
+	build->cmd->args[ft_d_lstsize(tmp)] = NULL;
 	while (tmp)
 	{
 		build->cmd->args[i++] = get_tree_builder_id((t_ast *)tmp->content);
@@ -66,8 +66,10 @@ t_redir	*get_tree_builder_redir(t_ast *ast)
 {
 	t_redir	*redir;
 
+	redir = malloc(sizeof(t_redir));
 	redir->type = ast->type_token;
 	redir->file = get_tree_builder_id(ast->child);
+	return (redir);
 }
 
 void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
@@ -91,9 +93,10 @@ void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
 
 t_d_list *get_tree_builder_pipline(t_ast *ast)
 {
-	t_d_list	*tmp;
+	t_d_list	*tmp; 
 	t_d_list	*build;
 
+	printf("dasdasdasdasdasd\n");
 	build = NULL;
 	tmp = ast->children;
 	while (tmp)
@@ -106,6 +109,7 @@ t_d_list *get_tree_builder_pipline(t_ast *ast)
 			ft_d_lstadd_back(&build, ft_d_lstnew(get_tree_builder_list((t_ast *)tmp->content)));
 		tmp = tmp->next;
 	}
+	return (build);
 }
 
 t_builder	*get_tree_builder_op(t_ast *ast)
@@ -114,6 +118,8 @@ t_builder	*get_tree_builder_op(t_ast *ast)
 
 	build = (t_builder *)malloc(sizeof(t_builder));
 
+	printf("%p\n", ast->left);
+	printf("%p\n", ast->right);
 	if (ast->type_token == TOKEN_AND)
 		build->type = B_AND;
 	if (ast->type_token == TOKEN_OR)
