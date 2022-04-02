@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 00:30:19 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 01:36:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ typedef struct	s_builder
 
 t_d_list	*get_tree_builder(t_ast *ast);
 t_d_list	*get_tree_builder_pipline(t_ast *ast);
-t_d_list	*get_tree_builder_op(t_ast *ast);
+t_builder	*get_tree_builder_op(t_ast *ast);
 t_builder	*get_tree_builder_list(t_ast *ast);
 t_redir		*get_tree_builder_redir(t_ast *ast);
 char		*get_tree_builder_id(t_ast *ast);
+void		ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode);
+
 #endif
