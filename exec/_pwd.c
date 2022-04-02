@@ -6,11 +6,11 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 16:39:56 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:24:56 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 /**
  * @brief Get the path object
  * 

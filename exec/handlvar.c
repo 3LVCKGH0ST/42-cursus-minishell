@@ -6,11 +6,11 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 01:38:02 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:25:21 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	chartostr(char **str, char c)
 {
@@ -42,7 +42,7 @@ int	skipsinglequotes(char **tmp, char *str, int i)
 void	varreplcae(char	**tmp, char *cmd, char **env)
 {
 	char	*t;
-	int	i;
+	int		i;
 
 	i = -1;
 	while (env[++i])

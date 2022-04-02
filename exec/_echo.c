@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _echo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/03/28 14:14:18 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:24:23 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 /**
  * @brief 
@@ -53,6 +53,7 @@ int	getfrom(char *str, int i)
  * @param i 
  * @return int 
  */
+
 int	withnewline(char *str, int i)
 {
 	while (str[++i])

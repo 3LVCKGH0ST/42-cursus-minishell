@@ -6,11 +6,11 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:01:11 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/01 21:42:55 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:24:33 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	startwith(char *s1, char *s2)
 {
