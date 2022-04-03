@@ -13,6 +13,7 @@ PARSING		:=	./mandatory/parsing/ast.c \
 				./mandatory/parsing/token.c	\
 
 BUILDER		:=	./mandatory/builder/builder_0.c \
+				./mandatory/builder/builder_1.c \
 				./mandatory/builder/print_builder.c \
 
 EXECUTION	:=
