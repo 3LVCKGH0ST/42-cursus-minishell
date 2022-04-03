@@ -6,24 +6,37 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 00:44:14 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:07:21 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder.h"
 
-t_d_list	*get_tree_builder(t_ast *ast)
+t_d_list	*builder_build(t_ast *ast)
 {
 	if (ast == NULL)
 		return (NULL);
 	else if (ast->type == AST_PIPELINE)
-		return (get_tree_builder_pipline(ast));
+		return (builder_build_pipline(ast));
 	else if (ast->type == AST_OP)
-		return (get_tree_builder_op(ast));
+		return (builder_build_op(ast));
 	return (NULL);
 }
 
-t_builder	*get_tree_builder_list(t_ast *ast)
+static void	builder_list_builder_inter(t_d_list *tmp, t_builder *build)
+{
+	if (((t_ast *)tmp->content)->type_token == TOKEN_RIN)
+		ft_d_lstadd_back(&(build->cmd->redir_in), \
+		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content)));
+	else if (((t_ast *)tmp->content)->type_token == TOKEN_DRIN)
+		ft_d_lstadd_back(&(build->cmd->redir_in), \
+		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content)));
+	else
+		ft_d_lstadd_back(&(build->cmd->redir_out), \
+		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content)));
+}
+
+t_builder	*builder_build_list(t_ast *ast)
 {
 	t_d_list	*tmp;
 	t_builder	*build;
@@ -31,46 +44,34 @@ t_builder	*get_tree_builder_list(t_ast *ast)
 
 	i = 0;
 	tmp = ast->args;
-	build = (t_builder *)malloc(sizeof(t_builder));
-	build->type = B_CMD;
-	build->cmd = malloc(sizeof(t_cmd));
-	build->cmd->redir_in = NULL;
-	build->cmd->redir_out = NULL;
+	build = builder_init_builder(B_CMD);
 	build->cmd->args = malloc(sizeof(char *) * (ft_d_lstsize(tmp) + 1));
 	build->cmd->args[ft_d_lstsize(tmp)] = NULL;
 	while (tmp)
 	{
-		build->cmd->args[i++] = get_tree_builder_id((t_ast *)tmp->content);
+		build->cmd->args[i++] = builder_build_id((t_ast *)tmp->content);
 		tmp = tmp->next;
 	}
 	tmp = ast->redir;
 	while (tmp)
 	{
-		if (((t_ast *)tmp->content)->type_token == TOKEN_RIN)
-			ft_d_lstadd_back(&(build->cmd->redir_in), \
-			ft_d_lstnew(get_tree_builder_redir((t_ast *)tmp->content)));
-		else if (((t_ast *)tmp->content)->type_token == TOKEN_DRIN)
-			ft_d_lstadd_back(&(build->cmd->redir_in), \
-			ft_d_lstnew(get_tree_builder_redir((t_ast *)tmp->content)));
-		else
-			ft_d_lstadd_back(&(build->cmd->redir_out), \
-			ft_d_lstnew(get_tree_builder_redir((t_ast *)tmp->content)));
+		builder_list_builder_inter(tmp, build);
 		tmp = tmp->next;
 	}
 	return (build);
 }
 
-char	*get_tree_builder_id(t_ast *ast)
+char	*builder_build_id(t_ast *ast)
 {
 	return (ast->value);
 }
 
-t_redir	*get_tree_builder_redir(t_ast *ast)
+t_redir	*builder_build_redir(t_ast *ast)
 {
 	t_redir	*redir;
 
 	redir = malloc(sizeof(t_redir));
 	redir->type = ast->type_token;
-	redir->file = get_tree_builder_id(ast->child);
+	redir->file = builder_build_id(ast->child);
 	return (redir);
 }
