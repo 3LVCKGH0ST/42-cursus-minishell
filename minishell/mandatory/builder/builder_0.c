@@ -6,12 +6,18 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:07:21 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:19:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder.h"
 
+/**
+ * @brief 	will build a Linked List of t_builder from a ast tree
+ * 
+ * @param ast 
+ * @return t_d_list* 
+ */
 t_d_list	*builder_build(t_ast *ast)
 {
 	if (ast == NULL)
@@ -23,6 +29,12 @@ t_d_list	*builder_build(t_ast *ast)
 	return (NULL);
 }
 
+/**
+ * @brief will add the redirection to the right Linked List
+ * 
+ * @param tmp 
+ * @param build 
+ */
 static void	builder_list_builder_inter(t_d_list *tmp, t_builder *build)
 {
 	if (((t_ast *)tmp->content)->type_token == TOKEN_RIN)
@@ -36,6 +48,12 @@ static void	builder_list_builder_inter(t_d_list *tmp, t_builder *build)
 		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content)));
 }
 
+/**
+ * @brief will add the args to cmd and set redirections
+ * 
+ * @param ast 
+ * @return t_builder* 
+ */
 t_builder	*builder_build_list(t_ast *ast)
 {
 	t_d_list	*tmp;
@@ -61,11 +79,24 @@ t_builder	*builder_build_list(t_ast *ast)
 	return (build);
 }
 
+/**
+ * @brief will ger value of AST_ID and expand it
+ * 
+ * @param ast
+ * @return char* 
+ */
 char	*builder_build_id(t_ast *ast)
 {
-	return (ast->value);
+	return (builder_expand_id(ast->value, g_env));
 }
 
+/**
+ * @brief will return a redirection struct with value and type set from
+ * 			AST_REDIR tree
+ * 
+ * @param ast 
+ * @return t_redir* 
+ */
 t_redir	*builder_build_redir(t_ast *ast)
 {
 	t_redir	*redir;

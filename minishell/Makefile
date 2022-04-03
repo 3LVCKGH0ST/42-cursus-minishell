@@ -14,6 +14,7 @@ PARSING		:=	./mandatory/parsing/ast.c \
 
 BUILDER		:=	./mandatory/builder/builder_0.c \
 				./mandatory/builder/builder_1.c \
+				./mandatory/builder/builder_expand.c \
 				./mandatory/builder/print_builder.c \
 
 EXECUTION	:=

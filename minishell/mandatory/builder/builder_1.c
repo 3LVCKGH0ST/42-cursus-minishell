@@ -6,12 +6,18 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:06:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:33:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder.h"
 
+/**
+ * @brief initializes a new builder
+ * 
+ * @param type 
+ * @return t_builder* 
+ */
 t_builder	*builder_init_builder(t_builder_type type)
 {
 	t_builder	*builder;
@@ -36,22 +42,36 @@ t_builder	*builder_init_builder(t_builder_type type)
 	return (builder);
 }
 
+/**
+ * @brief will append a list to another list
+ * 			 unlike ft_d_lstadd_back that add only one node
+ * 
+ * @param lst 
+ * @param newnode list to append
+ */
 void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
 {
 	t_d_list	*last;
 
 	if (!newnode)
 		exit(15);
+	printf(" wwwww w wwwww\n");
 	if (*lst)
 	{
 		last = ft_d_lstlast(*lst);
-		newnode->prev = last->prev;
+		newnode->prev = last;
 		last->next = newnode;
 	}
 	else
 		*lst = newnode;
 }
 
+/**
+ * @brief will build a Linked List of t_builder from a ast tree AST_PIPELINE
+ * 
+ * @param ast 
+ * @return t_d_list* 
+ */
 t_d_list	*builder_build_pipline(t_ast *ast)
 {
 	t_d_list	*tmp;
@@ -72,6 +92,12 @@ t_d_list	*builder_build_pipline(t_ast *ast)
 	return (build);
 }
 
+/**
+ * @brief will build a Linked List of t_builder from a ast tree AST_OP
+ * 
+ * @param ast 
+ * @return t_d_list* 
+ */
 t_d_list	*builder_build_op(t_ast *ast)
 {
 	t_builder	*build;
