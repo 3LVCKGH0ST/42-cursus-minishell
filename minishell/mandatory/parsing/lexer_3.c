@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:09:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:15:43 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:54:48 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ t_token	*lexer_next_token(t_lexer *lexer)
 		else
 			return (lexer_next_token_extra(lexer));
 	}
-	return (init_token(ft_strdup("'\\n'"), TOKEN_EOF));
+	return (lexer_set_token(lexer, "'\\n'", TOKEN_EOF));
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:33:00 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 13:51:33 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
 
 	if (!newnode)
 		exit(15);
-	printf(" wwwww w wwwww\n");
 	if (*lst)
 	{
 		last = ft_d_lstlast(*lst);
@@ -83,6 +82,9 @@ t_d_list	*builder_build_pipline(t_ast *ast)
 	{
 		if (((t_ast *)tmp->content)->type == AST_PIPELINE)
 			ft_d_lstadd_back_v2(&build, \
+			builder_build_pipline((t_ast *)tmp->content));
+		else if (((t_ast *)tmp->content)->type == AST_OP)
+			ft_d_lstadd_back(&build, \
 			builder_build_op((t_ast *)tmp->content));
 		else
 			ft_d_lstadd_back(&build, \
