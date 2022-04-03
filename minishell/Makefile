@@ -4,10 +4,12 @@ PARSING		:=	./mandatory/parsing/ast.c \
 				./mandatory/parsing/lexer_0.c \
 				./mandatory/parsing/lexer_1.c \
 				./mandatory/parsing/lexer_2.c \
+				./mandatory/parsing/lexer_3.c \
 				./mandatory/parsing/parser_0.c \
 				./mandatory/parsing/parser_1.c \
 				./mandatory/parsing/parser_2.c \
-				./mandatory/parsing/print_tree.c \
+				./mandatory/parsing/print_tree_0.c \
+				./mandatory/parsing/print_tree_1.c \
 				./mandatory/parsing/token.c	\
 
 BUILDER		:=	./mandatory/builder/builder_0.c \

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 02:38:06 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 22:15:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	print_builder_pipline(t_d_list *build)
 
 void	print_builder_op(t_builder *build)
 {
-	printf("{\n");
+	//printf("{\n");
 	print_builder(build->left);
 	if (build->type == B_AND)
 		printf(" && ");
 	else
 		printf(" || ");
 	print_builder(build->right);
-	printf("}\n");
+	//printf("}\n");
 }
 
 void	print_builder(t_d_list *build)

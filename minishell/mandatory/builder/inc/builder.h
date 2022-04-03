@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 21:12:32 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:23:46 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ typedef enum e_builder_type {
 	B_AND,
 	B_OR,
 }	t_builder_type;
-
-
-typedef struct	s_builder
+typedef struct s_builder
 {
 	t_builder_type	type;
 	t_cmd			*cmd;
@@ -42,6 +40,5 @@ void		ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode);
 void		print_builder(t_d_list *build);
 void		print_builder_pipline(t_d_list *build);
 void		print_builder_op(t_builder *build);
-
 
 #endif

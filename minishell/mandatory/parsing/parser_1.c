@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/01 21:15:55 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:01:53 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_parser	*parser_init_parser(t_lexer *lexer)
 	return (parser);
 }
 
-t_token		*parser_parser_advance(t_parser *parser, t_e_token type)
+t_token	*parser_parser_advance(t_parser *parser, t_e_token type)
 {
 	if (parser->token->type == type)
 		parser->token = lexer_next_token(parser->lexer);
@@ -33,7 +33,7 @@ t_token		*parser_parser_advance(t_parser *parser, t_e_token type)
 	return (parser->token);
 }
 
-t_ast		*parser_parse(t_parser *parser)
+t_ast	*parser_parse(t_parser *parser)
 {
 	t_ast	*left;
 	t_ast	*ast;
@@ -52,41 +52,9 @@ t_ast		*parser_parse(t_parser *parser)
 	return (ast);
 }
 
-t_ast		*parser_parse_term(t_parser *parser)
+t_ast	*parser_parse_term(t_parser *parser)
 {
 	if (parser->token->type == TOKEN_LPAREN)
 		return (parser_parse_paren(parser));
 	return (parser_parse_pipeline(parser));
-}
-
-void		parser_syntax_error(char *token_value)
-{
-	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-	ft_putstr_fd(token_value, 2);
-	ft_putstr_fd("'\n", 2);
-	exit(EXIT_SYNTAX_ERROR);
-}
-
-int			is_redir(t_token *token)
-{
-	if (token->type == TOKEN_RIN)
-		return (1);
-	else if (token->type == TOKEN_DRIN)
-		return (1);
-	else if (token->type == TOKEN_ROUT)
-		return (1);
-	else if (token->type == TOKEN_DROUT)
-		return (1);
-	else
-		return (0);
-}
-
-int	is_op(t_token *token)
-{
-	if (token->type == TOKEN_AND)
-		return (1);
-	else if (token->type == TOKEN_OR)
-		return (1);
-	else
-		return (0);
 }

@@ -6,34 +6,37 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:17 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 21:31:15 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:03:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/parser.h"	
 
-t_ast		*parser_parse_pipeline(t_parser *parser)
+t_ast	*parser_parse_pipeline(t_parser *parser)
 {
 	t_ast	*ast;
 
-	printf("WOHOOOOOOO\n");
 	ast = ast_init_ast(AST_PIPELINE);
 	if (parser->token->type == TOKEN_LPAREN)
-		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_paren(parser)));
-	else		
-		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
+		ft_d_lstadd_back(&(ast->children), \
+		ft_d_lstnew(parser_parse_paren(parser)));
+	else
+		ft_d_lstadd_back(&(ast->children), \
+		ft_d_lstnew(parser_parse_list(parser)));
 	while (parser->token->type == TOKEN_PIPE)
 	{
 		parser_parser_advance(parser, TOKEN_PIPE);
 		if (parser->token->type == TOKEN_LPAREN)
-			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_paren(parser)));
-		else		
-			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(parser_parse_list(parser)));
+			ft_d_lstadd_back(&(ast->children), \
+			ft_d_lstnew(parser_parse_paren(parser)));
+		else
+			ft_d_lstadd_back(&(ast->children), \
+			ft_d_lstnew(parser_parse_list(parser)));
 	}
 	return (ast);
 }
 
-t_ast		*parser_parse_list(t_parser *parser)
+t_ast	*parser_parse_list(t_parser *parser)
 {
 	t_ast	*ast;
 	t_token	*token;
@@ -42,12 +45,15 @@ t_ast		*parser_parse_list(t_parser *parser)
 	token = parser->token;
 	if (token->type != TOKEN_ID && !is_redir(token))
 		parser_syntax_error(token->value);
-	while (token->type == TOKEN_ID || is_redir(token) || token->type == TOKEN_LPAREN)
+	while (token->type == TOKEN_ID || \
+	is_redir(token) || token->type == TOKEN_LPAREN)
 	{
 		if (token->type == TOKEN_ID)
-			ft_d_lstadd_back(&(ast->args), ft_d_lstnew(parser_parse_id(parser)));
+			ft_d_lstadd_back(&(ast->args), \
+			ft_d_lstnew(parser_parse_id(parser)));
 		else if (is_redir(token))
-			ft_d_lstadd_back(&(ast->redir), ft_d_lstnew(parser_parse_redir(parser)));
+			ft_d_lstadd_back(&(ast->redir), \
+			ft_d_lstnew(parser_parse_redir(parser)));
 		else
 		{
 			if (token->type == TOKEN_LPAREN)
@@ -59,7 +65,7 @@ t_ast		*parser_parse_list(t_parser *parser)
 	return (ast);
 }
 
-t_ast		*parser_parse_redir(t_parser *parser)
+t_ast	*parser_parse_redir(t_parser *parser)
 {
 	t_ast	*ast;
 	t_token	*token;
@@ -72,7 +78,7 @@ t_ast		*parser_parse_redir(t_parser *parser)
 	return (ast);
 }
 
-t_ast		*parser_parse_id(t_parser *parser)
+t_ast	*parser_parse_id(t_parser *parser)
 {
 	t_ast	*ast;
 	t_token	*token;
@@ -84,7 +90,7 @@ t_ast		*parser_parse_id(t_parser *parser)
 	return (ast);
 }
 
-t_ast		*parser_parse_paren(t_parser *parser)
+t_ast	*parser_parse_paren(t_parser *parser)
 {
 	t_ast	*ast;
 

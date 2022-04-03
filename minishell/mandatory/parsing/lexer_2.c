@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/01 16:14:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 23:16:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param type token type
  * @return t_token* will return the created token
  */
-static t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type)
+t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type)
 {
 	char	*str;
 	t_token	*token;
@@ -32,44 +32,6 @@ static t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type)
 	return (lexer_advance_w_token(lexer, token));
 }
 
-/**
- * @brief get the next token and advance the
- * 		 lexer if an unexpected char is found will exit
- * 
- * @param lexer 
- * @return t_token* return the next token
- */
-t_token	*lexer_next_token(t_lexer *lexer)
-{
-	while (lexer->c && lexer->i < ft_strlen(lexer->src))
-	{
-		if (lexer->c == ' ' || lexer->c == '\t')
-			lexer_skip_whitespace_lexer(lexer);
-		else if (lexer->c == '|' && lexer->cc == '|')
-			return (lexer_set_token(lexer, "||", TOKEN_OR));
-		else if (lexer->c == '&' && lexer->cc == '&')
-			return (lexer_set_token(lexer, "&&", TOKEN_AND));
-		else if (lexer->c == '>' && lexer->cc == '>')
-			return (lexer_set_token(lexer, ">>", TOKEN_DROUT));
-		else if (lexer->c == '<' && lexer->cc == '<')
-			return (lexer_set_token(lexer, "<<", TOKEN_DRIN));
-		else if (lexer->c == '(')
-			return (lexer_set_token(lexer, "(", TOKEN_LPAREN));
-		else if (lexer->c == ')')
-			return (lexer_set_token(lexer, ")", TOKEN_RPAREN));
-		else if (lexer->c == '|')
-			return (lexer_set_token(lexer, "|", TOKEN_PIPE));
-		else if (lexer->c == '>')
-			return (lexer_set_token(lexer, ">", TOKEN_ROUT));
-		else if (lexer->c == '<')
-			return (lexer_set_token(lexer, "<", TOKEN_RIN));
-		else if (!is_reserved_token(lexer->c))
-			return (lexer_collect_id(lexer));
-		else
-			lexer_syntax_error(to_str(lexer->c));
-	}
-	return (init_token(ft_strdup("'\\n'"), TOKEN_EOF));
-}
 /**
  * @brief Get the str quoted object
  * 
