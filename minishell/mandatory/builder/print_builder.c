@@ -6,11 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 22:15:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 00:42:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./inc/builder.h"
+#include "./inc/builder.h"
 
 void	print_builder_pipline(t_d_list *build)
 {
@@ -36,14 +36,12 @@ void	print_builder_pipline(t_d_list *build)
 
 void	print_builder_op(t_builder *build)
 {
-	//printf("{\n");
 	print_builder(build->left);
 	if (build->type == B_AND)
 		printf(" && ");
 	else
 		printf(" || ");
 	print_builder(build->right);
-	//printf("}\n");
 }
 
 void	print_builder(t_d_list *build)
@@ -52,7 +50,7 @@ void	print_builder(t_d_list *build)
 
 	if (!build)
 		return ;
-	b = (t_builder*)build->content;
+	b = (t_builder *)build->content;
 	if (b->type == B_CMD)
 		print_builder_pipline(build);
 	else if (b->type == B_OR || b->type == B_AND)
