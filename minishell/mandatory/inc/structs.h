@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:54:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 12:52:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 14:51:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_cmd
 {
 	char			**args;
 	int				inout[2];
-	int				*pipefd;
 	t_d_list		*redir_in;
 	t_d_list		*redir_out;
 }					t_cmd;

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:14:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:42:45 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	lexer_syntax_error(char *str)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
-	exit(EXIT_SYNTAX_ERROR);
 }
 
 /**
@@ -65,5 +64,4 @@ void	lexer_quote_error(char *str)
 	ft_putstr_fd("minishell: Unmatched quote `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
-	exit(EXIT_SYNTAX_ERROR);
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:16:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 16:47:05 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*get_str_quoted(char *prev, t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	if (lexer->c != quote)
-		lexer_quote_error(to_str(quote));
+		return (lexer_quote_error(to_str(quote)),NULL);
 	tmp1 = prev;
 	tmp2 = to_str(lexer->c);
 	prev = ft_strjoin(prev, tmp2);
@@ -90,6 +90,8 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 		free(tmp2);
 		if (lexer->c == '\'' || lexer->c == '"')
 			value = get_str_quoted(value, lexer);
+		if (!value)
+			return (NULL);
 		lexer_advance(lexer);
 	}
 	token = init_token(value, TOKEN_ID);

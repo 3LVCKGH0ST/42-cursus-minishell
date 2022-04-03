@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:19:31 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:06:05 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ typedef struct s_builder
 	t_cmd			*cmd;
 	t_d_list		*left;
 	t_d_list		*right;
+	int				*pipefd;
 }				t_builder;
 
 t_builder	*builder_init_builder(t_builder_type type);
-t_d_list	*builder_build(t_ast *ast);
-t_d_list	*builder_build_pipline(t_ast *ast);
-t_d_list	*builder_build_op(t_ast *ast);
-t_builder	*builder_build_list(t_ast *ast);
-t_redir		*builder_build_redir(t_ast *ast);
-char		*builder_build_id(t_ast *ast);
+t_d_list	*builder_build(t_ast *ast, char **env);
+t_d_list	*builder_build_pipline(t_ast *ast, char **env);
+t_d_list	*builder_build_op(t_ast *ast, char **env);
+t_builder	*builder_build_list(t_ast *ast, char **env);
+t_redir		*builder_build_redir(t_ast *ast, char **env);
+char		*builder_build_id(t_ast *ast, char **env);
 void		ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode);
 char		*builder_expand_id(char	*str, char **env);
 void		print_builder_pipline(t_d_list *build);
 void		print_builder_op(t_builder *build);
 void		print_builder(t_d_list *build);
 
-char		**g_env;
 #endif
