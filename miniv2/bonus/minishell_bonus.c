@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/03 18:33:47 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/02 21:06:23 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+//#include "minishell.h"
 
-//# include "./parsing/inc/token.h"
+# include "./parsing/parser_bonus.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_lexer		*lexer;
-	t_parser	*parser;
-	t_ast		*ast;
-	t_d_list	*builder;
+	char	**env;
 
-	g_env = envp;
 	(void)argc;
 	(void)argv;
-	lexer = lexer_init_lexer("(sadssss ss) (sss)");
-	parser = parser_init_parser(lexer);
-	ast = parser_parse(parser);
-	parser_parser_advance(parser, TOKEN_EOF);//? needed to hundle this "sadas asd )" unclosed parenthis
-	builder = builder_build(ast);
-	print_builder(builder);
-	ft_d_lstclear(&lexer->tokens, free_token);
-	//system("leaks minishell");
-	
+	(void)envp;
+	createclone(&env, envp);
+	//readinputs(&input);
+	//expand_id("$PWD$PWD ", env);
+	unset_env(&env, "SHELL");
+	showenv(env);
 	return (0);
 }
