@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/06 18:31:17 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 22:48:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	before_exec(char *str, char **envp)
 
 	lexer = lexer_init_lexer(str);
 	parser = parser_init_parser(lexer);
+	if (!parser)
+		return ;
 	ast = parser_parse(parser);
 	print_tree(ast);
 	//parser_parser_advance(parser, TOKEN_EOF);//? needed to hundle this "sadas asd )" unclosed parenthis
@@ -54,5 +56,6 @@ void	before_exec(char *str, char **envp)
 	//	printf("%d   %s\n", token->type,token->value);
 	//	token = lexer_next_token(lexer);
 	//}
-	printf("%d   \n", g_global.exit_code);
+	//printf("%d   \n", g_global.exit_code);
+	printf("\n");
 }

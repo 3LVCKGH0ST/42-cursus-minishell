@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/06 19:49:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 22:47:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_parser	*parser_init_parser(t_lexer *lexer)
 	if (!parser || !lexer)
 		return (NULL);
 	parser->lexer = lexer;
+	parser->token = lexer_next_token(lexer);
+	if (!parser->token)
+		return (NULL);
 	return (parser);
 }
 
@@ -32,8 +35,7 @@ t_token	*parser_parser_advance(t_parser *parser, t_e_token type)
 			return (NULL);		
 		return (parser->token);
 	}
-	parser_syntax_error(parser->token->value);
-	return (NULL);
+	return (parser_syntax_error(parser->token->value), NULL);
 }
 
 t_ast	*parser_parse(t_parser *parser)
@@ -50,17 +52,40 @@ t_ast	*parser_parse(t_parser *parser)
 	ast->type_token = parser->token->type;
 	if (parser->token->type == TOKEN_AND)
 	{
-		if (!parser_parser_advance(parser, TOKEN_AND));
+		if (!parser_parser_advance(parser, TOKEN_AND))
 			return (NULL);
 	}	
 	else if (parser->token->type == TOKEN_OR)
 	{
-		if (!parser_parser_advance(parser, TOKEN_OR));
+		if (!parser_parser_advance(parser, TOKEN_OR))
 			return (NULL);
 	}
 	ast->left = left;
 	ast->right = parser_parse(parser);
 	if (ast->right == NULL)
 		return (NULL);
+	return (ast);
+}
+
+t_ast	*parser_parse_term(t_parser *parser)
+{
+	if (parser->token->type == TOKEN_LPAREN)
+		return (parser_parse_paren(parser));
+	return (parser_parse_pipeline(parser));
+}
+
+t_ast	*parser_parse_paren(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if (!parser_parser_advance(parser, TOKEN_LPAREN))
+		return (NULL);
+	ast = parser_parse(parser);
+	if (ast == NULL)
+		return (NULL);
+	if (!parser_parser_advance(parser, TOKEN_RPAREN))
+		return (NULL);
+	if (parser->token->type == TOKEN_ID)
+		return (parser_syntax_error(parser->token->value), NULL);
 	return (ast);
 }

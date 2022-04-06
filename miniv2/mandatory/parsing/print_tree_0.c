@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:30:04 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/05 22:27:50 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 21:04:32 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_tree(t_ast *ast)
 		print_tree_id(ast);
 	else if (ast->type == AST_REDIR)
 		print_tree_redir(ast);
-	else if (ast->type == AST_LIST)
+	else if (ast->type == AST_LIST && ast)
 		print_tree_list(ast);
 	else if (ast->type == AST_PIPELINE)
 		print_tree_pipline(ast);
