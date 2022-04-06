@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/06 22:48:55 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 23:36:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell-0.0👌");
-		before_exec(str, envp);
+		if (str && str[0])
+			before_exec(str, envp);
+		free(str);
 	}
 	//system("leaks minishell");
 	return (0);
@@ -45,6 +47,14 @@ void	before_exec(char *str, char **envp)
 	if (!parser)
 		return ;
 	ast = parser_parse(parser);
+	if (g_global.exit_code == 0 && parser->token->type != TOKEN_EOF)
+	{
+		parser_syntax_error(parser->token->value);
+		g_global.exit_code = EXIT_SYNTAX_ERROR;
+		return ;
+	}
+	if (g_global.exit_code != 0)
+		return ;
 	print_tree(ast);
 	//parser_parser_advance(parser, TOKEN_EOF);//? needed to hundle this "sadas asd )" unclosed parenthis
 	//builder = builder_build(ast);
