@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:09:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:54:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:05:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_token	*lexer_next_token_extra(t_lexer *lexer)
 		return (lexer_set_token(lexer, ">", TOKEN_ROUT));
 	else if (lexer->c == '<')
 		return (lexer_set_token(lexer, "<", TOKEN_RIN));
-	else if (!is_reserved_token(lexer->c))
+	else if (!is_reserved_token(lexer))
 		return (lexer_collect_id(lexer));
 	else
 		lexer_syntax_error(to_str(lexer->c));

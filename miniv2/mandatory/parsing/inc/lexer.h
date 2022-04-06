@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:36:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:16:18 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:59:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../../libft/libft.h"
 # include "../../../double_linked_list/double_linked_list.h"
 # include "token.h"
-
+# include "../../inc/global.h"
 /**
  * @brief 	lexer is used to tokenize the input 
  * 			(iterate over the input && get all the tokens)
@@ -44,7 +44,7 @@ void	lexer_skip_whitespace_lexer(t_lexer *lexer);
 void	lexer_syntax_error(char *str);
 void	lexer_quote_error(char *str);
 char	*to_str(char c);
-int		is_reserved_token(char c);
+int		is_reserved_token(t_lexer *lexer);
 t_token	*lexer_set_token(t_lexer *lexer, char *value, t_e_token type);
 
 #endif

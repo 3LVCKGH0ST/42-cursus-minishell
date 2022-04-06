@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_0.c                                         :+:      :+:    :+:   */
+/*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/06 01:44:35 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/06 02:03:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/parser.h"
+#ifndef GLOBAL_H
+# define GLOBAL_H
+# define EXIT_SYNTAX_ERROR 258
 
-t_parser	*parser_init_parser(t_lexer *lexer)
+typedef	struct s_global
 {
-	t_parser	*parser;
+	int	exit_code;
+	
+}			t_global;
 
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser || !lexer)
-		return (NULL);
-	parser->lexer = lexer;
-	return (parser);
-}
+t_global	g_global;
+
+#endif

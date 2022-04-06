@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asouinia <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/03 12:30:34 by asouinia          #+#    #+#              #
-#    Updated: 2021/11/03 13:01:56 by asouinia         ###   ########.fr        #
+#    Updated: 2022/04/06 01:06:25 by asouinia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,11 @@ all: $(NAME)
 $(NAME): $(OBJ)
 
 %.o:%.c
-	gcc $(FLAGS) -c $< -I $(INCLUDE)
-	ar -rc $(NAME) $@
+	@gcc $(FLAGS) -c $< -I $(INCLUDE)
+	@ar -rc $(NAME) $@
 bonus: $(OBJB)
 clean:
-	rm -f $(OBJ) $(OBJB) 
+	@rm -f $(OBJ) $(OBJB) 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 re: fclean all

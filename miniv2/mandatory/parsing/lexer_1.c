@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:14:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:10:58 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ char	*to_str(char c)
  * @param c charachter
  * @return int *1* if reserved *0* if not
  */
-int	is_reserved_token(char c)
+int	is_reserved_token(t_lexer *lexer)
 {
-	if (ft_strchr("()<>;&| \t", c))
+	if (lexer->c == '&' && lexer->cc == '&')
+		return (1);
+	if (ft_strchr("()<>| \t", lexer->c))
 		return (1);
 	return (0);
 }
@@ -52,7 +54,7 @@ void	lexer_syntax_error(char *str)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
-	exit(EXIT_SYNTAX_ERROR);
+	g_global.exit_code = EXIT_SYNTAX_ERROR;
 }
 
 /**
@@ -65,5 +67,5 @@ void	lexer_quote_error(char *str)
 	ft_putstr_fd("minishell: Unmatched quote `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
-	exit(EXIT_SYNTAX_ERROR);
+	g_global.exit_code = EXIT_SYNTAX_ERROR;
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 15:21:23 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:14:36 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:22:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ t_lexer	*lexer_init_lexer(char *src)
 	lexer->src = src;
 	lexer->i = 0;
 	lexer->c = src[0];
+	if (lexer->c == '\0')
+		lexer->cc = '\0';
+	else
+		lexer->cc = src[1];
 	lexer->tokens = NULL;
 	return (lexer);
 }

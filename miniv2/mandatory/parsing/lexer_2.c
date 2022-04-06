@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 09:27:47 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 23:16:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 01:03:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_token	*lexer_collect_id(t_lexer *lexer)
 	t_token	*token;
 
 	value = to_str('\0');
-	while (lexer->c && !is_reserved_token(lexer->c))
+	while (lexer->c && !is_reserved_token(lexer))
 	{
 		tmp1 = value;
 		tmp2 = to_str(lexer->c);

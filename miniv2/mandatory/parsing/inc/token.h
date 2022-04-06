@@ -6,14 +6,13 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 22:25:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/02 22:55:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/06 02:03:42 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 # include "../../../libft/libft.h"
-# define EXIT_SYNTAX_ERROR 258
 
 typedef enum e_token {
 	TOKEN_ID,
