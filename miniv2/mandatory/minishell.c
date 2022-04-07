@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/06 23:36:49 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:42:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ void	before_exec(char *str, char **envp)
 	t_lexer		*lexer;
 	t_parser	*parser;
 	t_ast		*ast;
-	//t_d_list	*builder;
+	t_d_list	*builder;
 
 	g_global.exit_code = 0;
-	(void)envp;
 
 	lexer = lexer_init_lexer(str);
 	parser = parser_init_parser(lexer);
@@ -55,10 +54,10 @@ void	before_exec(char *str, char **envp)
 	}
 	if (g_global.exit_code != 0)
 		return ;
-	print_tree(ast);
+	//print_tree(ast);
 	//parser_parser_advance(parser, TOKEN_EOF);//? needed to hundle this "sadas asd )" unclosed parenthis
-	//builder = builder_build(ast);
-	//print_builder(builder);
+	builder = builder_build(ast, envp);
+	print_builder(builder);
 	//t_token		*token;
 	//token = lexer_next_token(lexer);
 	//while (token->type != TOKEN_EOF)

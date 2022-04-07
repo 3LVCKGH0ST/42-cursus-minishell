@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:51:33 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:46:21 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
  * @param ast 
  * @return t_d_list* 
  */
-t_d_list	*builder_build_pipline(t_ast *ast)
+t_d_list	*builder_build_pipline(t_ast *ast, char **env)
 {
 	t_d_list	*tmp;
 	t_d_list	*build;
@@ -82,13 +82,13 @@ t_d_list	*builder_build_pipline(t_ast *ast)
 	{
 		if (((t_ast *)tmp->content)->type == AST_PIPELINE)
 			ft_d_lstadd_back_v2(&build, \
-			builder_build_pipline((t_ast *)tmp->content));
+			builder_build_pipline((t_ast *)tmp->content, env));
 		else if (((t_ast *)tmp->content)->type == AST_OP)
 			ft_d_lstadd_back(&build, \
-			builder_build_op((t_ast *)tmp->content));
+			builder_build_op((t_ast *)tmp->content, env));
 		else
 			ft_d_lstadd_back(&build, \
-			ft_d_lstnew(builder_build_list((t_ast *)tmp->content)));
+			ft_d_lstnew(builder_build_list((t_ast *)tmp->content, env)));
 		tmp = tmp->next;
 	}
 	return (build);
@@ -100,7 +100,7 @@ t_d_list	*builder_build_pipline(t_ast *ast)
  * @param ast 
  * @return t_d_list* 
  */
-t_d_list	*builder_build_op(t_ast *ast)
+t_d_list	*builder_build_op(t_ast *ast, char **env)
 {
 	t_builder	*build;
 
@@ -109,7 +109,7 @@ t_d_list	*builder_build_op(t_ast *ast)
 		build->type = B_AND;
 	if (ast->type_token == TOKEN_OR)
 		build->type = B_OR;
-	build->left = builder_build(ast->left);
-	build->right = builder_build(ast->right);
+	build->left = builder_build(ast->left, env);
+	build->right = builder_build(ast->right, env);
 	return (ft_d_lstnew(build));
 }

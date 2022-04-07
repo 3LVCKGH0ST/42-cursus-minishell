@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/06 18:31:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:48:34 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../parsing/inc/parser.h"
 # include "../parsing/inc/lexer.h"
 # include "../parsing/inc/print_tree.h"
-//# include "../builder/inc/builder.h"
+# include "../builder/inc/builder.h"
 
 void	showenv(char **envp);
 void	addenv(char ***env, char *key, char *val);
