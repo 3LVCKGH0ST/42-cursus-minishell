@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/07 00:50:36 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:05:17 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_d_list	*builder_build(t_ast *ast, char **env)
  * @param tmp 
  * @param build 
  */
-static void	builder_list_builder_inter(t_d_list *tmp, t_builder *build, char **env)
+static void	builder_list_builder_inter(t_d_list *tmp, t_builder *build, \
+char **env)
 {
 	if (((t_ast *)tmp->content)->type_token == TOKEN_RIN)
 		ft_d_lstadd_back(&(build->cmd->redir_in), \

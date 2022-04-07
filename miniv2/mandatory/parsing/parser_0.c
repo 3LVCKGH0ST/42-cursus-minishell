@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/07 00:20:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:08:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_token	*parser_parser_advance(t_parser *parser, t_e_token type)
 	{
 		parser->token = lexer_next_token(parser->lexer);
 		if (parser->token == NULL)
-			return (NULL);		
+			return (NULL);
 		return (parser->token);
 	}
 	return (parser_syntax_error(parser->token->value), NULL);
@@ -69,8 +69,6 @@ t_ast	*parser_parse(t_parser *parser)
 
 t_ast	*parser_parse_term(t_parser *parser)
 {
-	//if (parser->token->type == TOKEN_LPAREN)
-	//	return (parser_parse_paren(parser));
 	return (parser_parse_pipeline(parser));
 }
 

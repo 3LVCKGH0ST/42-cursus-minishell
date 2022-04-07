@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/07 00:48:34 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:06:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char	*expand_id(char	*str, char **env);
 void	chartostr(char **str, char c);
 void	change_dir(char ***env, char *to);
 void	unset_env(char ***env, char	*key);
+void	before_exec(char *str, char **envp);
 
 #endif

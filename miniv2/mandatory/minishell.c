@@ -6,18 +6,16 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/07 00:57:49 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 02:07:58 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./inc/global.h"
-# include "inc/minishell.h"
-//# include "./parsing/inc/token.h"
-void	before_exec(char *str, char **envp);
+#include "inc/global.h"
+#include "inc/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	char *str;
+	char	*str;
 
 	(void)argc;
 	(void)argv;
@@ -28,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 			before_exec(str, envp);
 		free(str);
 	}
-	//system("leaks minishell");
 	return (0);
 }
 
@@ -40,9 +37,8 @@ void	before_exec(char *str, char **envp)
 	t_d_list	*builder;
 
 	g_global.exit_code = 0;
-
 	lexer = lexer_init_lexer(str);
-	if(!lexer)
+	if (!lexer)
 		return ;
 	parser = parser_init_parser(lexer);
 	if (!parser)
