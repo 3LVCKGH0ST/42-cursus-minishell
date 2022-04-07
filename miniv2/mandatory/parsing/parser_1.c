@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/06 22:45:27 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/07 00:21:56 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,20 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 	t_ast	*tmp;
 
 	ast = ast_init_ast(AST_PIPELINE);
-	tmp = parser_parse_list(parser);
-	if (!tmp)
-		return (NULL);
-	ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
+	if (parser->token->type == TOKEN_LPAREN)
+	{
+		tmp = parser_parse_paren(parser);
+		if (!tmp)
+			return (NULL);
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
+	}
+	else
+	{
+		tmp = parser_parse_list(parser);
+		if (!tmp)
+			return (NULL);
+		ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
+	}
 	while (parser->token->type == TOKEN_PIPE)
 	{
 		if (!parser_parser_advance(parser, TOKEN_PIPE))
@@ -36,7 +46,7 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 		else
 		{
 			tmp = parser_parse_list(parser);
-			if (!tmp && g_global.exit_code != 0)
+			if (!tmp)
 				return (NULL);
 			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
 		}
