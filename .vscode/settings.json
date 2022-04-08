@@ -13,6 +13,7 @@
 		"parser_bonus.h": "c",
 		"token_bonus.h": "c",
 		"print_tree.h": "c",
-		"global.h": "c"
+		"global.h": "c",
+		"builder.h": "c"
 	}
 }

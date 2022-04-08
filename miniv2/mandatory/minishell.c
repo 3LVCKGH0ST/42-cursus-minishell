@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/07 02:07:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 01:36:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+//void	f(void *s)
+//{
+//	printf("%s\n", ((t_token *)s)->value);
+//}
 
 void	before_exec(char *str, char **envp)
 {
@@ -54,5 +58,8 @@ void	before_exec(char *str, char **envp)
 		return ;
 	builder = builder_build(ast, envp);
 	print_builder(builder);
+	builder_free_builder(builder);
+	//ft_d_lstiter(lexer->tokens, &f);
+	ft_d_lstclear(&(lexer->tokens), free_token);
 	printf("\n");
 }

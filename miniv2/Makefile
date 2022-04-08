@@ -16,6 +16,7 @@ BUILDER		:=	./mandatory/builder/builder_0.c \
 				./mandatory/builder/builder_1.c \
 				./mandatory/builder/builder_expand.c \
 				./mandatory/builder/print_builder.c \
+				./mandatory/builder/free_builder.c\
 
 EXECUTION	:=
 
@@ -38,7 +39,7 @@ SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror  -g #-fsanitize=address 
 
 .PHONY: all clean fclean re bonus
 

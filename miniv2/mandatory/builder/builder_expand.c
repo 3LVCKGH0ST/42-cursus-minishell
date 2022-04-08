@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/07 00:50:49 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 01:03:53 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,36 @@ int	skipsinglequotes(char **tmp, char *str, int i)
 	return (i);
 }
 
-void	varreplcae(char	**tmp, char *cmd, char **env)
+void	varreplcae(char **tmp, char *cmd, char **env)
 {
 	char	*t;
 	int		i;
+	char	*c;
 
 	i = -1;
+	c = ft_strjoin(cmd, "=");
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], cmd, ft_strlen(cmd)) == 0)
+		if (ft_strncmp(env[i], c, ft_strlen(c)) == 0)
 		{
 			t = *tmp;
 			*tmp = ft_strjoin(*tmp, env[i] + ft_strlen(cmd) + 1);
+			free(c);
 			free(t);
 			return ;
 		}
 	}
+	free(c);
 }
 
 int	handlvar(char **tmp, char *str, char **env, int i)
 {
-	const char	*spchar = "'\"$ ";
-	char		*cmd;
-	int			f;
+	char	*cmd;
+	int		f;
 
 	i++;
 	f = i;
-	while (!ft_strchr(spchar, str[i]))
+	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	cmd = ft_substr(str, f, i - f);
 	varreplcae(&(*tmp), cmd, env);
@@ -74,7 +77,7 @@ int	handlvar(char **tmp, char *str, char **env, int i)
 	return (i);
 }
 
-char	*builder_expand_id(char	*str, char **env)
+char	*builder_expand_id(char *str, char **env)
 {
 	char	*tmp;
 	int		i;
@@ -88,6 +91,8 @@ char	*builder_expand_id(char	*str, char **env)
 			i = skipsinglequotes(&tmp, str, i);
 		else if (str[i] == '"')
 			continue ;
+		else if (str[i] == '$' && str[i + 1] == '$')
+			chartostr(&tmp, str[i]);
 		else if (str[i] == '$')
 			i = handlvar(&tmp, str, env, i);
 		else
