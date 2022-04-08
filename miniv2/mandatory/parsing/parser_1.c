@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/07 02:10:18 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 02:08:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_ast	*parser_parse_id(t_parser *parser)
 	if (!parser_parser_advance(parser, TOKEN_ID))
 		return (NULL);
 	ast = ast_init_ast(AST_ID);
-	ast->value = token->value;
+	ast->value = ft_strdup(token->value);
 	return (ast);
 }
 

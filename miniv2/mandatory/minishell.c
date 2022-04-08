@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/08 01:36:07 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 02:41:23 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("minishell-0.0👌");
 		if (str && str[0])
 			before_exec(str, envp);
+		printf("\n");
 		free(str);
 	}
 	return (0);
@@ -49,17 +50,25 @@ void	before_exec(char *str, char **envp)
 		return ;
 	ast = parser_parse(parser);
 	if (g_global.exit_code == 0 && parser->token->type != TOKEN_EOF)
-	{
 		parser_syntax_error(parser->token->value);
-		g_global.exit_code = EXIT_SYNTAX_ERROR;
+	if (g_global.exit_code != 0)
+	{
+		free_all(lexer, parser, ast, NULL);
 		return ;
 	}
-	if (g_global.exit_code != 0)
-		return ;
 	builder = builder_build(ast, envp);
 	print_builder(builder);
-	builder_free_builder(builder);
-	//ft_d_lstiter(lexer->tokens, &f);
+	free_all(lexer, parser, ast, builder);
+}
+void	free_all(t_lexer *lexer, t_parser *parser, t_ast *ast, t_d_list *builder)
+{
+	if (builder)
+		builder_free_builder(builder);
+	if (ast)
+		free_tree(ast);
 	ft_d_lstclear(&(lexer->tokens), free_token);
-	printf("\n");
+	if (lexer)
+		free(lexer);
+	if (parser)
+		free(parser);
 }
