@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/06 02:10:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:51:54 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	lexer_quote_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("'\n", 2);
 	g_global.exit_code = EXIT_SYNTAX_ERROR;
+	free(str);
 }

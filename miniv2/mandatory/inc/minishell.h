@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/08 02:31:23 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:15:05 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	chartostr(char **str, char c);
 void	change_dir(char ***env, char *to);
 void	unset_env(char ***env, char	*key);
 void	before_exec(char *str, char **envp);
-void	free_all(t_lexer *lexer, t_parser *parser, t_ast *ast, t_d_list *builder);
+void	free_all(t_lexer *lexer, t_parser *parser, \
+t_ast *ast, t_d_list *builder);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/07 02:08:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:14:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ t_ast	*parser_parse(t_parser *parser)
 	if (parser->token->type == TOKEN_AND)
 	{
 		if (!parser_parser_advance(parser, TOKEN_AND))
-			return (NULL);
+			return (free(ast), NULL);
 	}	
 	else if (parser->token->type == TOKEN_OR)
 	{
 		if (!parser_parser_advance(parser, TOKEN_OR))
-			return (NULL);
+			return (free(ast), NULL);
 	}
 	ast->left = left;
 	ast->right = parser_parse(parser);
 	if (ast->right == NULL)
-		return (NULL);
+		return (free_tree(ast->left), free(ast), NULL);
 	return (ast);
 }
 
@@ -82,8 +82,9 @@ t_ast	*parser_parse_paren(t_parser *parser)
 	if (ast == NULL)
 		return (NULL);
 	if (!parser_parser_advance(parser, TOKEN_RPAREN))
-		return (NULL);
+		return (free_tree(ast), NULL);
 	if (parser->token->type == TOKEN_ID)
-		return (parser_syntax_error(parser->token->value), NULL);
+		return (free_tree(ast), \
+		parser_syntax_error(parser->token->value), NULL);
 	return (ast);
 }

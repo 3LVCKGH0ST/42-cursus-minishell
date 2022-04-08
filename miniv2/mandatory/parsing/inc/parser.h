@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/01 19:30:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 16:49:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "./lexer.h"
 # include "../../../libft/libft.h"
 # include "./ast.h"
+# include "print_tree.h"
 
 typedef struct s_parser
 {

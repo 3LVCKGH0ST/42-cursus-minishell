@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 02:26:19 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 17:17:23 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	builder_free_builder_pipline(t_d_list *build)
 			while (((t_builder *)tmp->content)->cmd->args[++i])
 				free(((t_builder *)tmp->content)->cmd->args[i]);
 			free(((t_builder *)tmp->content)->cmd->args);
-			//if (((t_builder *)tmp->content)->cmd->pipefd)
-			//	free(((t_builder *)tmp->content)->cmd->pipefd);
-			builder_free_builder_redir(((t_builder *)tmp->content)->cmd->redir_in);
-			builder_free_builder_redir(((t_builder *)tmp->content)->cmd->redir_out);
+			builder_free_builder_redir(\
+			((t_builder *)tmp->content)->cmd->redir_in);
+			builder_free_builder_redir(\
+			((t_builder *)tmp->content)->cmd->redir_out);
 			free(((t_builder *)tmp->content)->cmd);
 		}
 		else
 			builder_free_builder_op((t_builder *)tmp->content);
-			free(((t_builder *)tmp->content));
+		free(((t_builder *)tmp->content));
 		tmp = tmp->next;
 	}
 	if (build)
