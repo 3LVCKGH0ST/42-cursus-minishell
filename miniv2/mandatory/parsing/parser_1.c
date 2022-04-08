@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 17:15:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:48:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 		{
 			tmp = parser_parse_paren(parser);
 			if (!tmp)
-				return (NULL);
+				return (free_tree(ast),NULL);
 			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
 		}
 		else
 		{
 			tmp = parser_parse_list(parser);
 			if (!tmp)
-				return (NULL);
+				return (free_tree(ast), NULL);
 			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
 		}
 	}
