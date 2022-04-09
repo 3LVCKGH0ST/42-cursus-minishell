@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 02:18:50 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 05:23:24 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ void	iter_builder(t_d_list *build)
 	if (b->type == B_CMD)
 		iter_builder_pipline(build);
 	else if (b->type == B_OR || b->type == B_AND)
-		iter_builder_op((t_builder *)build->content);
+	{
+		if (build->prev)
+			b->pipefd[0] = ((t_builder *)build->prev->content)->pipefd[0];
+		iter_builder_op(b);
+	}
 }

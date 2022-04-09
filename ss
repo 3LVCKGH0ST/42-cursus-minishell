@@ -1,0 +1,13 @@
+1
+12
+2
+4123
+Makefile
+bonus
+cat
+double_linked_list
+exec
+libft
+mandatory
+minishell
+ss
