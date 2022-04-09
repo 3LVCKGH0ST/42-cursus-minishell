@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 05:23:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:01:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ void	iter_builder_pipline(t_d_list *build)
 		i = -1;
 		if (((t_builder *)tmp->content)->type == B_CMD)
 		{
-			execute(tmp);
+			if (tmp->next)
+			{
+				if (pipe(((t_builder *)tmp->content)->pipefd) > 0)
+					execute(tmp);
+			}
+			else
+				execute(tmp);
 		}
 		else
 			iter_builder_op((t_builder *)tmp->content);
@@ -39,7 +45,7 @@ void	iter_builder_op(t_builder *build)
 		return ;
  	last = ft_d_lstlast(build->left);
 	((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
-	((t_builder *)last->content)->pipefd[0] = build->pipefd[0];
+	((t_builder *)build->left->content)->inout[0] = build->inout[0];
 	build->status = ((t_builder *)last->content)->status;
 	iter_builder(build->left);
 	build->status = ((t_builder *)last->content)->status;
@@ -47,16 +53,8 @@ void	iter_builder_op(t_builder *build)
 		(build->type == B_OR && build->status != 0))
 	{
 		last = ft_d_lstlast(build->right);
-		if (build->type == B_OR)
-		{
-			((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
-			((t_builder *)last->content)->pipefd[0] = build->pipefd[0];
-		}
-		else
-		{
-			((t_builder *)last->content)->pipefd[1] = 1;
-			((t_builder *)last->content)->pipefd[0] = -1;
-		}
+		((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
+		((t_builder *)build->left->content)->inout[0] = build->inout[0];
 		iter_builder(build->right);
 		build->status = ((t_builder *)last->content)->status;
 	}
@@ -74,7 +72,9 @@ void	iter_builder(t_d_list *build)
 	else if (b->type == B_OR || b->type == B_AND)
 	{
 		if (build->prev)
-			b->pipefd[0] = ((t_builder *)build->prev->content)->pipefd[0];
+		{
+			b->inout[0] = ((t_builder *)build->prev->content)->pipefd[0];
+		}
 		iter_builder_op(b);
 	}
 }

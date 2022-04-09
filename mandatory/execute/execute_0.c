@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 05:14:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:16:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,28 @@ void	execute(t_d_list *node)
 			cmd->inout[0] = ((t_redir *)ft_d_lstlast(cmd->redir_in)->content)->fd;
 		else if (node->prev)
 			cmd->inout[0] = ((t_builder *)node->prev->content)->pipefd[0];
+		else
+			cmd->inout[0] = ((t_builder *)node->content)->inout[0];
 		if (cmd->redir_out)
 			cmd->inout[1] = ((t_redir *)ft_d_lstlast(cmd->redir_out)->content)->fd;
-		printf("execute  %s\n", ( (t_builder *)node->content)->cmd->args[0]);
+		else if (node->next)
+			cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
+			//int i = -1;
+			//while (((t_builder *)node->content)->cmd->args[++i])
+			//{
+			//	printf(" {{{%s }}}\n", ((t_builder *)node->content)->cmd->args[i]);
+			//}
+			//printf("{{%p}}\n",cmd);
+			//printf("{{%p}}\n",cmd->args);
+			printf("{{%s}}\n",cmd->args[0]);
+		if (cmd && cmd->args && cmd->args[0])
+		{
+			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env);
+			waitpid(((t_builder *)node->content)->pid, &((t_builder *)node->content)->status, 0);
+		}
 	}
-	close_cmd_fds(node);
+	if (node->content)
+		close_cmd_fds(node);
 }
 
 int	open_in_files(t_d_list *node)

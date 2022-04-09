@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 02:18:37 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 17:25:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_builder	*builder_init_builder(t_builder_type type)
 		builder->cmd = NULL;
 	builder->pipefd[1] = 1;
 	builder->pipefd[0] = 0;
+	builder->inout[1] = 1;
+	builder->inout[0] = 0;
 	builder->status = 0;
 	return (builder);
 }

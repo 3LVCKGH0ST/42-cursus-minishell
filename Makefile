@@ -21,6 +21,7 @@ BUILDER		:=	./mandatory/builder/builder_0.c \
 				./mandatory/builder/free_builder.c\
 
 EXECUTION	:=	./mandatory/execute/execute_0.c \
+				./mandatory/execute/execute_1.c \
 				./mandatory/execute/iter_builder.c \
 
 PARSING_B	:= 	./bonus/parsing/ast_bonus.c \
