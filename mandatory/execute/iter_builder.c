@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 22:46:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:18:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ void	iter_builder_pipline(t_d_list *build)
 		i = -1;
 		if (((t_builder *)tmp->content)->type == B_CMD)
 		{
-			//while (((t_builder *)tmp->content)->cmd->args[++i])
-			//{
-			//	iterf(" %s ", ((t_builder *)tmp->content)->cmd->args[i]);
-			//}
-			//if (tmp->next)
-			//	iterf(" | ");
+			execute(tmp);
 		}
 		else
 			iter_builder_op((t_builder *)tmp->content);
@@ -38,12 +33,33 @@ void	iter_builder_pipline(t_d_list *build)
 
 void	iter_builder_op(t_builder *build)
 {
+	t_d_list	*last;
+
+	if (pipe(build->pipefd) == -1)
+		return ;
+ 	last = ft_d_lstlast(build->left);
+	((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
+	((t_builder *)last->content)->pipefd[0] = build->pipefd[0];
+	build->status = ((t_builder *)last->content)->status;
 	iter_builder(build->left);
-	if (build->type == B_AND)
-		//iterf(" && ");
-	else
-		//iterf(" || ");
-	iter_builder(build->right);
+	build->status = ((t_builder *)last->content)->status;
+	if ((build->type == B_AND && build->status == 0) ||
+		(build->type == B_OR && build->status != 0))
+	{
+		last = ft_d_lstlast(build->right);
+		if (build->type == B_OR)
+		{
+			((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
+			((t_builder *)last->content)->pipefd[0] = build->pipefd[0];
+		}
+		else
+		{
+			((t_builder *)last->content)->pipefd[1] = 1;
+			((t_builder *)last->content)->pipefd[0] = -1;
+		}
+		iter_builder(build->right);
+		build->status = ((t_builder *)last->content)->status;
+	}
 }
 
 void	iter_builder(t_d_list *build)

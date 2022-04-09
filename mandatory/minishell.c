@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/08 17:14:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:19:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	before_exec(char *str, char **envp)
 	}
 	builder = builder_build(ast, envp);
 	print_builder(builder);
+	printf("\n");
+	iter_builder(builder);
 	free_all(lexer, parser, ast, builder);
 }
 

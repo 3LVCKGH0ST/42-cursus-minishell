@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 01:28:21 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:18:42 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_builder
 	t_cmd			*cmd;
 	t_d_list		*left;
 	t_d_list		*right;
+	int				pipefd[2];
+	int				status;
 }				t_builder;
 
 t_builder	*builder_init_builder(t_builder_type type);
