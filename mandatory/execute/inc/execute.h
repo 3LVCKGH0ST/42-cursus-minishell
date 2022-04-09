@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 23:11:50 by asouinia          #+#    #+#             */
-/*   Updated: 2021/11/15 23:11:52 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/08 22:45:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# ifndef EXECUTE_H
+# define EXECUTE_H
+# include "../../builder/inc/builder.h"
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	t_list	*tmp;
+void	iter_builder_pipline(t_d_list *build);
+void	iter_builder_op(t_builder *build);
+void	iter_builder(t_d_list *build);
 
-	tmp = lst;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-}
+# endif

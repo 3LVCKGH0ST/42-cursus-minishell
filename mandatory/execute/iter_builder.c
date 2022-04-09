@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_builder.c                                    :+:      :+:    :+:   */
+/*   iter_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/03 13:27:07 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/08 22:46:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./inc/builder.h"
+#include "./inc/execute.h"
 
-void	print_builder_pipline(t_d_list *build)
+void	iter_builder_pipline(t_d_list *build)
 {
 	t_d_list	*tmp;
 	int			i;
@@ -23,28 +23,30 @@ void	print_builder_pipline(t_d_list *build)
 		i = -1;
 		if (((t_builder *)tmp->content)->type == B_CMD)
 		{
-			while (((t_builder *)tmp->content)->cmd->args[++i])
-			{
-				printf(" %s ", ((t_builder *)tmp->content)->cmd->args[i]);
-			}
+			//while (((t_builder *)tmp->content)->cmd->args[++i])
+			//{
+			//	iterf(" %s ", ((t_builder *)tmp->content)->cmd->args[i]);
+			//}
+			//if (tmp->next)
+			//	iterf(" | ");
 		}
 		else
-			print_builder_op((t_builder *)tmp->content);
+			iter_builder_op((t_builder *)tmp->content);
 		tmp = tmp->next;
 	}
 }
 
-void	print_builder_op(t_builder *build)
+void	iter_builder_op(t_builder *build)
 {
-	print_builder(build->left);
+	iter_builder(build->left);
 	if (build->type == B_AND)
-		printf(" && ");
+		//iterf(" && ");
 	else
-		printf(" || ");
-	print_builder(build->right);
+		//iterf(" || ");
+	iter_builder(build->right);
 }
 
-void	print_builder(t_d_list *build)
+void	iter_builder(t_d_list *build)
 {
 	t_builder	*b;
 
@@ -52,9 +54,7 @@ void	print_builder(t_d_list *build)
 		return ;
 	b = (t_builder *)build->content;
 	if (b->type == B_CMD)
-		print_builder_pipline(build);
+		iter_builder_pipline(build);
 	else if (b->type == B_OR || b->type == B_AND)
-		print_builder_op((t_builder *)build->content);
-	else
-		printf("ERROR print builder\n");
+		iter_builder_op((t_builder *)build->content);
 }
