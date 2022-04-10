@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 00:54:40 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 01:58:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	iter_builder_pipline(t_d_list *build)
 	t_d_list	*tmp;
 	int			i;
 
+	//printf("oen oen oen\n");
 	tmp = build;
 	while (tmp)
 	{
@@ -35,20 +36,25 @@ void	iter_builder_pipline(t_d_list *build)
 			iter_builder_op((t_builder *)tmp->content);
 		tmp = tmp->next;
 	}
-	wait(NULL);
-	wait(NULL);
-	wait(NULL);
-	wait(NULL);
+	tmp = build;
+	while (tmp)
+	{
+		if (((t_builder *)tmp->content)->type == B_CMD)
+		{
+			waitpid(((t_builder *)tmp->content)->pid, &((t_builder *)tmp->content)->status, 0);	
+		}
+		tmp = tmp->next;
+	}
 }
 
 void	iter_builder_op(t_builder *build)
 {
 	t_d_list	*last;
 
+	build->pid = -1;
 	if (pipe(build->pipefd) == -1)
 		return ;
- 	last = ft_d_lstlast(build->left);
-	 
+ 	last = ft_d_lstlast(build->left); 
 	((t_builder *)last->content)->pipefd[1] = build->pipefd[1];
 	((t_builder *)build->left->content)->inout[0] = build->inout[0];
 	build->status = ((t_builder *)last->content)->status;
