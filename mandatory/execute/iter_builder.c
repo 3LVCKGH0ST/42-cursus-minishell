@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 01:58:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 03:28:32 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	iter_builder_pipline(t_d_list *build)
 	tmp = build;
 	while (tmp)
 	{
-		if (((t_builder *)tmp->content)->type == B_CMD)
+		if (((t_builder *)tmp->content)->type == B_CMD && ((t_builder *)tmp->content)->pid >= 0)
 		{
 			waitpid(((t_builder *)tmp->content)->pid, &((t_builder *)tmp->content)->status, 0);	
 		}

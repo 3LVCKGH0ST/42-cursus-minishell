@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 00:51:49 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 03:29:41 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ void	execute(t_d_list *node)
 			//close(cmd->inout[0]);
 			//close(cmd->inout[1]);
 			//waitpid(((t_builder *)node->content)->pid, &((t_builder *)node->content)->status, 0);
-			if (node->next)
-				close(((t_builder *)node->content)->pipefd[1]);
-			 if (node->prev)
-				close(((t_builder *)node->prev->content)->pipefd[0]);
 		}
 	}
+	else
+		((t_builder *)node->content)->pid = -1;
+	if (node->next)
+		close(((t_builder *)node->content)->pipefd[1]);
+	if (node->prev)
+		close(((t_builder *)node->prev->content)->pipefd[0]);
 	if (node->content)
 		close_cmd_fds(node);
 }
