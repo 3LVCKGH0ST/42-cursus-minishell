@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 18:16:09 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 00:51:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,37 @@ void	execute(t_d_list *node)
 	if (open_in_files(node))
 	{
 		open_out_files(node);
-		cmd = node->content;
+		cmd = ((t_builder *)node->content)->cmd;
+		//printf("{%s}{%p}{%p}\n",((t_builder *)node->content)->cmd->args[0], node->next,cmd->redir_out);
 		if (cmd->redir_in)
 			cmd->inout[0] = ((t_redir *)ft_d_lstlast(cmd->redir_in)->content)->fd;
 		else if (node->prev)
+		{
 			cmd->inout[0] = ((t_builder *)node->prev->content)->pipefd[0];
+			//printf("({%d})", ((t_builder *)node->prev->content)->pipefd[0]);
+		}
 		else
 			cmd->inout[0] = ((t_builder *)node->content)->inout[0];
 		if (cmd->redir_out)
+		{
+			//printf("{%s}\n", ((t_builder *)node->content)->cmd->args[0]);			
 			cmd->inout[1] = ((t_redir *)ft_d_lstlast(cmd->redir_out)->content)->fd;
+		}
 		else if (node->next)
+		{
 			cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
-			//int i = -1;
-			//while (((t_builder *)node->content)->cmd->args[++i])
-			//{
-			//	printf(" {{{%s }}}\n", ((t_builder *)node->content)->cmd->args[i]);
-			//}
-			//printf("{{%p}}\n",cmd);
-			//printf("{{%p}}\n",cmd->args);
-			printf("{{%s}}\n",cmd->args[0]);
-		if (cmd && cmd->args && cmd->args[0])
+		}
+		//printf("pipes  {%d}{%d} {%s}\n", ((t_builder *)node->content)->pipefd[0], ((t_builder *)node->content)->pipefd[1] , cmd->args[0]);
+		if (cmd->args && cmd->args[0])
 		{
 			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env);
-			waitpid(((t_builder *)node->content)->pid, &((t_builder *)node->content)->status, 0);
+			//close(cmd->inout[0]);
+			//close(cmd->inout[1]);
+			//waitpid(((t_builder *)node->content)->pid, &((t_builder *)node->content)->status, 0);
+			if (node->next)
+				close(((t_builder *)node->content)->pipefd[1]);
+			 if (node->prev)
+				close(((t_builder *)node->prev->content)->pipefd[0]);
 		}
 	}
 	if (node->content)
@@ -80,7 +88,7 @@ int	open_out_files(t_d_list *node)
 	t_redir		*redir_tmp;
 	char		*tmp_str;
 
-	tmp = ((t_builder *)node->content)->cmd->redir_in;
+	tmp = ((t_builder *)node->content)->cmd->redir_out;
 	while (tmp)
 	{
 		redir_tmp = tmp->content;
@@ -109,7 +117,7 @@ void	open_here_doc(t_d_list *node)
 	{
 		redir_tmp = tmp->content;
 		if (redir_tmp->type == TOKEN_DRIN)
-			here_doc_run(redir_tmp);
+			redir_tmp->fd = here_doc_run(redir_tmp);
 		tmp = tmp->next;
 	}
 }
@@ -117,6 +125,7 @@ void	open_here_doc(t_d_list *node)
 int	here_doc_run(t_redir *here_doc)
 {
 	char		*str;
+	char		*tmp;
 	int			fd[2];
 
 	if (pipe(fd) < 0)
@@ -124,8 +133,10 @@ int	here_doc_run(t_redir *here_doc)
 	str = readline(">");
 	while (ft_strncmp(here_doc->file, str, ft_strlen(here_doc->file)))
 	{
-		ft_putstr_fd(str, fd[1]);
+		tmp = ft_strjoin(str, "\n");
+		ft_putstr_fd(tmp, fd[1]);
 		free(str);
+		free(tmp);
 		str = readline(">");
 	}
 	free(str);

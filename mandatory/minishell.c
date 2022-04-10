@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/09 17:54:32 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/09 23:37:10 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	g_global.env = envp;
 	while (1)
 	{
-		str = readline("minishell-0.0👌");
+		str = readline("minishell-0.0👌: ");
 		if (str && str[0])
 			before_exec(str, envp);
-		printf("\n");
 		free(str);
 	}
 	return (0);
@@ -58,8 +57,8 @@ void	before_exec(char *str, char **envp)
 		return ;
 	}
 	builder = builder_build(ast, envp);
-	print_builder(builder);
-	printf("\n");
+	//print_builder(builder);
+	//printf("\n");
 	iter_builder(builder);
 	free_all(lexer, parser, ast, builder);
 }

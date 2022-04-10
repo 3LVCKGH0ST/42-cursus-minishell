@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 17:57:00 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 00:51:57 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,14 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	i = -1;
 	while (all_paths && all_paths[++i])
 	{
+		//printf("{%s} {%s}\n", all_paths[i],cmd);
 		path = ft_strjoin(all_paths[i], cmd);
+		//printf("{%s} {%s}\n", all_paths[i],cmd);
 		if (access(path, X_OK) == 0)
+		{
+			//printf("{%s} {%s}\n", all_paths[i],cmd);
 			return (path);
+		}
 		free(path);
 	}
 	return (cmd);
@@ -91,6 +96,7 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	char	*str;
 
 	str = get_cmd_full_path(envp, cmd->args[0]);
+	//printf("{%s}\n", str);
 	if (access(str, X_OK) < 0)
 	{
 		write(2, "minishell: ", 13);
@@ -99,9 +105,11 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 		write(2, "\n", 1);
 		exit(COMMAND_NOT_FOUND_ERROR);
 	}
-	execve(str, cmd->args, envp);
-	perror("minishell:");
-	exit(errno);
+	if (execve(str, cmd->args, envp) == -1)
+	{
+		perror("minishell:asdasd");
+		exit(errno);		
+	}
 }
 
 int	exec_cmmand(t_cmd *cmd, char **env)
@@ -118,11 +126,12 @@ int	exec_cmmand(t_cmd *cmd, char **env)
 	{
 		if (dup2(cmd->inout[0], 0) < 0 || dup2(cmd->inout[1], 1) < 0)
 		{
-			perror("minishell:");
+			perror("minishell");
 			exit(errno);
 		}
-		close(cmd->inout[0]);
-		close(cmd->inout[1]);
+		//printf("inout  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
+		//close(cmd->inout[0]);
+		//close(cmd->inout[1]);
 		exec_inter(cmd, env);
 	}
 	return (pid);
