@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/09 23:37:10 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 03:00:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		if (str && str[0])
 			before_exec(str, envp);
 		free(str);
+		system("leaks minishell");
 	}
 	return (0);
 }
@@ -60,6 +61,7 @@ void	before_exec(char *str, char **envp)
 	//print_builder(builder);
 	//printf("\n");
 	iter_builder(builder);
+	//free_all(lexer, parser, ast, NULL);
 	free_all(lexer, parser, ast, builder);
 }
 

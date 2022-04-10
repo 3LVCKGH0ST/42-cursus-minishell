@@ -43,7 +43,7 @@ SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror  -g #-fsanitize=address 
 
 .PHONY: all clean fclean re bonus
 
