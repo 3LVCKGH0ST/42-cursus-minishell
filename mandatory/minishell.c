@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/10 03:30:04 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 04:18:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		str = readline("minishell-0.0👌: ");
-		if (str && str[0])
+		if (!str)
+			return (0);
+		if (str[0])
 			before_exec(str, envp);
 		free(str);
 		//system("leaks minishell");
