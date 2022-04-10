@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 00:51:57 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 07:59:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,9 @@ char	**get_paths(char **envp)
 	paths[0] = ft_strjoin(tmp, "/");
 	free(tmp);
 	while (result[++i])
-	{
 		paths[i] = ft_strjoin(result[i], "/");
-	}
 	free_2d(result);
+	paths[i] = NULL;
 	return (paths);
 }
 
@@ -78,14 +77,9 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	i = -1;
 	while (all_paths && all_paths[++i])
 	{
-		//printf("{%s} {%s}\n", all_paths[i],cmd);
 		path = ft_strjoin(all_paths[i], cmd);
-		//printf("{%s} {%s}\n", all_paths[i],cmd);
 		if (access(path, X_OK) == 0)
-		{
-			//printf("{%s} {%s}\n", all_paths[i],cmd);
 			return (path);
-		}
 		free(path);
 	}
 	return (cmd);
@@ -96,10 +90,9 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	char	*str;
 
 	str = get_cmd_full_path(envp, cmd->args[0]);
-	//printf("{%s}\n", str);
 	if (access(str, X_OK) < 0)
 	{
-		write(2, "minishell: ", 13);
+		write(2, "minishell: ", 12);
 		write(2, str, ft_strlen(str));
 		write(2, ": command not found", 20);
 		write(2, "\n", 1);
@@ -107,7 +100,7 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	}
 	if (execve(str, cmd->args, envp) == -1)
 	{
-		perror("minishell:asdasd");
+		perror("minishell:");
 		exit(errno);		
 	}
 }

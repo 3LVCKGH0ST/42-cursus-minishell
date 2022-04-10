@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 02:59:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/10 08:05:12 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ void	builder_free_builder_pipline(t_d_list *build)
 			builder_free_builder_redir(\
 			((t_builder *)tmp->content)->cmd->redir_out);
 			free(((t_builder *)tmp->content)->cmd);
+			free(((t_builder *)tmp->content));
 		}
 		else
 			builder_free_builder_op((t_builder *)tmp->content);
-		if (((t_builder *)tmp->content))
-			free(((t_builder *)tmp->content));
 		tmp1 = tmp;
 		tmp = tmp->next;
 		free(tmp1);
