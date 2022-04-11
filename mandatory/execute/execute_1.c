@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/11 08:14:35 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:19:34 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,20 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 			write(2, "minishell: ", 12);
 			write(2, cmd->args[0], ft_strlen(cmd->args[0]));
 			write(2, ": command not found\n", 21);
-			exit(COMMAND_NOT_FOUND_ERROR);
+			exit(127);
 		}
 	}
 	if (access(str, X_OK) || opendir(str))
 	{
 		write(2, "minishell: ", 12);
 		write(2, str, ft_strlen(str));
-		if (access(str, X_OK))
+		if (access(str, F_OK))
+			write(2, ": No such file or directory\n", 29);
+		else if (access(str, X_OK))
 			write(2, ": Permission denied\n", 21);
 		else
 			write(2, ": command not found\n", 21);
-		exit(COMMAND_NOT_FOUND_ERROR);
+		exit(127);
 	}
 	if (execve(str, cmd->args, envp) == -1)
 	{

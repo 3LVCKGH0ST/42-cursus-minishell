@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/10 04:18:00 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:21:28 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	main(int argc, char **argv, char **envp)
 	g_global.env = envp;
 	while (1)
 	{
-		str = readline("minishell-0.0👌: ");
+		g_global.exit_code = 0;
+		str = readline("minishell-👌: ");
 		if (!str)
 			return (0);
 		if (str[0])
 			before_exec(str, envp);
+		g_global.prev_exit_code = g_global.exit_code;
 		free(str);
 		//system("leaks minishell");
 	}
@@ -44,7 +46,6 @@ void	before_exec(char *str, char **envp)
 	t_ast		*ast;
 	t_d_list	*builder;
 
-	g_global.exit_code = 0;
 	lexer = lexer_init_lexer(str);
 	if (!lexer)
 		return ;
@@ -57,12 +58,16 @@ void	before_exec(char *str, char **envp)
 	if (g_global.exit_code != 0)
 	{
 		free_all(lexer, parser, ast, NULL);
+		//fprintf(stderr, "test\n");
+		//fprintf(stdout, "test\n");
 		return ;
 	}
 	builder = builder_build(ast, envp);
 	//print_builder(builder);
 	//printf("\n");
 	iter_builder(builder);
+	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status % 255;
+	//printf("{}{}{%d}\n",((t_builder *)(ft_d_lstlast(builder)->content))->status % 255);
 	//free_all(lexer, parser, ast, NULL);
 	free_all(lexer, parser, ast, builder);
 }

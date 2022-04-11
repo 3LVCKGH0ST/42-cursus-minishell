@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 17:54:08 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 21:25:20 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef struct s_global
 {
 	int		exit_code;
+	int		prev_exit_code;
 	char	**env;
 }t_global;
 t_global	g_global;

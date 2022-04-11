@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 17:51:19 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 21:13:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,4 @@ void		builder_free_builder_redir(t_d_list *redir);
 void		builder_free_builder_pipline(t_d_list *build);
 void		builder_free_builder_op(t_builder *build);
 void		builder_free_builder(t_d_list *build);
-
-char		**g_env;
 #endif

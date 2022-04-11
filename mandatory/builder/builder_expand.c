@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/08 01:03:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 21:26:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,19 @@ char	*builder_expand_id(char *str, char **env)
 	i = -1;
 	tmp = malloc(1);
 	tmp[0] = 0;
+	//printf("{%d}\n", g_global.exit_code);
 	while (str[++i])
 	{
 		if (str[i] == '\'')
 			i = skipsinglequotes(&tmp, str, i);
 		else if (str[i] == '"')
 			continue ;
+		else if (str[i] == '$' && str[i + 1] == '?')
+		{
+			tmp = ft_strjoin(tmp, ft_itoa(g_global.prev_exit_code));
+			i++;
+			continue ;
+		}
 		else if (str[i] == '$' && str[i + 1] == '$')
 			chartostr(&tmp, str[i]);
 		else if (str[i] == '$')
