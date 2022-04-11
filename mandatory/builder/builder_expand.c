@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/11 21:26:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 22:26:15 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int	handlvar(char **tmp, char *str, char **env, int i)
 char	*builder_expand_id(char *str, char **env)
 {
 	char	*tmp;
+	char	*tmp1[2];
 	int		i;
 
 	i = -1;
 	tmp = malloc(1);
 	tmp[0] = 0;
-	//printf("{%d}\n", g_global.exit_code);
 	while (str[++i])
 	{
 		if (str[i] == '\'')
@@ -94,7 +94,11 @@ char	*builder_expand_id(char *str, char **env)
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
-			tmp = ft_strjoin(tmp, ft_itoa(g_global.prev_exit_code));
+			tmp1[0] = tmp;
+			tmp1[1] = ft_itoa(g_global.prev_exit_code);
+			tmp = ft_strjoin(tmp, tmp1[1]);
+			free(tmp1[0]);
+			free(tmp1[1]);
 			i++;
 			continue ;
 		}
