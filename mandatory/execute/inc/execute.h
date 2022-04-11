@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 17:52:33 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 06:22:06 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	close_cmd_fds(t_d_list *node);
 char	*get_env_var(char **envp, char *env_var);
 char	**get_paths(char **envp);
 char	*get_cmd_full_path(char **envp, char *cmd);
-int		exec_cmmand(t_cmd *cmd, char **env);
+int		exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in);
 
 # endif

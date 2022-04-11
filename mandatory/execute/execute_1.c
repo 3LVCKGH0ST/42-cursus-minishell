@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 07:59:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 06:34:31 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	while (all_paths && all_paths[++i])
 	{
 		path = ft_strjoin(all_paths[i], cmd);
-		if (access(path, X_OK) == 0)
+		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
 	}
@@ -105,7 +105,7 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	}
 }
 
-int	exec_cmmand(t_cmd *cmd, char **env)
+int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 {
 	int		pid;
 
@@ -122,9 +122,11 @@ int	exec_cmmand(t_cmd *cmd, char **env)
 			perror("minishell");
 			exit(errno);
 		}
-		//printf("inout  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
+		//printf("inout exec  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
 		//close(cmd->inout[0]);
 		//close(cmd->inout[1]);
+		if (fd_pipe_in)
+			close(fd_pipe_in);
 		exec_inter(cmd, env);
 	}
 	return (pid);

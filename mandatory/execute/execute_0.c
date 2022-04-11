@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/10 03:29:41 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 06:32:34 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	execute(t_d_list *node)
 	t_cmd	*cmd;
 
 	open_here_doc(node);
-	if (open_in_files(node))
+	if (open_in_files(node) && open_out_files(node))
 	{
-		open_out_files(node);
 		cmd = ((t_builder *)node->content)->cmd;
 		//printf("{%s}{%p}{%p}\n",((t_builder *)node->content)->cmd->args[0], node->next,cmd->redir_out);
 		if (cmd->redir_in)
@@ -40,21 +39,26 @@ void	execute(t_d_list *node)
 		{
 			cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
 		}
-		//printf("pipes  {%d}{%d} {%s}\n", ((t_builder *)node->content)->pipefd[0], ((t_builder *)node->content)->pipefd[1] , cmd->args[0]);
 		if (cmd->args && cmd->args[0])
 		{
-			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env);
+			//printf("pipes  {%d}{%d} {%s}\n", ((t_builder *)node->content)->pipefd[0], ((t_builder *)node->content)->pipefd[1] , cmd->args[0]);
+			//printf("inout  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
+			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env, ((t_builder *)node->content)->pipefd[0]);
 			//close(cmd->inout[0]);
-			//close(cmd->inout[1]);
 			//waitpid(((t_builder *)node->content)->pid, &((t_builder *)node->content)->status, 0);
 		}
 	}
 	else
 		((t_builder *)node->content)->pid = -1;
 	if (node->next)
+	{
 		close(((t_builder *)node->content)->pipefd[1]);
+	}
 	if (node->prev)
+	{
+		
 		close(((t_builder *)node->prev->content)->pipefd[0]);
+	}
 	if (node->content)
 		close_cmd_fds(node);
 }
