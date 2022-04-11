@@ -42,15 +42,14 @@ void	iter_builder_pipline(t_d_list *build)
 		}
 		tmp = tmp->next;
 	}
-	tmp = ft_d_lstlast(build);
+	tmp = build;
 	while (tmp)
 	{
-		//printf("waiting %d %s\n",((t_builder *)tmp->content)->pid, ((t_builder *)tmp->content)->cmd->args[0]);
 		if (((t_builder *)tmp->content)->type == B_CMD && ((t_builder *)tmp->content)->pid >= 0)
 		{
 			waitpid(((t_builder *)tmp->content)->pid, &((t_builder *)tmp->content)->status, 0);
 		}
-		tmp = tmp->prev;
+		tmp = tmp->next;
 	}
 }
 
@@ -72,9 +71,9 @@ void	iter_builder_op(t_builder *build)
 		((t_builder *)build->right->content)->inout[0] = build->inout[0];
 		iter_builder(build->right);
 		build->status = ((t_builder *)last->content)->status;
-		if (build->type == B_OR)
-			close(build->inout[1]);
 	}
+		//if (build->type == B_OR)
+		//	close(build->inout[1]);
 }
 
 void	iter_builder(t_d_list *build)
@@ -88,7 +87,6 @@ void	iter_builder(t_d_list *build)
 		iter_builder_pipline(build);
 	else if (b->type == B_OR || b->type == B_AND)
 	{
-		//printf("dup2  {%d}{%d}\n", b->inout[0], b->inout[1]);
 		b->inout[0] = 0;
 		b->inout[1] = 1;
 		if (build->prev)

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/11 06:34:31 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/11 08:14:35 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	while (all_paths && all_paths[++i])
 	{
 		path = ft_strjoin(all_paths[i], cmd);
-		if (access(path, F_OK) == 0)
+		if (!access(path, F_OK))
 			return (path);
 		free(path);
 	}
-	return (cmd);
+	return (NULL);
 }
 
 static void	exec_inter(t_cmd *cmd, char **envp)
@@ -90,12 +90,25 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	char	*str;
 
 	str = get_cmd_full_path(envp, cmd->args[0]);
-	if (access(str, X_OK) < 0)
+	if (!str)
+	{
+		str = cmd->args[0];
+		if ( cmd->args[0][0] != '/' && (cmd->args[0][0] != '.' || cmd->args[0][1] != '/'))
+		{
+			write(2, "minishell: ", 12);
+			write(2, cmd->args[0], ft_strlen(cmd->args[0]));
+			write(2, ": command not found\n", 21);
+			exit(COMMAND_NOT_FOUND_ERROR);
+		}
+	}
+	if (access(str, X_OK) || opendir(str))
 	{
 		write(2, "minishell: ", 12);
 		write(2, str, ft_strlen(str));
-		write(2, ": command not found", 20);
-		write(2, "\n", 1);
+		if (access(str, X_OK))
+			write(2, ": Permission denied\n", 21);
+		else
+			write(2, ": command not found\n", 21);
 		exit(COMMAND_NOT_FOUND_ERROR);
 	}
 	if (execve(str, cmd->args, envp) == -1)
@@ -122,10 +135,7 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 			perror("minishell");
 			exit(errno);
 		}
-		//printf("inout exec  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
-		//close(cmd->inout[0]);
-		//close(cmd->inout[1]);
-		if (fd_pipe_in)
+		if (fd_pipe_in > 0)
 			close(fd_pipe_in);
 		exec_inter(cmd, env);
 	}

@@ -16,6 +16,7 @@
 		"global.h": "c",
 		"builder.h": "c",
 		"errno.h": "c",
-		"err.h": "c"
+		"err.h": "c",
+		"dirent.h": "c"
 	}
 }
