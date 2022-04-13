@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/13 01:18:34 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/13 02:26:46 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ char	*builder_expand_id(char *str, char **env)
 	tmp[0] = 0;
 	while (str[++i])
 	{
-		if (str[i] == '"' || (str[i] == '\'' && str[0] == '\''))
+		if ((str[i] == '"' && str[0] != '\'') || \
+		(str[i] == '\'' && str[0] == '\''))
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
@@ -100,9 +101,9 @@ char	*builder_expand_id(char *str, char **env)
 			i++;
 			continue ;
 		}
-		else if (str[i] == '$' && str[i + 1] == '$')
+		else if (str[i] == '$' && str[i + 1] == '$' && str[0] != '\'')
 			chartostr(&tmp, str[i]);
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[0] != '\'')
 			i = handlvar(&tmp, str, env, i);
 		else
 			chartostr(&tmp, str[i]);
