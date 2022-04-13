@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builder_expand.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/11 22:26:15 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/13 01:18:34 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ char	*builder_expand_id(char *str, char **env)
 	tmp[0] = 0;
 	while (str[++i])
 	{
-		if (str[i] == '\'')
-			i = skipsinglequotes(&tmp, str, i);
-		else if (str[i] == '"')
+		if (str[i] == '"' || (str[i] == '\'' && str[0] == '\''))
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
