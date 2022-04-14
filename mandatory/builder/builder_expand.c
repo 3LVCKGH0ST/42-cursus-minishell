@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/13 00:04:55 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:22:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,8 @@ char	*builder_expand_id(char *str, char **env)
 	tmp[0] = 0;
 	while (str[++i])
 	{
-		if (str[i] == '\'')
-			i = skipsinglequotes(&tmp, str, i);
-		else if (str[i] == '"')
+		if ((str[i] == '"' && str[0] != '\'') || \
+		(str[i] == '\'' && str[0] == '\''))
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
@@ -104,9 +103,9 @@ char	*builder_expand_id(char *str, char **env)
 			i++;
 			continue ;
 		}
-		else if (str[i] == '$' && str[i + 1] == '$')
+		else if (str[i] == '$' && str[i + 1] == '$' && str[0] != '\'')
 			chartostr(&tmp, str[i]);
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[0] != '\'')
 			i = handlvar(&tmp, str, env, i);
 		else
 			chartostr(&tmp, str[i]);
