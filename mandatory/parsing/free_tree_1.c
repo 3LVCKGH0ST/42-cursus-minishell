@@ -20,6 +20,8 @@ void	free_tree_id(t_ast *ast)
 
 void	free_tree_redir(t_ast *ast)
 {
+	if (ast->fd > 0)
+		close(ast->fd);
 	free_tree(ast->child);
 	free(ast);
 }

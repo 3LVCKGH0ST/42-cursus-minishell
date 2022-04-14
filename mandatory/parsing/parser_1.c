@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/14 10:42:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:05:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	here_doc(char *limiter)
 	if (pipe(fd) < 0)
 	{
 		g_global.fd_error = errno;
+		g_global.fd_file_error = "";
 		return (-1);
 	}
 	str = readline(">");
@@ -106,7 +107,7 @@ t_ast	*parser_parse_redir(t_parser *parser)
 		}
 		else
 		{
-			if (access(ast->child->value, F_OK) || access(ast->child->value, W_OK))
+			if (token->type == TOKEN_RIN && (access(ast->child->value, F_OK) || access(ast->child->value, W_OK)))
 			{
 				g_global.fd_error = errno;
 				g_global.fd_file_error = ast->child->value;
@@ -119,7 +120,7 @@ t_ast	*parser_parse_redir(t_parser *parser)
 		//if (ast->fd < -1)
 		//	g_global.fd_error = errno;
 	}
-	if (token->type == TOKEN_DRIN)
+	else if (token->type == TOKEN_DRIN)
 		ast->fd = here_doc(ast->child->value);
 	return (ast);
 }
