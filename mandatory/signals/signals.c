@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/14 10:42:21 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/11 22:28:44 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/11 23:19:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
-# define EXIT_SYNTAX_ERROR 258
+#include "./inc/signals.h"
 
-typedef struct s_global
+void	signal_history(int sig)
 {
-	int		exit_code;
-	int		prev_exit_code;
-	int  	fd_error;
-	char	*fd_file_error;
-	char	**env;
-}t_global;
-t_global	g_global;
-#endif
+	(void)sig;
+	printf("{{ sig : %d}}\n", sig);
+}

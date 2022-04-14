@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 09:31:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 16:49:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:30:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../../../libft/libft.h"
 # include "./ast.h"
 # include "print_tree.h"
+# include <errno.h>
+# include <readline/readline.h>
 
 typedef struct s_parser
 {
@@ -35,5 +37,6 @@ t_ast		*parser_parse_paren(t_parser *parser);
 void		parser_syntax_error(char *token_value);
 int			is_redir(t_token *token);
 int			is_op(t_token *token);
+int			here_doc(char *limiter);
 
 #endif

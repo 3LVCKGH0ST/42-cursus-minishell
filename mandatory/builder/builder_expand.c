@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/11 22:26:15 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/13 00:04:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	chartostr(char **str, char c)
 
 int	skipsinglequotes(char **tmp, char *str, int i)
 {
-	while (str[++i])
+	i++;
+	while (str[i] && str[i])
 	{
 		if (str[i] == '\'')
 			break ;
 		chartostr(&(*tmp), str[i]);
+		i++;
 	}
 	return (i);
 }

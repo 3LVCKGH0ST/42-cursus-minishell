@@ -17,6 +17,8 @@
 		"builder.h": "c",
 		"errno.h": "c",
 		"err.h": "c",
-		"dirent.h": "c"
+		"dirent.h": "c",
+		"execute.h": "c",
+		"signal.h": "c"
 	}
 }

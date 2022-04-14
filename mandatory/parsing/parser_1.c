@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 18:48:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:42:38 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,31 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 	return (ast);
 }
 
+int	here_doc(char *limiter)
+{
+	char		*str;
+	char		*tmp;
+	int			fd[2];
+
+	if (pipe(fd) < 0)
+	{
+		g_global.fd_error = errno;
+		return (-1);
+	}
+	str = readline(">");
+	while (ft_strncmp(limiter, str, ft_strlen(limiter)))
+	{
+		tmp = ft_strjoin(str, "\n");
+		ft_putstr_fd(tmp, fd[1]);
+		free(str);
+		free(tmp);
+		str = readline(">");
+	}
+	free(str);
+	close(fd[1]);
+	return (fd[0]);
+}
+
 t_ast	*parser_parse_redir(t_parser *parser)
 {
 	t_ast	*ast;
@@ -67,6 +92,35 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	ast->child = parser_parse_id(parser);
 	if (!ast->child)
 		return (free_tree(ast), NULL);
+	if (!g_global.fd_error && token->type != TOKEN_DRIN)
+	{
+		if (token->type == TOKEN_RIN)
+		{
+			if (access(ast->child->value, F_OK) || access(ast->child->value, R_OK))
+			{
+				g_global.fd_error = errno;
+				g_global.fd_file_error = ast->child->value;
+			}
+			else
+				ast->fd = open(ast->child->value, O_RDONLY);
+		}
+		else
+		{
+			if (access(ast->child->value, F_OK) || access(ast->child->value, W_OK))
+			{
+				g_global.fd_error = errno;
+				g_global.fd_file_error = ast->child->value;
+			}
+			else if (token->type == TOKEN_ROUT)
+				ast->fd = open(ast->child->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else if (token->type == TOKEN_DROUT)
+				ast->fd = open(ast->child->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		}
+		//if (ast->fd < -1)
+		//	g_global.fd_error = errno;
+	}
+	if (token->type == TOKEN_DRIN)
+		ast->fd = here_doc(ast->child->value);
 	return (ast);
 }
 

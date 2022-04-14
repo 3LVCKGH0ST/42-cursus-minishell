@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/11 08:17:02 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:45:35 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,17 @@
 void	execute(t_d_list *node)
 {
 	t_cmd	*cmd;
+	char	*tmp;
 
-	if (open_here_doc(node) && open_in_files(node) && open_out_files(node))
+	((t_builder *)node->content)->pid = -1;
+	if (g_global.fd_error)
+	{
+		errno = g_global.fd_error;
+		tmp = ft_strjoin("minishell: ", g_global.fd_file_error);
+		perror(tmp);
+		free(tmp);
+	}
+	else
 	{
 		cmd = ((t_builder *)node->content)->cmd;
 		if (cmd->redir_in)
@@ -31,13 +40,9 @@ void	execute(t_d_list *node)
 			cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
 		if (cmd->args && cmd->args[0])
 		{
-			//printf("pipes  {%d}{%d} {%s}\n", ((t_builder *)node->content)->pipefd[0], ((t_builder *)node->content)->pipefd[1] , cmd->args[0]);
-			//printf("inout  {%d}{%d} {%s}\n", cmd->inout[0], cmd->inout[1] , cmd->args[0]);
 			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env, ((t_builder *)node->content)->pipefd[0]);
 		}
 	}
-	else
-		((t_builder *)node->content)->pid = -1;
 	if (node->next)
 		close(((t_builder *)node->content)->pipefd[1]);
 	if (node->prev)

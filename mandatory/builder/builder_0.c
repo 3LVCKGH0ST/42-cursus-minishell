@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 19:56:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 10:29:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_redir	*builder_build_redir(t_ast *ast, char **env)
 
 	redir = malloc(sizeof(t_redir));
 	redir->type = ast->type_token;
-	redir->fd = -1;
+	redir->fd = ast->fd;
 	redir->file = builder_build_id(ast->child, env);
 	return (redir);
 }

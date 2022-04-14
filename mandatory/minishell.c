@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/11 22:21:28 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:49:31 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	g_global.env = envp;
+	//signal(SIGUSR1, signal_history);
+	//signal(SIGUSR2, signal_history);
 	while (1)
 	{
 		g_global.exit_code = 0;
+		g_global.fd_error = 0;
 		str = readline("minishell-👌: ");
 		if (!str)
 			return (0);
 		if (str[0])
+		{
+			add_history(str);
 			before_exec(str, envp);
+		}
 		g_global.prev_exit_code = g_global.exit_code;
 		free(str);
 		//system("leaks minishell");
@@ -66,8 +72,10 @@ void	before_exec(char *str, char **envp)
 	//print_builder(builder);
 	//printf("\n");
 	iter_builder(builder);
-	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status % 255;
+	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status;
 	//printf("{}{}{%d}\n",((t_builder *)(ft_d_lstlast(builder)->content))->status % 255);
+	 if (WIFEXITED(g_global.exit_code))
+        g_global.exit_code = WEXITSTATUS(g_global.exit_code);
 	//free_all(lexer, parser, ast, NULL);
 	free_all(lexer, parser, ast, builder);
 }
