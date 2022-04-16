@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/12 20:49:31 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/16 23:55:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,45 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
 
 	(void)argc;
 	(void)argv;
-	g_global.env = envp;
-	//signal(SIGUSR1, signal_history);
-	//signal(SIGUSR2, signal_history);
+	createclone(&g_global.env, envp);
+	g_global.envp = envp;
+	//rl_newline(0,0);
+	//signal(SIGQUIT, signal_quit);
+	init_minishell();
+	return (0);
+}
+
+void	init_minishell()
+{
+	char	*str;
+
 	while (1)
 	{
-		g_global.exit_code = 0;
-		g_global.fd_error = 0;
+		signal(SIGINT, signal_init);
+		g_global.current_pid =  getpid() ;
 		str = readline("minishell-👌: ");
 		if (!str)
-			return (0);
+			continue ;
 		if (str[0])
 		{
 			add_history(str);
-			before_exec(str, envp);
+			signal(SIGINT, SIG_IGN);
+			g_global.exit_code = 0;
+			g_global.fd_error = 0;
+			before_exec(str, g_global.env);
+			//printf("{{%d}}\n",g_global.exit_code);
+			if (g_global.exit_code == 2)
+			{
+				write(1, "\n", 1);
+			}
 		}
 		g_global.prev_exit_code = g_global.exit_code;
 		free(str);
-		//system("leaks minishell");
 	}
-	return (0);
 }
-//void	f(void *s)
-//{
-//	printf("%s\n", ((t_token *)s)->value);
-//}
 
 void	before_exec(char *str, char **envp)
 {

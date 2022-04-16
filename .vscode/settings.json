@@ -19,6 +19,7 @@
 		"err.h": "c",
 		"dirent.h": "c",
 		"execute.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"signals.h": "c"
 	}
 }

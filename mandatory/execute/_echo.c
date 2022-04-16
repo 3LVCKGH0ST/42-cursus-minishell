@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _echo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:15:26 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/16 21:21:26 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute.h"
 
 /**
  * @brief 
@@ -91,9 +91,3 @@ void	ft_echo(char *str)
 	if (!c)
 		printf("\n");
 }
-
-//int	main(void)
-//{
-//	ft_echo(" -n -n -n -n -n -n -nnnnnn daf");
-//	return (0);
-//}

@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _pwd.c                                             :+:      :+:    :+:   */
+/*   strings.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:16:15 by mbalagui         ###   ########.fr       */
+/*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/04/02 22:18:06 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell/mandatory/inc/minishell.h"
 
-/**
- * @brief Get the path object
- * 
- * @param envp 
- * @return char* 
- */
-
-char	*get_path(char **envp)
+size_t	ft_strlen(const char *c)
 {
-	int		i;
+	size_t	len;
 
-	i = 0;
-	while (!ft_strnstr(envp[i], "PWD", 4))
-		i++;
-	return (envp[i] + 4);
+	len = 0;
+	while (c[len])
+		len++;
+	return (len);
+}
+
+int	skiplfspace(char *str, int index)
+{
+	while (str && str[index] == ' ')
+		index++;
+	return (index);
+}
+
+int	skiprtspace(char *str)
+{
+	int	index;
+
+	index = ft_strlen(str) - 1;
+	if (index < 0)
+		return (0);
+	while (str && str[index] == ' ')
+		index--;
+	return (index);
 }

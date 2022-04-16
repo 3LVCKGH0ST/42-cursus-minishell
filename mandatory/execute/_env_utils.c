@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _env_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:01:11 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:16:24 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/16 21:22:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute.h"
 
 int	startwith(char *s1, char *s2)
 {

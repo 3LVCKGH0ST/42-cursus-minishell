@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _pwd.c                                             :+:      :+:    :+:   */
+/*   _cd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:16:15 by mbalagui         ###   ########.fr       */
+/*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
+/*   Updated: 2022/04/16 21:21:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute.h"
 
-/**
- * @brief Get the path object
- * 
- * @param envp 
- * @return char* 
- */
-
-char	*get_path(char **envp)
+void	change_dir(char ***env, char *to)
 {
-	int		i;
+	char	*pwd;
+	char	*path;
 
-	i = 0;
-	while (!ft_strnstr(envp[i], "PWD", 4))
-		i++;
-	return (envp[i] + 4);
+	(void)to;
+	pwd = get_path(*env);
+	addenv(&(*env), "OLDPWD", pwd);
+	chdir(to);
+	path = getcwd(NULL, 0);
+	addenv(&(*env), "PWD", path);
+	free(path);
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/14 10:45:35 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:24:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,69 +74,6 @@ int	open_in_files(t_d_list *node)
 		tmp = tmp->next;
 	}
 	return (1);
-}
-
-int	open_out_files(t_d_list *node)
-{
-	t_d_list	*tmp;
-	t_redir		*redir_tmp;
-	char		*tmp_str;
-
-	tmp = ((t_builder *)node->content)->cmd->redir_out;
-	while (tmp)
-	{
-		redir_tmp = tmp->content;
-		if (redir_tmp->type == TOKEN_ROUT)
-			redir_tmp->fd = open(redir_tmp->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			redir_tmp->fd = open(redir_tmp->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (redir_tmp->fd < 0)
-		{
-			tmp_str = ft_strjoin("minishell: ", redir_tmp->file);
-			perror(tmp_str);
-			return (free(tmp_str), 0);
-		}
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int	open_here_doc(t_d_list *node)
-{
-	t_d_list	*tmp;
-	t_redir		*redir_tmp;
-
-	tmp = ((t_builder *)node->content)->cmd->redir_in;
-	while (tmp)
-	{
-		redir_tmp = tmp->content;
-		if (redir_tmp->type == TOKEN_DRIN)
-			redir_tmp->fd = here_doc_run(redir_tmp);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int	here_doc_run(t_redir *here_doc)
-{
-	char		*str;
-	char		*tmp;
-	int			fd[2];
-
-	if (pipe(fd) < 0)
-		return (-1);
-	str = readline(">");
-	while (ft_strncmp(here_doc->file, str, ft_strlen(here_doc->file)))
-	{
-		tmp = ft_strjoin(str, "\n");
-		ft_putstr_fd(tmp, fd[1]);
-		free(str);
-		free(tmp);
-		str = readline(">");
-	}
-	free(str);
-	close(fd[1]);
-	return (fd[0]);
 }
 
 void	close_cmd_fds(t_d_list *node)

@@ -24,6 +24,13 @@ EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/execute_1.c \
 				./mandatory/execute/iter_builder.c \
 				./mandatory/signals/signals.c \
+				./mandatory/execute/_cd.c \
+				./mandatory/execute/_echo.c \
+				./mandatory/execute/_env.c \
+				./mandatory/execute/_env_utils.c \
+				./mandatory/execute/_pwd.c \
+				./mandatory/execute/_unset.c \
+				./mandatory/execute/strings.c \
 
 PARSING_B	:= 	./bonus/parsing/ast_bonus.c \
 				./bonus/parsing/lexer_bonus.c \
@@ -43,14 +50,16 @@ SRC			:=  ./mandatory/minishell.c $(PARSING) $(BUILDER) $(EXECUTION)  $(DLINKEDL
 SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST)
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
+RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror  -g -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g -fsanitize=address 
+
 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(FLAGS) -lreadline $(OBJ) $(LIBFT) -o $(NAME) 
+	@$(CC)  $(FLAGS)  $(RDLINE) $(OBJ) $(LIBFT) -o $(NAME) 
 %.o: %.c
 	$(CC) $(FLAGS) -c $<  -o $@
 
