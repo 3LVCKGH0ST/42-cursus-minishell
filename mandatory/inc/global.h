@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/16 23:30:06 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 02:20:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_global
 	char	*fd_file_error;
 	char	**env;
 	char	**envp;
-	int		current_pid;
+	int		interupted;
 }t_global;
 t_global	g_global;
 #endif

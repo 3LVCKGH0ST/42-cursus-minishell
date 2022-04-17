@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/14 20:05:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:17:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	here_doc(char *limiter)
 	char		*str;
 	char		*tmp;
 	int			fd[2];
+	int			id;
+	int			status;
 
 	if (pipe(fd) < 0)
 	{
@@ -66,16 +68,34 @@ int	here_doc(char *limiter)
 		g_global.fd_file_error = "";
 		return (-1);
 	}
-	str = readline(">");
-	while (ft_strncmp(limiter, str, ft_strlen(limiter)))
+	id = fork();
+	if(id == 0)
 	{
-		tmp = ft_strjoin(str, "\n");
-		ft_putstr_fd(tmp, fd[1]);
-		free(str);
-		free(tmp);
+		//signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
 		str = readline(">");
+		while (!str || ft_strncmp(limiter, str, ft_strlen(limiter)))
+		{
+			tmp = ft_strjoin(str, "\n");
+			ft_putstr_fd(tmp, fd[1]);
+			free(str);
+			free(tmp);
+			str = readline(">");
+		}
+		free(str);
+		close(fd[1]);
+		close(fd[0]);
+		exit(0);
 	}
-	free(str);
+	else
+	{
+		waitpid(id, &status, 0);
+	}
+	if (status == 2)
+	{
+		//g_global.interupted = 1;
+		g_global.exit_code = 1;
+	}
 	close(fd[1]);
 	return (fd[0]);
 }

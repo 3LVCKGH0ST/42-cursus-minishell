@@ -48,6 +48,7 @@ void	iter_builder_pipline(t_d_list *build)
 		if (((t_builder *)tmp->content)->type == B_CMD && ((t_builder *)tmp->content)->pid >= 0)
 		{
 			waitpid(((t_builder *)tmp->content)->pid, &((t_builder *)tmp->content)->status, 0);
+			//printf("%d\n",((t_builder *)tmp->content)->status);
 		}
 		tmp = tmp->next;
 	}
