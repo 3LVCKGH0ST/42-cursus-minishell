@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/17 07:27:06 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 20:29:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ void	init_minishell()
 	while (1)
 	{
 		signal(SIGINT, signal_init);
+		
+		g_global.interupted = 0;
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
-			//rl_on_new_line();
-			//rl_replace_line("\n", 0);
-			//rl_redisplay();
-			//rl_reset_line_state ();
-			//rl_line_buffer = "\rminishell-👌: exit\n";
-			//rl_forced_update_display();
-			//str = readline("minishell-👌: ");
 			ft_putstr_fd("exit\n", 1);
+			//if (g_global.exit_code != 1 && g_global.prev_exit_code != 1)
+				//printf("\n");
+			//g_global.prev_exit_code = 0;
+			//g_global.exit_code = 0;
 			exit(0);
 		}
 		if (str[0])
@@ -55,30 +54,15 @@ void	init_minishell()
 			g_global.fd_error = 0;
 			g_global.here_docs = NULL;
 			signal(SIGINT, SIG_IGN);
-			//id = fork();
-			//if (id == 0)
-			//{
-				g_global.interupted = 0;
-				//signal(SIGINT, SIG_DFL);
-				before_exec(str, g_global.env);
-				if (g_global.interupted)
-					g_global.exit_code = 130;
-				//printf("1 - {{%d}}\n",g_global.exit_code);
-				//printf("1 - {{%d}}\n",g_global.prev_exit_code);
-				//g_global.exit_code = 55;
-	     		//g_global.exit_code = WEXITSTATUS(g_global.exit_code);
-				//exit(g_global.exit_code);
-			//}
-			//else
-				//waitpid(id, &g_global.exit_code, 0);
-			//printf("{{{{2}}}} - {{%d}}\n",g_global.exit_code);
-	 		//if (WIFEXITED(g_global.exit_code))
-        		//g_global.exit_code = WEXITSTATUS(g_global.exit_code);
-			//printf("{{{{3}}}} - {{%d}}\n",g_global.exit_code);
+			before_exec(str, g_global.env);
+			//printf("{{%d}}%s\n", g_global.exit_code, str);
+			if (g_global.interupted && g_global.exit_code == 2)
+				g_global.exit_code = 130;
+			//if (g_global.interupted && g_global.exit_code == 0)
+			//	write(1, "\n", 1);
+			//printf("{{%d}}%s\n", g_global.exit_code, str);
 			if (g_global.exit_code == 130)
-			{
 				write(1, "\n", 1);
-			}
 		}
 		g_global.prev_exit_code = g_global.exit_code;
 		free(str);
@@ -99,7 +83,6 @@ void	before_exec(char *str, char **envp)
 	if (!parser)
 		return ;
 	ast = parser_parse(parser);
-	//printf("ast: %d\n", g_global.exit_code);
 	if (g_global.exit_code == 0 && parser->token->type != TOKEN_EOF)
 		parser_syntax_error(parser->token->value);
 	loop_heredoc();
@@ -107,22 +90,15 @@ void	before_exec(char *str, char **envp)
 	{
 		ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
 		free_all(lexer, parser, ast, NULL);
-		//fprintf(stderr, "test\n");
-		//fprintf(stdout, "test\n");
-		//exit(g_global.exit_code);
 		return ;
 	}
 	builder = builder_build(ast, envp);
-	//print_builder(builder);
-	//printf("\n");
 	signal(SIGINT, signal_ign);
 	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
 	iter_builder(builder);
 	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status;
 	if (WIFEXITED(g_global.exit_code))
    		g_global.exit_code = WEXITSTATUS(g_global.exit_code);
-	//printf("{}{}{%d}\n",((t_builder *)(ft_d_lstlast(builder)->content))->status % 255);
-	//free_all(lexer, parser, ast, NULL);
 	free_all(lexer, parser, ast, builder);
 }
 
@@ -159,7 +135,6 @@ int	loop_heredoc()
 	tmp = g_global.here_docs;
 	while (tmp)
 	{
-		//printf("heredoc: %s\n", ((t_heredoc *)tmp->content)->str);
 		id = fork();
 		if (id == 0)
 		{
