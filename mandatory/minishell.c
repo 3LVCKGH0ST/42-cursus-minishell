@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/17 20:29:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 22:18:44 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int argc, char **argv, char **envp)
 	g_global.envp = envp;
 	//rl_newline(0,0);
 	signal(SIGQUIT, SIG_IGN);
+	//signal(SIGINT, SIG_IGN);
+	//signal(SIGINT, SIG_DFL);
 	//signal(, SIG_IGN);
 	init_minishell();
 	return (0);
@@ -42,10 +44,12 @@ void	init_minishell()
 		{
 			ft_putstr_fd("exit\n", 1);
 			//if (g_global.exit_code != 1 && g_global.prev_exit_code != 1)
-				//printf("\n");
+			//printf("%d",g_global.exit_code);
 			//g_global.prev_exit_code = 0;
 			//g_global.exit_code = 0;
-			exit(0);
+			//if (g_global.did_interupt == 0 )
+			//	if ()
+			exit(g_global.prev_exit_code);
 		}
 		if (str[0])
 		{
