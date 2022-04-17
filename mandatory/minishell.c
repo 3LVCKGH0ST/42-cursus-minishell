@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/17 06:21:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 07:27:06 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	createclone(&g_global.env, envp);
 	g_global.envp = envp;
 	//rl_newline(0,0);
-	//signal(SIGQUIT, signal_quit);
+	signal(SIGQUIT, SIG_IGN);
+	//signal(, SIG_IGN);
 	init_minishell();
 	return (0);
 }
@@ -36,7 +37,17 @@ void	init_minishell()
 		signal(SIGINT, signal_init);
 		str = readline("minishell-👌: ");
 		if (!str)
-			continue ;
+		{
+			//rl_on_new_line();
+			//rl_replace_line("\n", 0);
+			//rl_redisplay();
+			//rl_reset_line_state ();
+			//rl_line_buffer = "\rminishell-👌: exit\n";
+			//rl_forced_update_display();
+			//str = readline("minishell-👌: ");
+			ft_putstr_fd("exit\n", 1);
+			exit(0);
+		}
 		if (str[0])
 		{
 			add_history(str);
