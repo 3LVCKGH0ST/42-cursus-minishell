@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/17 04:17:00 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 05:50:28 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 
 int	here_doc(char *limiter)
 {
-	char		*str;
-	char		*tmp;
 	int			fd[2];
-	int			id;
-	int			status;
+	t_heredoc	*here_doc_;
 
 	if (pipe(fd) < 0)
 	{
@@ -68,35 +65,13 @@ int	here_doc(char *limiter)
 		g_global.fd_file_error = "";
 		return (-1);
 	}
-	id = fork();
-	if(id == 0)
-	{
-		//signal(SIGINT, SIG_IGN);
-		signal(SIGINT, SIG_DFL);
-		str = readline(">");
-		while (!str || ft_strncmp(limiter, str, ft_strlen(limiter)))
-		{
-			tmp = ft_strjoin(str, "\n");
-			ft_putstr_fd(tmp, fd[1]);
-			free(str);
-			free(tmp);
-			str = readline(">");
-		}
-		free(str);
-		close(fd[1]);
-		close(fd[0]);
-		exit(0);
-	}
-	else
-	{
-		waitpid(id, &status, 0);
-	}
-	if (status == 2)
-	{
-		//g_global.interupted = 1;
-		g_global.exit_code = 1;
-	}
-	close(fd[1]);
+	here_doc_ = malloc(sizeof(t_heredoc));
+	if (!here_doc_)
+		return (-1);
+	here_doc_->fd[1] = fd[1];
+	here_doc_->fd[0] = fd[0];
+	here_doc_->str = ft_strdup(limiter);	
+	ft_d_lstadd_back(&g_global.here_docs, ft_d_lstnew(here_doc_));
 	return (fd[0]);
 }
 
@@ -137,8 +112,6 @@ t_ast	*parser_parse_redir(t_parser *parser)
 			else if (token->type == TOKEN_DROUT)
 				ast->fd = open(ast->child->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
-		//if (ast->fd < -1)
-		//	g_global.fd_error = errno;
 	}
 	else if (token->type == TOKEN_DRIN)
 		ast->fd = here_doc(ast->child->value);

@@ -20,7 +20,7 @@ void	free_tree_id(t_ast *ast)
 
 void	free_tree_redir(t_ast *ast)
 {
-	if (ast->fd > 0)
+	if (ast->fd > 0 && ast->type_token != TOKEN_DRIN)
 		close(ast->fd);
 	free_tree(ast->child);
 	free(ast);

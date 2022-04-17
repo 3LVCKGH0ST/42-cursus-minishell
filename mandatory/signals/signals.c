@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:28:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/17 02:52:24 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:14:15 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ void	signal_ign(int sig)
 {
 	(void)sig;
 	g_global.interupted = 1;
+}
+
+void	signal_ign2(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	//rl_redisplay();
+	exit(2);
 }
 
 void	signal_quit(int sig)
