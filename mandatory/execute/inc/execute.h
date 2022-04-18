@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/16 21:25:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:49:03 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int		skiplfspace(char *str, int index);
 int		skiprtspace(char *str);
 int		checkspchar(char *k, char	*v);
 int		getlenenv(char	**env);
-
+void	showexport(void);
 
 # endif

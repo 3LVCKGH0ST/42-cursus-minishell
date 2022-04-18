@@ -25,6 +25,7 @@ EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/iter_builder.c \
 				./mandatory/signals/signals.c \
 				./mandatory/execute/_cd.c \
+				./mandatory/execute/_export.c \
 				./mandatory/execute/_echo.c \
 				./mandatory/execute/_env.c \
 				./mandatory/execute/_env_utils.c \
@@ -50,9 +51,9 @@ SRC			:=  ./mandatory/minishell.c $(PARSING) $(BUILDER) $(EXECUTION)  $(DLINKEDL
 SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST)
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
-RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
+RDLINE		:= -lreadline -L/Users/mbalagui/.brew/opt/readline/lib 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g   -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/Users/mbalagui/.brew/opt/readline/include  -g   -fsanitize=address 
 
 
 .PHONY: all clean fclean re bonus

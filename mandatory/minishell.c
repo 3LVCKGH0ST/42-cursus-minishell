@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/18 04:30:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:48:36 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	createclone(&(g_global.env), envp);
+	createclone(&(g_global.exp), envp);
 	g_global.envp = envp;
 	//g_global.lvl = 0;
 	//rl_newline(0,0);
@@ -26,7 +27,10 @@ int	main(int argc, char **argv, char **envp)
 	//signal(SIGINT, SIG_IGN);
 	//signal(SIGINT, SIG_DFL);
 	//signal(, SIG_IGN);
-	init_minishell();
+	
+	
+	showexport();
+	//init_minishell();
 	return (0);
 }
 
