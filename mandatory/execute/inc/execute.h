@@ -6,18 +6,19 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/18 20:49:03 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/18 22:54:39 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef EXECUTE_H
+#ifndef EXECUTE_H
 # define EXECUTE_H
 # include "../../builder/inc/builder.h"
 # include <readline/readline.h>
 # include <errno.h>
-#include <dirent.h>
+# include <dirent.h>
 
 # define COMMAND_NOT_FOUND_ERROR 127
+
 void	iter_builder_pipline(t_d_list *build);
 void	iter_builder_op(t_builder *build);
 void	iter_builder(t_d_list *build);
@@ -27,7 +28,6 @@ int		open_here_doc(t_d_list *node);
 int		here_doc_run(t_redir *here_doc);
 int		open_out_files(t_d_list *node);
 void	close_cmd_fds(t_d_list *node);
-
 
 char	*get_env_var(char **envp, char *env_var);
 char	**get_paths(char **envp);
@@ -50,4 +50,4 @@ int		checkspchar(char *k, char	*v);
 int		getlenenv(char	**env);
 void	showexport(void);
 
-# endif
+#endif
