@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/18 05:49:04 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 07:36:49 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,29 +88,46 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 static void	exec_inter(t_cmd *cmd, char **envp)
 {
 	char	*str;
+	DIR		*dir;
 
+	
+	dir = opendir(cmd->args[0]);
+	if (dir)
+	{
+		if (ft_strchr(cmd->args[0], '/'))
+		{
+			write(2, "minishell: ", 12);
+			write(2, cmd->args[0], ft_strlen(cmd->args[0]));
+			write(2, ": is a directory\n", 18);
+			closedir(dir);
+			exit(126);
+		}
+		closedir(dir);
+	}
 	str = get_cmd_full_path(envp, cmd->args[0]);
 	if (!str)
 	{
 		str = cmd->args[0];
-		if ( cmd->args[0][0] != '/' && (cmd->args[0][0] != '.' || cmd->args[0][1] != '/'))
-		{
-			write(2, "minishell: ", 12);
-			write(2, cmd->args[0], ft_strlen(cmd->args[0]));
-			write(2, ": command not found\n", 21);
-			exit(127);
-		}
 	}
-	if (access(str, X_OK) || opendir(str))
+	dir = opendir(str);
+	if (access(str, X_OK) || dir)
 	{
 		write(2, "minishell: ", 12);
 		write(2, str, ft_strlen(str));
-		if (access(str, F_OK))
+		if (dir && ft_strchr(str, '/'))
+			write(2, ": is a directory\n", 18);
+		else if (access(str, F_OK))
 			write(2, ": No such file or directory\n", 29);
 		else if (access(str, X_OK))
 			write(2, ": Permission denied\n", 21);
 		else
 			write(2, ": command not found\n", 21);
+		if (dir)
+		{
+			closedir(dir);
+			if (ft_strchr(str, '/'))
+				exit(126);
+		}
 		exit(127);
 	}
 	if (execve(str, cmd->args, envp) == -1)
