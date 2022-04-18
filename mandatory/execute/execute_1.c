@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/18 04:33:13 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 05:49:04 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,16 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	}
 }
 
-void	lower(char *str)
+char	*lower(char *str)
 {
-	int	i;
+	int		i;
+	char	*s;
 
 	i = -1;
+	s = ft_strdup(str);
 	while (str[++i])
-		str[i] = ft_tolower(str[i]);
+		s[i] = ft_tolower(str[i]);
+	return (s);
 }
 
 int	execbuilt(t_cmd *cmd)
@@ -135,52 +138,52 @@ int	execbuilt(t_cmd *cmd)
 	int		back;
 
 	back = 0;
-	lower(cmd->args[0]);
-	if (!ft_strncmp(cmd->args[0],"echo",ft_strlen("echo")))
-	{
-		printf("echo\n");
-		back = 1;
-	}
-	else if ((!ft_strncmp(cmd->args[0],"env",ft_strlen("env"))))
+	str = lower(cmd->args[0]);
+	if ((!ft_strncmp(str,"env",ft_strlen("env"))))
 	{
 		showenv(g_global.env);
 		back = 1;
 	}
-	else if ((!ft_strncmp(cmd->args[0],"export",ft_strlen("export"))))
+	else if ((!ft_strncmp(str,"export",ft_strlen("export"))))
 	{
 		printf("export\n");
 		back = 1;
 	}
-	else if ((!ft_strncmp(cmd->args[0],"exit",ft_strlen("exit"))))
+	else if ((!ft_strncmp(str,"exit",ft_strlen("exit"))))
 	{
-		printf("exit\n");
-		back = 1;
+		//printf("exit\n");
+		free(str);
+		if (cmd->args[1])
+			exit(ft_atoi(cmd->args[1]));
+		else
+			exit(0);
 	}
-	else if ((!ft_strncmp(cmd->args[0],"cd",ft_strlen("cd"))))
+	else if ((!ft_strncmp(str,"cd",ft_strlen("cd"))))
 	{
 		change_dir(&(g_global.env), cmd->args[1]);
 		back = 1;
 	}
-	else if ((!ft_strncmp(cmd->args[0],"pwd",ft_strlen("pwd"))))
+	else if ((!ft_strncmp(str,"pwd",ft_strlen("pwd"))))
 	{
-		str = get_path(g_global.env);
-		printf("%s\n", str);
+		printf("%s\n", get_path(g_global.env));
 		back = 1;
 	}
-	else if ((!ft_strncmp(cmd->args[0],"unset",ft_strlen("unset"))))
+	else if ((!ft_strncmp(str,"unset",ft_strlen("unset"))))
 	{
 		unset_env(&(g_global.env), cmd->args[1]);
 		back = 1;
 	}
+	free(str);
 	return (back);	
 }
 
 int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 {
 	int		pid;
+	char	*str;
 
 	if (execbuilt(cmd))
-		return (-1);
+		return (-2);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -197,6 +200,14 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 		}
 		if (fd_pipe_in > 0)
 			close(fd_pipe_in);
+		str = lower(cmd->args[0]);
+		if (!ft_strncmp(str,"echo",ft_strlen("echo")))
+		{
+			printf("echo\n");
+			free(str);
+			exit(0);
+		}
+		free(str);
 		exec_inter(cmd, env);
 	}
 	return (pid);

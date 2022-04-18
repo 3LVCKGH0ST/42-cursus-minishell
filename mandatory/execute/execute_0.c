@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/14 20:24:43 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 05:50:04 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	execute(t_d_list *node)
 		if (cmd->args && cmd->args[0])
 		{
 			((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env, ((t_builder *)node->content)->pipefd[0]);
+			if (((t_builder *)node->content)->pid == -2)
+			{
+				((t_builder *)node->content)->pid = -1;
+				((t_builder *)node->content)->status = g_global.exit_code;
+			}
 		}
 	}
 	if (node->next)
