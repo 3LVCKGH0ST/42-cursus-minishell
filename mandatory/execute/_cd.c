@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/18 06:10:18 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 06:14:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	change_dir(char ***env, char *to)
 {
 	char	*pwd;
 	char	*path;
+	DIR		*dir;
 
 	if (!to)
 	{
@@ -28,7 +29,8 @@ void	change_dir(char ***env, char *to)
 		}
 		to = ft_strchr(to, '=') + 1;		
 	}
-	if (access(to, F_OK) || !opendir(to))
+	dir = opendir(to);
+	if (access(to, F_OK) || !dir)
 	{
 		perror("minishell: cd");
 		g_global.exit_code = 1;
@@ -42,5 +44,6 @@ void	change_dir(char ***env, char *to)
 		addenv(&(*env), "PWD", path);
 		free(path);
 		g_global.exit_code = 0;
+		closedir(dir);
 	}
 }
