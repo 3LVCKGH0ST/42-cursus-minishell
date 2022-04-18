@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/17 21:58:40 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:21:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_global
 	char		**env;
 	char		**envp;
 	int			interupted;
+	//int			lvl;
 	t_d_list	*here_docs;
 }t_global;
 t_global	g_global;

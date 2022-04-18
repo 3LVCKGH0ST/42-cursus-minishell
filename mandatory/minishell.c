@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/17 22:18:44 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/18 00:23:58 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	createclone(&g_global.env, envp);
 	g_global.envp = envp;
+	//g_global.lvl = 0;
 	//rl_newline(0,0);
 	signal(SIGQUIT, SIG_IGN);
 	//signal(SIGINT, SIG_IGN);
@@ -32,7 +33,6 @@ int	main(int argc, char **argv, char **envp)
 void	init_minishell()
 {
 	char	*str;
-	//int		id;
 
 	while (1)
 	{
@@ -42,14 +42,18 @@ void	init_minishell()
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
-			ft_putstr_fd("exit\n", 1);
+			if (g_global.exit_code == 130)
+				ft_putstr_fd("exit", 1);
+			else
+				ft_putstr_fd("exit\n", 1);
+			
 			//if (g_global.exit_code != 1 && g_global.prev_exit_code != 1)
 			//printf("%d",g_global.exit_code);
 			//g_global.prev_exit_code = 0;
 			//g_global.exit_code = 0;
 			//if (g_global.did_interupt == 0 )
 			//	if ()
-			exit(g_global.prev_exit_code);
+			exit(g_global.exit_code);
 		}
 		if (str[0])
 		{
@@ -66,9 +70,11 @@ void	init_minishell()
 			//	write(1, "\n", 1);
 			//printf("{{%d}}%s\n", g_global.exit_code, str);
 			if (g_global.exit_code == 130)
+			{
 				write(1, "\n", 1);
+			}
+			g_global.prev_exit_code = g_global.exit_code;
 		}
-		g_global.prev_exit_code = g_global.exit_code;
 		free(str);
 	}
 }
