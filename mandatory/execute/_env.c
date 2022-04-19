@@ -6,19 +6,22 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/16 21:22:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:48:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/execute.h"
 
-void	showenv(char **envp)
+void	showenv(char **envp, int fd)
 {
 	int	i;
 
 	i = 0;
 	while (envp[i])
-		printf("%s\n", envp[i++]);
+	{
+		ft_putstr_fd(envp[i++], fd);
+		ft_putchar_fd('\n', fd);
+	}
 }
 
 int	getlenenv(char	**env)

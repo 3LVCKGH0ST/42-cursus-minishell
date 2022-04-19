@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/19 19:55:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:51:34 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,9 @@ int	execbuilt(t_cmd *cmd)
 
 	str = lower(cmd->args[0]);
 	if ((!ft_strncmp(str,"env",ft_strlen("env"))))
-		return (showenv(g_global.env), 1);
+		return (showenv(g_global.env, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str,"export",ft_strlen("export"))))
-		return(export(cmd->args), 1);
+		return(export(cmd->args, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str,"exit",ft_strlen("exit"))))
 	{
 		free(str);
@@ -169,13 +169,16 @@ int	execbuilt(t_cmd *cmd)
 	else if ((!ft_strncmp(str,"cd",ft_strlen("cd"))))
 		return (change_dir(&(g_global.env), cmd->args[1]), 1);
 	else if ((!ft_strncmp(str,"pwd",ft_strlen("pwd"))))
-		return (printf("%s\n", get_path(g_global.env)), 1);
+	{
+		ft_putstr_fd(get_path(g_global.env), cmd->inout[1]);
+		return (ft_putchar_fd('\n', cmd->inout[1]), 1);
+	}
 	else if ((!ft_strncmp(str,"unset",ft_strlen("unset"))))
 		return (unset_env(&(g_global.env), cmd->args[1]), 1);
 	return (free(str), 0);	
 }
 
-void	export(char **args)
+void	export(char **args, int fd)
 {
 	int		i;
 	char	*key;
@@ -183,7 +186,7 @@ void	export(char **args)
 	char	*value;
 	
 	if (!args[1])
-		return (showexport());
+		return (showexport(fd));
 	i = 0;
 	while (args[++i])
 	{
@@ -205,6 +208,48 @@ void	export(char **args)
 	}
 	
 	
+}
+void	echo(char	**args)
+{
+	char	*s;
+	char	*t;
+	int		i;
+
+	i = 2;
+	s = ft_strdup("");
+	if (args[1])
+	{
+		t = s;
+		s = ft_strjoin(t, args[1]);
+		free(t);
+	}
+	while (args[1] && args[i])
+	{
+		t = s;
+		s = ft_strjoin(t, " ");
+		free(t);
+		t = s;
+		s = ft_strjoin(t, args[i]);
+		free(t);
+		i++;
+	}
+	//if (args[i])
+	//{
+	//	t = s;
+	//	s = ft_strjoin(t, args[i]);
+	//	free(t);
+	//}
+	if (s[0])
+	{
+		//printf("{%s}{%d}\n", s,);
+		if (ft_strncmp(s, "-n", 3))
+			ft_echo(s);
+		else
+			printf("");
+	}
+	else
+		printf("\n");
+	free(s);
 }
 
 int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
@@ -231,12 +276,12 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 		if (fd_pipe_in > 0)
 			close(fd_pipe_in);
 		str = lower(cmd->args[0]);
-		if (!ft_strncmp(str,"echo",ft_strlen("echo")))
-		{
-			printf("echo\n");
-			free(str);
-			exit(0);
-		}
+		//if (!ft_strncmp(str,"echo",ft_strlen("echo")))
+		//{
+		//	echo(cmd->args);
+		//	free(str);
+		//	exit(0);
+		//}
 		free(str);
 		exec_inter(cmd, env);
 	}

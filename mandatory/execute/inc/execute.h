@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/19 03:55:23 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:47:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**get_paths(char **envp);
 char	*get_cmd_full_path(char **envp, char *cmd);
 int		exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in);
 
-void	showenv(char **envp);
+void	showenv(char **envp, int fd);
 void	createclone(char ***to, char **from);
 char	*exportval(char *key, char *val);
 void	addenv(char ***env, char *key, char *val);
@@ -48,7 +48,8 @@ int		skiplfspace(char *str, int index);
 int		skiprtspace(char *str);
 int		checkspchar(char *k, char	*v);
 int		getlenenv(char	**env);
-void	showexport(void);
-void	export(char **args);
+void	showexport(int fd);
+void	export(char **args, int fd);
+void	echo(char	**args);
 
 #endif

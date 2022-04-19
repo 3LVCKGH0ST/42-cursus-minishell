@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:13 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 04:49:06 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:45:27 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	shortexport(void)
 	i = -1;
 	while (++i < s)
 	{
-		if (g_global.exp[i + 1] && \
+		if (g_global.exp[i + 1] && g_global.exp[i] && \
 		ft_strncmp(g_global.exp[i], g_global.exp[i + 1], \
 		ft_strlen(g_global.exp[i + 1])) > 0)
 		{
@@ -48,7 +48,7 @@ void	shortexport(void)
 	}
 }
 
-void	showexport(void)
+void	showexport(int fd)
 {
 	int		i;
 	int		j;
@@ -58,17 +58,21 @@ void	showexport(void)
 	while (g_global.exp[++i])
 	{
 		if (!ft_strchr(g_global.exp[i], '='))
-			printf("declare -x %s\n", g_global.exp[i]);
+		{
+			ft_putstr_fd("declare -x ", fd);
+			ft_putstr_fd(g_global.exp[i], fd);
+			ft_putchar_fd('\n', fd);	
+		}
 		else
 		{
 			j = -1;
-			printf("declare -x ");
+			ft_putstr_fd("declare -x ", fd);
 			while ( g_global.exp[i][++j] != '=')
-				printf("%c", g_global.exp[i][j]);
-			printf("=\"");
+				ft_putchar_fd(g_global.exp[i][j], fd);
+			ft_putstr_fd("=\"", fd);
 			while ( g_global.exp[i][++j])
-				printf("%c", g_global.exp[i][j]);
-			printf("\"\n");
+				ft_putchar_fd(g_global.exp[i][j], fd);
+			ft_putstr_fd("\"\n", fd);
 		}
 	}
 }

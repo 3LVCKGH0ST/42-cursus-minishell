@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 19:51:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 22:06:22 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void	init_minishell()
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
+			//rl_redisplay();
+			////rl_replace_line("exit",1);
+			////rl_begin_undo_group();
+			////rl_end_undo_group();
+			////rl_delete_text();
+			//rl_line_buffer = "testign";
+			//rl_
+			////rl_insert_text("exit");
+			//rl_redisplay();
 			ft_putstr_fd("exit\n", 1);
 			exit(g_global.exit_code);
 		}

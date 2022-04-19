@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/16 21:21:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:33:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,11 @@ void	ft_echo(char *str)
 	int	i;
 	int	c;
 
-	i = skiplfspace(str, 0);
+	//str = "-n -n -n -nnnnnnnnnnnmn       -n    -nhello -n world";
+	i = 0;
 	c = withnewline(str, i - 1);
 	i = getfrom(str, i - 1);
+	printf("{%d}",i);
 	printf("%s", str + i);
 	if (!c)
 		printf("\n");
