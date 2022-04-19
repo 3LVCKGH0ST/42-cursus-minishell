@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _export.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:13 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/18 22:51:51 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/19 04:49:06 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	shortexport(void)
 		{
 			tmp = ft_strdup(g_global.exp[i]);
 			free(g_global.exp[i]);
-			g_global.exp[i] = malloc(ft_strlen(g_global.exp[i + 1]));
+			//g_global.exp[i] = malloc(ft_strlen(g_global.exp[i + 1]));
 			g_global.exp[i] = ft_strdup(g_global.exp[i + 1]);
 			free(g_global.exp[i + 1]);
 			g_global.exp[i + 1] = ft_strdup(tmp);
@@ -51,9 +51,24 @@ void	shortexport(void)
 void	showexport(void)
 {
 	int		i;
+	int		j;
 
 	i = -1;
 	shortexport();
 	while (g_global.exp[++i])
-		printf("declare -x %s\n", g_global.exp[i]);
+	{
+		if (!ft_strchr(g_global.exp[i], '='))
+			printf("declare -x %s\n", g_global.exp[i]);
+		else
+		{
+			j = -1;
+			printf("declare -x ");
+			while ( g_global.exp[i][++j] != '=')
+				printf("%c", g_global.exp[i][j]);
+			printf("=\"");
+			while ( g_global.exp[i][++j])
+				printf("%c", g_global.exp[i][j]);
+			printf("\"\n");
+		}
+	}
 }

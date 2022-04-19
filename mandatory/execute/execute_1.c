@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/18 08:00:54 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 04:05:19 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int	execbuilt(t_cmd *cmd)
 	}
 	else if ((!ft_strncmp(str,"export",ft_strlen("export"))))
 	{
-		printf("export\n");
+		export(cmd->args);
 		back = 1;
 	}
 	else if ((!ft_strncmp(str,"exit",ft_strlen("exit"))))
@@ -192,6 +192,38 @@ int	execbuilt(t_cmd *cmd)
 	}
 	free(str);
 	return (back);	
+}
+
+void	export(char **args)
+{
+	int		i;
+	char	*key;
+	char	*egale;
+	char	*value;
+	
+	if (!args[1])
+		return (showexport());
+	i = 0;
+	while (args[++i])
+	{
+		value = NULL;
+		key = ft_strdup(args[i]);
+		egale = ft_strchr(key, '=');
+		if (egale)
+		{
+
+			*egale = '\0';
+			value = ++egale;
+			addenv(&(g_global.env), key, value);
+		}
+		else
+		{
+			printf("minishell: export: `%s': not a valid identifier\n", key);
+		}
+		free(key);
+	}
+	
+	
 }
 
 int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
