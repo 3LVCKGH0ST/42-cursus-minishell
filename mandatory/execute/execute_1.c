@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/19 04:05:19 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 19:55:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,23 +152,14 @@ char	*lower(char *str)
 int	execbuilt(t_cmd *cmd)
 {
 	char	*str;
-	int		back;
 
-	back = 0;
 	str = lower(cmd->args[0]);
 	if ((!ft_strncmp(str,"env",ft_strlen("env"))))
-	{
-		showenv(g_global.env);
-		back = 1;
-	}
+		return (showenv(g_global.env), 1);
 	else if ((!ft_strncmp(str,"export",ft_strlen("export"))))
-	{
-		export(cmd->args);
-		back = 1;
-	}
+		return(export(cmd->args), 1);
 	else if ((!ft_strncmp(str,"exit",ft_strlen("exit"))))
 	{
-		//printf("exit\n");
 		free(str);
 		if (cmd->args[1])
 			exit(ft_atoi(cmd->args[1]));
@@ -176,22 +167,12 @@ int	execbuilt(t_cmd *cmd)
 			exit(0);
 	}
 	else if ((!ft_strncmp(str,"cd",ft_strlen("cd"))))
-	{
-		change_dir(&(g_global.env), cmd->args[1]);
-		back = 1;
-	}
+		return (change_dir(&(g_global.env), cmd->args[1]), 1);
 	else if ((!ft_strncmp(str,"pwd",ft_strlen("pwd"))))
-	{
-		printf("%s\n", get_path(g_global.env));
-		back = 1;
-	}
+		return (printf("%s\n", get_path(g_global.env)), 1);
 	else if ((!ft_strncmp(str,"unset",ft_strlen("unset"))))
-	{
-		unset_env(&(g_global.env), cmd->args[1]);
-		back = 1;
-	}
-	free(str);
-	return (back);	
+		return (unset_env(&(g_global.env), cmd->args[1]), 1);
+	return (free(str), 0);	
 }
 
 void	export(char **args)

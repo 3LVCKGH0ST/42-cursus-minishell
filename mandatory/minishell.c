@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 03:34:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/19 19:51:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	createclone(&(g_global.env), envp);
 	createclone(&(g_global.exp), envp);
 	g_global.envp = envp;
-	//g_global.lvl = 0;
-	//rl_newline(0,0);
 	signal(SIGQUIT, SIG_IGN);
-	//signal(SIGINT, SIG_IGN);
-	//signal(SIGINT, SIG_DFL);
-	//signal(, SIG_IGN);
-	
-	
-	//showexport();
 	init_minishell();
 	return (0);
 }
@@ -46,17 +38,7 @@ void	init_minishell()
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
-			if (g_global.exit_code == 130)
-				ft_putstr_fd("exit", 1);
-			else
-				ft_putstr_fd("exit\n", 1);
-			
-			//if (g_global.exit_code != 1 && g_global.prev_exit_code != 1)
-			//printf("%d",g_global.exit_code);
-			//g_global.prev_exit_code = 0;
-			//g_global.exit_code = 0;
-			//if (g_global.did_interupt == 0 )
-			//	if ()
+			ft_putstr_fd("exit\n", 1);
 			exit(g_global.exit_code);
 		}
 		if (str[0])
@@ -67,13 +49,10 @@ void	init_minishell()
 			g_global.here_docs = NULL;
 			signal(SIGINT, SIG_IGN);
 			before_exec(str, g_global.env);
-			//printf("{{%d}}%s\n", g_global.exit_code, str);
 			if (g_global.interupted && g_global.exit_code == 2)
 				g_global.exit_code = 130;
-			//if (g_global.interupted && g_global.exit_code == 0)
-			//	write(1, "\n", 1);
-			//printf("{{%d}}%s\n", g_global.exit_code, str);
-			if (g_global.exit_code == 130)
+			if (g_global.exit_code == 130 && 
+			!(!ft_strncmp(str, "./minishell", 12) || !ft_strncmp(str, "./minishell ", 13)))
 			{
 				write(1, "\n", 1);
 			}
