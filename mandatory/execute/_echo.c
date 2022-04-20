@@ -3,93 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   _echo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:37:36 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 21:33:08 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 07:37:52 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/execute.h"
 
-/**
- * @brief 
- * 
- * @param str 
- * @param i 
- * @return int 
- */
-int	getfrom(char *str, int i)
-{
-	while (str[++i])
-	{
-		if (str[i] != '-')
-			return (0);
-		else if (str[i] == '-' && str[i + 1] == 'n')
-		{
-			i++;
-			while (str[i] == 'n')
-				i++;
-			if (str[i] == ' ')
-			{
-				while (str[i] == ' ')
-					i++;
-				if (str[i] == '-' && str[i + 1] == 'n' && str[i - 1] == ' ')
-					return (getfrom(str, i - 1));
-				return (i);
-			}
-			else if (str[i - 1] == ' ')
-				return (i - 2);
-			else
-				return (0);
-		}
-	}
-	return (-1);
-}
-/**
- * @brief 
- * 
- * @param str 
- * @param i 
- * @return int 
- */
-
-int	withnewline(char *str, int i)
-{
-	while (str[++i])
-	{
-		if (str[i] != '-')
-			return (0);
-		else if (str[i] == '-' && str[i + 1] == 'n')
-		{
-			i++;
-			while (str[i] == 'n')
-				i++;
-			if (str[i] == ' ')
-			{
-				return (1);
-			}
-		}
-	}
-	return (0);
-}
-
-/**
- * @brief 
- * 
- * @param str 
- */
-void	ft_echo(char *str)
+int	getspec(char	**arg)
 {
 	int	i;
-	int	c;
+	int	j;
 
-	//str = "-n -n -n -nnnnnnnnnnnmn       -n    -nhello -n world";
-	i = 0;
-	c = withnewline(str, i - 1);
-	i = getfrom(str, i - 1);
-	printf("{%d}",i);
-	printf("%s", str + i);
-	if (!c)
+	i = 1;
+	while (arg[i])
+	{
+		j = -1;
+		if (arg[i][0] != '-' || arg[i][1] != 'n')
+			return (i);
+		while (arg[i][++j])
+		{
+			if (arg[i][0] == '-' && j == 0)
+				j++;
+			if (arg[i][j] != 'n')
+				return (i);
+		}
+		g_global.withnewline = 0;
+		i++;
+	}
+	if (arg[i - 1][0] == '-' && arg[i - 1][1] == 'n')
+		return (0);
+	return (-1);
+}
+
+void	ft_echo(char	**arg)
+{
+	int	i;
+
+	g_global.withnewline = 1;
+	i = getspec(arg);
+	if (i == -1)
+	{
+		printf("\n");
+		return ;
+	}
+	if (i == 0)
+		return ;
+	while (arg[i])
+	{
+		printf("%s", arg[i++]);
+		if (arg[i])
+			printf(" ");
+	}
+	if (g_global.withnewline)
 		printf("\n");
 }

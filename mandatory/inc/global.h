@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:48:19 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/18 22:54:48 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/20 06:22:13 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_global
 	char		**exp;
 	char		**envp;
 	int			interupted;
+	int			withnewline;
 	t_d_list	*here_docs;
 }t_global;
 t_global	g_global;

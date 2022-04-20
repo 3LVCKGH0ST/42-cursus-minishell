@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 01:22:09 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/20 06:04:01 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	createclone(char ***to, char **from);
 char	*exportval(char *key, char *val);
 void	addenv(char ***env, char *key, char *val);
 void	change_dir(char ***env, char *to);
-void	ft_echo(char *str);
+void	ft_echo(char **str);
 int		startwith(char *s1, char *s2);
 int		handldup(char ***env, char *key, char *val);
 char	*get_path(char **envp);

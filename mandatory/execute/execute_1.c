@@ -6,7 +6,7 @@
 /*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 02:39:17 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/20 06:11:59 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,45 +207,7 @@ void	export(char **args, int fd)
 
 void	echo(char	**args)
 {
-	char	*s;
-	char	*t;
-	int		i;
-
-	i = 2;
-	s = ft_strdup("");
-	if (args[1])
-	{
-		t = s;
-		s = ft_strjoin(t, args[1]);
-		free(t);
-	}
-	while (args[1] && args[i])
-	{
-		t = s;
-		s = ft_strjoin(t, " ");
-		free(t);
-		t = s;
-		s = ft_strjoin(t, args[i]);
-		free(t);
-		i++;
-	}
-	//if (args[i])
-	//{
-	//	t = s;
-	//	s = ft_strjoin(t, args[i]);
-	//	free(t);
-	//}
-	if (s[0])
-	{
-		//printf("{%s}{%d}\n", s,);
-		if (ft_strncmp(s, "-n", 3))
-			ft_echo(s);
-		else
-			printf("");
-	}
-	else
-		printf("\n");
-	free(s);
+	ft_echo(args);
 }
 
 int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
@@ -272,12 +234,12 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 		if (fd_pipe_in > 0)
 			close(fd_pipe_in);
 		str = lower(cmd->args[0]);
-		//if (!ft_strncmp(str,"echo",ft_strlen("echo")))
-		//{
-		//	echo(cmd->args);
-		//	free(str);
-		//	exit(0);
-		//}
+		if (!ft_strncmp(str,"echo",ft_strlen("echo")))
+		{
+			echo(cmd->args);
+			free(str);
+			exit(0);
+		}
 		free(str);
 		exec_inter(cmd, env);
 	}
