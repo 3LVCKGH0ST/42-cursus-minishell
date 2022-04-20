@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 07:36:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:36:20 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_ast	*parser_parse_v2(t_parser *parser, t_ast *prev)
 	parser_parser_advance(parser, type);
 	right = parser_parse_term(parser);
 	if (right == NULL)
-		return (NULL);
+		return (free_tree(prev), NULL);
 	ast = ast_init_ast(AST_OP);
 	ast->type_token = type;
 	ast->left = prev;

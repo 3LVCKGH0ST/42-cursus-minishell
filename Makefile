@@ -53,7 +53,7 @@ OBJ			:= $(patsubst %.c, %.o, $(SRC))
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
 CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g  # -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g   -fsanitize=address 
 
 .PHONY: all clean fclean re bonus
 
