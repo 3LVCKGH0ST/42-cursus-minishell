@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 17:14:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 07:36:48 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,34 @@ t_ast	*parser_parse(t_parser *parser)
 		return (NULL);
 	if (!is_op(parser->token))
 		return (left);
-	ast = ast_init_ast(AST_OP);
-	ast->type_token = parser->token->type;
-	if (parser->token->type == TOKEN_AND)
-	{
-		if (!parser_parser_advance(parser, TOKEN_AND))
-			return (free(ast), NULL);
-	}	
-	else if (parser->token->type == TOKEN_OR)
-	{
-		if (!parser_parser_advance(parser, TOKEN_OR))
-			return (free(ast), NULL);
-	}
-	ast->left = left;
-	ast->right = parser_parse(parser);
-	if (ast->right == NULL)
-		return (free_tree(ast->left), free(ast), NULL);
+	ast = parser_parse_v2(parser, left);
+	if (!ast)
+		return (free_tree(ast), NULL);
 	return (ast);
+}
+
+t_ast	*parser_parse_v2(t_parser *parser, t_ast *prev)
+{
+	t_ast	*right;
+	t_ast	*ast;
+	t_ast	*tmp;
+	t_e_token	type;
+
+	type = parser->token->type;
+	parser_parser_advance(parser, type);
+	right = parser_parse_term(parser);
+	if (right == NULL)
+		return (NULL);
+	ast = ast_init_ast(AST_OP);
+	ast->type_token = type;
+	ast->left = prev;
+	ast->right = right;
+	if (!is_op(parser->token))
+		return (ast);
+	tmp = parser_parse_v2(parser, ast);
+	if (!tmp)
+		return (free_tree(tmp), NULL);
+	return (tmp);
 }
 
 t_ast	*parser_parse_term(t_parser *parser)

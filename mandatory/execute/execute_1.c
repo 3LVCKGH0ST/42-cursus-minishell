@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/19 21:51:34 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 02:35:39 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,9 @@ int	execbuilt(t_cmd *cmd)
 
 	str = lower(cmd->args[0]);
 	if ((!ft_strncmp(str,"env",ft_strlen("env"))))
-		return (showenv(g_global.env, cmd->inout[1]), 1);
+		return (free(str), showenv(g_global.env, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str,"export",ft_strlen("export"))))
-		return(export(cmd->args, cmd->inout[1]), 1);
+		return(free(str), export(cmd->args, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str,"exit",ft_strlen("exit"))))
 	{
 		free(str);
@@ -167,14 +167,14 @@ int	execbuilt(t_cmd *cmd)
 			exit(0);
 	}
 	else if ((!ft_strncmp(str,"cd",ft_strlen("cd"))))
-		return (change_dir(&(g_global.env), cmd->args[1]), 1);
+		return (free(str),change_dir(&(g_global.env), cmd->args[1]), 1);
 	else if ((!ft_strncmp(str,"pwd",ft_strlen("pwd"))))
 	{
 		ft_putstr_fd(get_path(g_global.env), cmd->inout[1]);
-		return (ft_putchar_fd('\n', cmd->inout[1]), 1);
+		return (free(str),ft_putchar_fd('\n', cmd->inout[1]), 1);
 	}
 	else if ((!ft_strncmp(str,"unset",ft_strlen("unset"))))
-		return (unset_env(&(g_global.env), cmd->args[1]), 1);
+		return (free(str),unset_env(&(g_global.env), cmd->args[1]), 1);
 	return (free(str), 0);	
 }
 

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 22:06:22 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 07:58:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,6 @@ void	init_minishell()
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
-			//rl_redisplay();
-			////rl_replace_line("exit",1);
-			////rl_begin_undo_group();
-			////rl_end_undo_group();
-			////rl_delete_text();
-			//rl_line_buffer = "testign";
-			//rl_
-			////rl_insert_text("exit");
-			//rl_redisplay();
 			ft_putstr_fd("exit\n", 1);
 			exit(g_global.exit_code);
 		}
@@ -87,7 +78,11 @@ void	before_exec(char *str, char **envp)
 	ast = parser_parse(parser);
 	if (g_global.exit_code == 0 && parser->token->type != TOKEN_EOF)
 		parser_syntax_error(parser->token->value);
-	loop_heredoc();
+	//loop_heredoc();
+	//print_tree(ast);
+	(void)envp;
+	(void)builder;
+	//printf("\n");
 	if (g_global.exit_code != 0)
 	{
 		ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
@@ -95,13 +90,15 @@ void	before_exec(char *str, char **envp)
 		return ;
 	}
 	builder = builder_build(ast, envp);
-	signal(SIGINT, signal_ign);
-	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
+	//print_builder(builder);
+	//signal(SIGINT, signal_ign);
+	//ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
 	iter_builder(builder);
-	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status;
-	if (WIFEXITED(g_global.exit_code))
-   		g_global.exit_code = WEXITSTATUS(g_global.exit_code);
-	free_all(lexer, parser, ast, builder);
+	//g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status;
+	//if (WIFEXITED(g_global.exit_code))
+   	//	g_global.exit_code = WEXITSTATUS(g_global.exit_code);
+	//free_all(lexer, parser, ast, builder);
+	//printf("\n");
 }
 
 void	free_heredoc(void *c)
