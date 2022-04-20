@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 22:06:22 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:59:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-
 	(void)argc;
 	(void)argv;
 	createclone(&(g_global.env), envp);
@@ -26,27 +25,17 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-void	init_minishell()
+void	init_minishell(void)
 {
 	char	*str;
 
 	while (1)
 	{
 		signal(SIGINT, signal_init);
-		
 		g_global.interupted = 0;
 		str = readline("minishell-👌: ");
 		if (!str)
 		{
-			//rl_redisplay();
-			////rl_replace_line("exit",1);
-			////rl_begin_undo_group();
-			////rl_end_undo_group();
-			////rl_delete_text();
-			//rl_line_buffer = "testign";
-			//rl_
-			////rl_insert_text("exit");
-			//rl_redisplay();
 			ft_putstr_fd("exit\n", 1);
 			exit(g_global.exit_code);
 		}
@@ -60,8 +49,9 @@ void	init_minishell()
 			before_exec(str, g_global.env);
 			if (g_global.interupted && g_global.exit_code == 2)
 				g_global.exit_code = 130;
-			if (g_global.exit_code == 130 && 
-			!(!ft_strncmp(str, "./minishell", 12) || !ft_strncmp(str, "./minishell ", 13)))
+			if (g_global.exit_code == 130 && \
+				!(!ft_strncmp(str, "./minishell", 12) || \
+				!ft_strncmp(str, "./minishell ", 13)))
 			{
 				write(1, "\n", 1);
 			}
@@ -98,9 +88,10 @@ void	before_exec(char *str, char **envp)
 	signal(SIGINT, signal_ign);
 	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
 	iter_builder(builder);
-	g_global.exit_code = ((t_builder *)(ft_d_lstlast(builder)->content))->status;
+	g_global.exit_code = \
+	((t_builder *)(ft_d_lstlast(builder)->content))->status;
 	if (WIFEXITED(g_global.exit_code))
-   		g_global.exit_code = WEXITSTATUS(g_global.exit_code);
+		g_global.exit_code = WEXITSTATUS(g_global.exit_code);
 	free_all(lexer, parser, ast, builder);
 }
 
@@ -127,7 +118,7 @@ t_d_list *builder)
 		free(parser);
 }
 
-int	loop_heredoc()
+int	loop_heredoc(void)
 {
 	t_d_list	*tmp;
 	int			id;
@@ -143,13 +134,15 @@ int	loop_heredoc()
 			signal(SIGINT, signal_ign2);
 			str[2] = ((t_heredoc *)tmp->content)->str;
 			str[0] = readline(">");
-			while (!str[0] || ft_strncmp(str[2] , str[0], ft_strlen(str[2])))
+			while (!str[0] || ft_strncmp(str[2], str[0], ft_strlen(str[2]) + 1))
 			{
+				if (!str[0])
+					break ;
 				str[1] = ft_strjoin(str[0], "\n");
 				ft_putstr_fd(str[1], ((t_heredoc *)tmp->content)->fd[1]);
 				free(str[0]);
 				free(str[1]);
-				str[0]= readline(">");
+				str[0] = readline(">");
 			}
 			free(str[0]);
 			close(((t_heredoc *)tmp->content)->fd[1]);

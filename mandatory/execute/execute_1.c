@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 06:11:59 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:01:28 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 {
 	char	*str;
 	DIR		*dir;
+	int		c;
 
-	
 	dir = opendir(cmd->args[0]);
 	if (dir)
 	{
@@ -112,6 +112,7 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	dir = opendir(str);
 	if (access(str, X_OK) || dir)
 	{
+		c = 1;
 		write(2, "minishell: ", 12);
 		write(2, str, ft_strlen(str));
 		if (dir && ft_strchr(str, '/'))
@@ -121,19 +122,24 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 		else if (access(str, X_OK) && ft_strchr(str, '/'))
 			write(2, ": Permission denied\n", 21);
 		else
+		{
 			write(2, ": command not found\n", 21);
+			c = 0;
+		}
 		if (dir)
 		{
 			closedir(dir);
 			if (ft_strchr(str, '/'))
 				exit(126);
 		}
-		exit(127);
+		if (!c)
+			exit(127);
+		exit(126);
 	}
 	if (execve(str, cmd->args, envp) == -1)
 	{
 		perror("minishell:");
-		exit(errno);		
+		exit(errno);
 	}
 }
 
@@ -154,11 +160,11 @@ int	execbuilt(t_cmd *cmd)
 	char	*str;
 
 	str = lower(cmd->args[0]);
-	if ((!ft_strncmp(str,"env", ft_strlen("env"))))
+	if ((!ft_strncmp(str, "env", ft_strlen("env"))))
 		return (free(str), showenv(g_global.env, cmd->inout[1]), 1);
-	else if ((!ft_strncmp(str,"export", ft_strlen("export"))))
+	else if ((!ft_strncmp(str, "export", ft_strlen("export"))))
 		return (free(str), export(cmd->args, cmd->inout[1]), 1);
-	else if ((!ft_strncmp(str,"exit", ft_strlen("exit"))))
+	else if ((!ft_strncmp(str, "exit", ft_strlen("exit"))))
 	{
 		free(str);
 		if (cmd->args[1])
@@ -166,16 +172,16 @@ int	execbuilt(t_cmd *cmd)
 		else
 			exit(0);
 	}
-	else if ((!ft_strncmp(str,"cd",ft_strlen("cd"))))
+	else if ((!ft_strncmp(str, "cd", ft_strlen("cd"))))
 		return (free(str), change_dir(&(g_global.env), cmd->args[1]), 1);
-	else if ((!ft_strncmp(str,"pwd",ft_strlen("pwd"))))
+	else if ((!ft_strncmp(str, "pwd", ft_strlen("pwd"))))
 	{
 		ft_putstr_fd(get_path(g_global.env), cmd->inout[1]);
 		return (free(str), ft_putchar_fd('\n', cmd->inout[1]), 1);
 	}
-	else if ((!ft_strncmp(str,"unset",ft_strlen("unset"))))
+	else if ((!ft_strncmp(str, "unset", ft_strlen("unset"))))
 		return (free(str), unset_env(&(g_global.env), cmd->args[1]), 1);
-	return (free(str), 0);	
+	return (free(str), 0);
 }
 
 void	export(char **args, int fd)
@@ -205,11 +211,6 @@ void	export(char **args, int fd)
 	}
 }
 
-void	echo(char	**args)
-{
-	ft_echo(args);
-}
-
 int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 {
 	int		pid;
@@ -234,9 +235,9 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 		if (fd_pipe_in > 0)
 			close(fd_pipe_in);
 		str = lower(cmd->args[0]);
-		if (!ft_strncmp(str,"echo",ft_strlen("echo")))
+		if (!ft_strncmp(str, "echo", ft_strlen("echo")))
 		{
-			echo(cmd->args);
+			ft_echo(cmd->args);
 			free(str);
 			exit(0);
 		}

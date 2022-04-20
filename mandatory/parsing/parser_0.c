@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 01:43:57 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 21:00:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:08:42 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_ast	*parser_parse(t_parser *parser)
 
 t_ast	*parser_parse_v2(t_parser *parser, t_ast *prev)
 {
-	t_ast	*right;
-	t_ast	*ast;
-	t_ast	*tmp;
+	t_ast		*right;
+	t_ast		*ast;
+	t_ast		*tmp;
 	t_e_token	type;
 
 	type = parser->token->type;
@@ -81,21 +81,4 @@ t_ast	*parser_parse_v2(t_parser *parser, t_ast *prev)
 t_ast	*parser_parse_term(t_parser *parser)
 {
 	return (parser_parse_pipeline(parser));
-}
-
-t_ast	*parser_parse_paren(t_parser *parser)
-{
-	t_ast	*ast;
-
-	if (!parser_parser_advance(parser, TOKEN_LPAREN))
-		return (NULL);
-	ast = parser_parse(parser);
-	if (ast == NULL)
-		return (NULL);
-	if (!parser_parser_advance(parser, TOKEN_RPAREN))
-		return (free_tree(ast), NULL);
-	if (parser->token->type == TOKEN_ID)
-		return (free_tree(ast), \
-		parser_syntax_error(parser->token->value), NULL);
-	return (ast);
 }

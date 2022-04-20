@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/17 05:50:28 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:08:21 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 		{
 			tmp = parser_parse_paren(parser);
 			if (!tmp)
-				return (free_tree(ast),NULL);
+				return (free_tree(ast), NULL);
 			ft_d_lstadd_back(&(ast->children), ft_d_lstnew(tmp));
 		}
 		else
@@ -70,7 +70,7 @@ int	here_doc(char *limiter)
 		return (-1);
 	here_doc_->fd[1] = fd[1];
 	here_doc_->fd[0] = fd[0];
-	here_doc_->str = ft_strdup(limiter);	
+	here_doc_->str = ft_strdup(limiter);
 	ft_d_lstadd_back(&g_global.here_docs, ft_d_lstnew(here_doc_));
 	return (fd[0]);
 }
@@ -92,7 +92,8 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	{
 		if (token->type == TOKEN_RIN)
 		{
-			if (access(ast->child->value, F_OK) || access(ast->child->value, R_OK))
+			if (access(ast->child->value, F_OK) \
+			|| access(ast->child->value, R_OK))
 			{
 				g_global.fd_error = errno;
 				g_global.fd_file_error = ast->child->value;
@@ -102,15 +103,18 @@ t_ast	*parser_parse_redir(t_parser *parser)
 		}
 		else
 		{
-			if (token->type == TOKEN_RIN && (access(ast->child->value, F_OK) || access(ast->child->value, W_OK)))
+			if (token->type == TOKEN_RIN && (access(ast->child->value, F_OK) \
+			|| access(ast->child->value, W_OK)))
 			{
 				g_global.fd_error = errno;
 				g_global.fd_file_error = ast->child->value;
 			}
 			else if (token->type == TOKEN_ROUT)
-				ast->fd = open(ast->child->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				ast->fd = open(ast->child->value, \
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else if (token->type == TOKEN_DROUT)
-				ast->fd = open(ast->child->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+				ast->fd = open(ast->child->value, \
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
 	}
 	else if (token->type == TOKEN_DRIN)

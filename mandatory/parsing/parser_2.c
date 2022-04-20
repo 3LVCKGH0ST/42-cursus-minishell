@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:41:54 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/07 02:03:47 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:08:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ int	is_op(t_token *token)
 		return (1);
 	else
 		return (0);
+}
+
+t_ast	*parser_parse_paren(t_parser *parser)
+{
+	t_ast	*ast;
+
+	if (!parser_parser_advance(parser, TOKEN_LPAREN))
+		return (NULL);
+	ast = parser_parse(parser);
+	if (ast == NULL)
+		return (NULL);
+	if (!parser_parser_advance(parser, TOKEN_RPAREN))
+		return (free_tree(ast), NULL);
+	if (parser->token->type == TOKEN_ID)
+		return (free_tree(ast), \
+		parser_syntax_error(parser->token->value), NULL);
+	return (ast);
 }

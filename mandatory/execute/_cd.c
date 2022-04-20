@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/18 06:14:01 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 22:06:55 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	change_dir(char ***env, char *to)
 			g_global.exit_code = 1;
 			return ;
 		}
-		to = ft_strchr(to, '=') + 1;		
+		to = ft_strchr(to, '=') + 1;
 	}
 	dir = opendir(to);
 	if (access(to, F_OK) || !dir)
