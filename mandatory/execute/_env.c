@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _env.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 21:48:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 02:47:11 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*exportval(char *key, char *val)
 	char	*ret;
 	int		i;
 
+	if (!val)
+		return (NULL);
 	i = -1;
 	ret = malloc(ft_strlen(key) + ft_strlen(val) + 2);
 	while (key[++i])
@@ -66,10 +68,9 @@ char	*exportval(char *key, char *val)
 void	addenv(char ***env, char *key, char *val)
 {
 	char	**tmp;
+	char	*kval;
 	int		i;
 
-	if (checkspchar(key, val))
-		return ;
 	if (handldup(&(*env), key, val))
 		return ;
 	tmp = *(env);
@@ -77,7 +78,16 @@ void	addenv(char ***env, char *key, char *val)
 	(*env) = malloc(sizeof(char *) * getlenenv(tmp) + sizeof(char *) * 2);
 	while (tmp[++i])
 		(*env)[i] = tmp[i];
-	(*env)[i++] = exportval(key, val);
+	if (val)
+	{
+		kval = exportval(key, val);
+		(*env)[i++] = kval;
+	}
+	else
+	{
+		kval = ft_strdup(key);
+		(*env)[i++] = kval;
+	}
 	(*env)[i] = NULL;
 	free(tmp);
 }

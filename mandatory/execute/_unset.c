@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _unset.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:58:57 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/16 21:22:52 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 01:33:41 by mbalagui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	checkspchar(char *k, char	*v)
 	i = -1;
 	while (k[++i])
 	{
-		if (!ft_isalnum(k[i]) && k[i] != '_')
+		if (!ft_isalnum(k[i]) && k[i] != '_' && ft_isdigit(k[0]))
 		{
-			(!v) && printf("unset: `%s': not a valid identifier\n", k);
+			(!v) && printf("unset: `%s' : not a valid identifier\n", k);
 			(v) && printf("export: `%s=%s': not a valid identifier\n", k, v);
 			return (1);
 		}
