@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:30:59 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/19 21:54:56 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:39:48 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	change_dir(char ***env, char *to);
 void	unset_env(char ***env, char	*key);
 void	before_exec(char *str, char **envp);
 void	free_all(t_lexer *lexer, t_parser *parser, \
-t_ast 	*ast, t_d_list *builder);
+t_ast *ast, t_d_list *builder);
 void	init_minishell(void);
 void	free_heredoc(void *c);
 int		loop_heredoc(void);

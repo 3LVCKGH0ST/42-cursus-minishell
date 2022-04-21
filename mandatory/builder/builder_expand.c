@@ -6,27 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/14 20:22:55 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 01:08:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder.h"
-
-void	chartostr(char **str, char c)
-{
-	char	*tmp;
-	char	*tmp1;
-	int		i;
-
-	i = -1;
-	tmp = *str;
-	tmp1 = malloc(2);
-	tmp1[0] = c;
-	tmp1[1] = '\0';
-	*str = ft_strjoin(tmp, tmp1);
-	free(tmp1);
-	free(tmp);
-}
 
 int	skipsinglequotes(char **tmp, char *str, int i)
 {
@@ -79,6 +63,16 @@ int	handlvar(char **tmp, char *str, char **env, int i)
 	return (i);
 }
 
+static void	expand_inter(char *tmp1[2], char *tmp, int *i)
+{
+	tmp1[0] = tmp;
+	tmp1[1] = ft_itoa(g_global.prev_exit_code);
+	tmp = ft_strjoin(tmp, tmp1[1]);
+	free(tmp1[0]);
+	free(tmp1[1]);
+	(*i)++;
+}
+
 char	*builder_expand_id(char *str, char **env)
 {
 	char	*tmp;
@@ -95,12 +89,7 @@ char	*builder_expand_id(char *str, char **env)
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
-			tmp1[0] = tmp;
-			tmp1[1] = ft_itoa(g_global.prev_exit_code);
-			tmp = ft_strjoin(tmp, tmp1[1]);
-			free(tmp1[0]);
-			free(tmp1[1]);
-			i++;
+			expand_inter(tmp1, tmp, &i);
 			continue ;
 		}
 		else if (str[i] == '$' && str[i + 1] == '$' && str[0] != '\'')

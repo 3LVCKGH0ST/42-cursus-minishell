@@ -6,11 +6,20 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/09 20:07:21 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 01:09:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder.h"
+
+static	void	builder_init_builder_inter(t_builder *builder)
+{
+	builder->pipefd[1] = 1;
+	builder->pipefd[0] = 0;
+	builder->inout[1] = 1;
+	builder->inout[0] = 0;
+	builder->status = 0;
+}
 
 /**
  * @brief initializes a new builder
@@ -41,11 +50,7 @@ t_builder	*builder_init_builder(t_builder_type type)
 	}
 	else
 		builder->cmd = NULL;
-	builder->pipefd[1] = 1;
-	builder->pipefd[0] = 0;
-	builder->inout[1] = 1;
-	builder->inout[0] = 0;
-	builder->status = 0;
+	builder_init_builder_inter(builder);
 	return (builder);
 }
 

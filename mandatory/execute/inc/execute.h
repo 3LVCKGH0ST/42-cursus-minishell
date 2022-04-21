@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 06:04:01 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 00:23:14 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void	showexport(int fd);
 void	export(char **args, int fd);
 void	echo(char	**args);
 void	setexport(char *key, char *val);
+char	*lower(char *str);
+int		execbuilt(t_cmd *cmd);
 
 #endif

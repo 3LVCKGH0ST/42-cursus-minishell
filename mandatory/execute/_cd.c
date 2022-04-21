@@ -6,11 +6,27 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/20 22:06:55 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 00:34:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/execute.h"
+
+static int	change_dir_inter(char **to)
+{
+	if (!*to)
+	{
+		*to = get_env_var(g_global.env, "HOME");
+		if (!*to)
+		{
+			write(2, "minishell: cd: HOME not set\n", 30);
+			g_global.exit_code = 1;
+			return (1);
+		}
+		*to = ft_strchr(*to, '=') + 1;
+	}
+	return (0);
+}
 
 void	change_dir(char ***env, char *to)
 {
@@ -18,17 +34,8 @@ void	change_dir(char ***env, char *to)
 	char	*path;
 	DIR		*dir;
 
-	if (!to)
-	{
-		to = get_env_var(g_global.env, "HOME");
-		if (!to)
-		{
-			write(2, "minishell: cd: HOME not set\n", 30);
-			g_global.exit_code = 1;
-			return ;
-		}
-		to = ft_strchr(to, '=') + 1;
-	}
+	if (change_dir_inter(&to))
+		return ;
 	dir = opendir(to);
 	if (access(to, F_OK) || !dir)
 	{

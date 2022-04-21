@@ -6,21 +6,16 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 22:05:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:59:12 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/execute.h"
 
-void	iter_builder_pipline(t_d_list *build)
+static void	iter_builder_pipline_inter(t_d_list *tmp)
 {
-	t_d_list	*tmp;
-	int			i;
-
-	tmp = build;
 	while (tmp)
 	{
-		i = -1;
 		if (tmp->next)
 		{
 			if (pipe(((t_builder *)tmp->content)->pipefd) < 0)
@@ -42,7 +37,15 @@ void	iter_builder_pipline(t_d_list *build)
 			iter_builder_op((t_builder *)tmp->content);
 		}
 		tmp = tmp->next;
-	}
+	}	
+}
+
+void	iter_builder_pipline(t_d_list *build)
+{
+	t_d_list	*tmp;
+
+	tmp = build;
+	iter_builder_pipline_inter(tmp);
 	tmp = build;
 	while (tmp)
 	{
