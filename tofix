@@ -1,2 +1,6 @@
 export a="ls -la"
 $a
+
+
+export PATH=:$PATH
+ls
