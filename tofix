@@ -4,3 +4,22 @@ $a
 
 export PATH=:$PATH
 ls
+
+
+export d="ls -la"
+$d
+total 4
+drwxr-xr-x 1 runner runner  64 Apr 21 10:56 .
+drwxrwxrwx 1 runner runner  90 Apr 21 10:56 ..
+drwxr-xr-x 1 runner runner 168 Mar 30 22:53 .git
+drwxr-xr-x 1 runner runner 814 Mar 30 22:13 libft
+drwxr-xr-x 1 runner runner  92 Mar 30 22:16 minishell
+-rw-r--r-- 1 runner runner  28 Mar 30 22:12 .replit
+drwxr-xr-x 1 runner runner  68 Mar 30 22:13 .vscode
+"ls -la"
+bash: ls -la: command not found
+export d="ls           -la"
+echo $d
+ls -la
+echo "$d"
+ls           -la
