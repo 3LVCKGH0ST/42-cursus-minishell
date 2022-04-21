@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _unset.c                                           :+:      :+:    :+:   */
+/*   _unset_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:58:57 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 23:06:57 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute_bonus.h"
 
 int	checkspchar(char *k, char	*v)
 {
@@ -19,9 +19,9 @@ int	checkspchar(char *k, char	*v)
 	i = -1;
 	while (k[++i])
 	{
-		if (!ft_isalnum(k[i]) && k[i] != '_')
+		if ((!ft_isalnum(k[i]) && k[i] != '_') || ft_isdigit(k[0]))
 		{
-			(!v) && printf("unset: `%s': not a valid identifier\n", k);
+			(!v) && printf("unset: `%s' : not a valid identifier\n", k);
 			(v) && printf("export: `%s=%s': not a valid identifier\n", k, v);
 			return (1);
 		}

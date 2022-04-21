@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _pwd.c                                             :+:      :+:    :+:   */
+/*   _pwd_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 12:48:27 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:16:15 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute_bonus.h"
 
 /**
  * @brief Get the path object
@@ -18,7 +18,6 @@
  * @param envp 
  * @return char* 
  */
-
 char	*get_path(char **envp)
 {
 	int		i;

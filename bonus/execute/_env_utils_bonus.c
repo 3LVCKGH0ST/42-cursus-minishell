@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _env_utils.c                                       :+:      :+:    :+:   */
+/*   _env_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 17:01:11 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:16:24 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute_bonus.h"
 
 int	startwith(char *s1, char *s2)
 {
 	int	i;
 
-	i = -1;
-	while (s2[++i])
+	i = 0;
+	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
 			return (0);
+		i++;
 	}
+	if (s1[i - 1] == '=' && s2[i - 1] == '=')
+		return (1);
+	if (s1[i] != s2[i] && s2[i] != '=' && s1[i] != '=')
+		return (0);
 	return (1);
+}
+
+static void	settmp(char **tmp, char *key, char *val, char *exp)
+{
+	if (val)
+		(*tmp) = ft_strdup(exp);
+	else
+		(*tmp) = ft_strdup(key);
 }
 
 int	handldup(char ***env, char *key, char *val)
@@ -33,13 +46,16 @@ int	handldup(char ***env, char *key, char *val)
 	char		*tmp1;
 
 	i = -1;
-	chck = ft_strjoin(key, "=");
+	if (val)
+		chck = ft_strjoin(key, "=");
+	else
+		chck = ft_strdup(key);
 	while ((*env)[++i])
 	{
 		if (startwith((*env)[i], chck))
 		{
 			free((*env)[i]);
-			tmp1 = ft_strdup((char *)expv);
+			settmp(&tmp1, key, val, (char *) expv);
 			(*env)[i] = tmp1;
 			free((void *)expv);
 			free(chck);

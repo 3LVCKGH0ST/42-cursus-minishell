@@ -1,0 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/21 05:26:41 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/21 05:26:45 by asouinia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SIGNALS_BONUS_H
+# define SIGNALS_BONUS_H
+# include <signal.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <unistd.h>
+# include "../../inc/global_bonus.h"
+
+void	signal_init(int sig);
+void	signal_ign(int sig);
+void	signal_ign2(int sig);
+#endif

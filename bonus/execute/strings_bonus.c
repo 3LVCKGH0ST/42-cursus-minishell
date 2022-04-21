@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strings.c                                          :+:      :+:    :+:   */
+/*   strings_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 22:18:06 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
-
-size_t	ft_strlen(const char *c)
-{
-	size_t	len;
-
-	len = 0;
-	while (c[len])
-		len++;
-	return (len);
-}
+#include "inc/execute_bonus.h"
 
 int	skiplfspace(char *str, int index)
 {

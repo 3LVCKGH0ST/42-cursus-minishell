@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _env.c                                             :+:      :+:    :+:   */
+/*   _env_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbalagui <mbalagui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:10:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/02 23:06:30 by mbalagui         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell/mandatory/inc/minishell.h"
+#include "./inc/execute_bonus.h"
 
-void	showenv(char **envp)
+void	showenv(char **envp, int fd)
 {
 	int	i;
 
 	i = 0;
 	while (envp[i])
-		printf("%s\n", envp[i++]);
+	{
+		ft_putstr_fd(envp[i++], fd);
+		ft_putchar_fd('\n', fd);
+	}
 }
 
 int	getlenenv(char	**env)
@@ -49,6 +52,8 @@ char	*exportval(char *key, char *val)
 	char	*ret;
 	int		i;
 
+	if (!val)
+		return (NULL);
 	i = -1;
 	ret = malloc(ft_strlen(key) + ft_strlen(val) + 2);
 	while (key[++i])
@@ -63,10 +68,9 @@ char	*exportval(char *key, char *val)
 void	addenv(char ***env, char *key, char *val)
 {
 	char	**tmp;
+	char	*kval;
 	int		i;
 
-	if (checkspchar(key, val))
-		return ;
 	if (handldup(&(*env), key, val))
 		return ;
 	tmp = *(env);
@@ -74,7 +78,16 @@ void	addenv(char ***env, char *key, char *val)
 	(*env) = malloc(sizeof(char *) * getlenenv(tmp) + sizeof(char *) * 2);
 	while (tmp[++i])
 		(*env)[i] = tmp[i];
-	(*env)[i++] = exportval(key, val);
+	if (val)
+	{
+		kval = exportval(key, val);
+		(*env)[i++] = kval;
+	}
+	else
+	{
+		kval = ft_strdup(key);
+		(*env)[i++] = kval;
+	}
 	(*env)[i] = NULL;
 	free(tmp);
 }

@@ -37,13 +37,43 @@ EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/_unset.c \
 				./mandatory/execute/strings.c \
 
-PARSING_B	:= 	./bonus/parsing/ast_bonus.c \
-				./bonus/parsing/lexer_bonus.c \
-				./bonus/parsing/lexer1_bonus.c \
-				./bonus/parsing/parser_bonus.c \
-				./bonus/parsing/token_bonus.c \
+PARSING_B		:=	./bonus/parsing/ast_bonus.c \
+				./bonus/parsing/lexer_0_bonus.c \
+				./bonus/parsing/lexer_1_bonus.c \
+				./bonus/parsing/lexer_2_bonus.c \
+				./bonus/parsing/lexer_3_bonus.c \
+				./bonus/parsing/parser_0_bonus.c \
+				./bonus/parsing/parser_1_bonus.c \
+				./bonus/parsing/parser_2_bonus.c \
+				./bonus/parsing/parser_redir_bonus.c \
+				./bonus/parsing/print_tree_0_bonus.c \
+				./bonus/parsing/print_tree_1_bonus.c \
+				./bonus/parsing/free_tree_0_bonus.c \
+				./bonus/parsing/free_tree_1_bonus.c \
+				./bonus/parsing/token_bonus.c	\
 
-EXECUTION_B	:=
+BUILDER_B		:=	./bonus/builder/builder_0_bonus.c \
+				./bonus/builder/builder_1_bonus.c \
+				./bonus/builder/builder_expand_bonus.c \
+				./bonus/builder/print_builder_bonus.c \
+				./bonus/builder/free_builder_bonus.c\
+
+EXECUTION_B	:=	./bonus/execute/execute_0_bonus.c \
+				./bonus/execute/execute_1_bonus.c \
+				./bonus/execute/execute_utils_bonus.c \
+				./bonus/execute/exec_sh_file_bonus.c \
+				./bonus/execute/iter_builder_bonus.c \
+				./bonus/signals/signals_bonus.c \
+				./bonus/execute/_cd_bonus.c \
+				./bonus/execute/_exit_bonus.c \
+				./bonus/execute/_export_bonus.c \
+				./bonus/execute/_echo_bonus.c \
+				./bonus/execute/_env_bonus.c \
+				./bonus/execute/_env_utils_bonus.c \
+				./bonus/execute/_pwd_bonus.c \
+				./bonus/execute/_unset_bonus.c \
+				./bonus/execute/strings_bonus.c \
+
 
 DLINKEDLIST	:=	./double_linked_list/s_d_list_0.c \
 				./double_linked_list/s_d_list_1.c \
@@ -52,7 +82,7 @@ LIBFTDIR	:= ./libft/
 LIBFT		:= ./libft/libft.a
 
 SRC			:=  ./mandatory/minishell.c ./mandatory/utils.c $(PARSING) $(BUILDER) $(EXECUTION)  $(DLINKEDLIST)
-SRCB		:=   ./bonus/minishell_bonus.c  $(PARSING_B) $(EXECUTION_B)  $(DLINKEDLIST)
+SRCB		:=  ./bonus/minishell_bonus.c ./bonus/utils_bonus.c $(PARSING_B) $(BUILDER_B) $(EXECUTION_B)  $(DLINKEDLIST)
 OBJ			:= $(patsubst %.c, %.o, $(SRC)) 
 OBJB		:= $(patsubst %.c, %.o, $(SRCB)) 
 CC			:= gcc
@@ -81,7 +111,7 @@ fclean: clean
 re: fclean all
 
 bonus: $(OBJB) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJB) $(LIBFT) -o $(NAME)
+	@$(CC)  $(FLAGS)  $(RDLINE) $(OBJB) $(LIBFT) -o $(NAME) 
 
 t: $(NAME)
 	./$(NAME)
