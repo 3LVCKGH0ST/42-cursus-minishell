@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 11:34:05 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/08 16:51:54 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 05:40:14 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ char	*to_str(char c)
  */
 int	is_reserved_token(t_lexer *lexer)
 {
-	if (lexer->c == '&' && lexer->cc == '&')
-		return (1);
-	if (ft_strchr("()<>| \t", lexer->c))
+	if (ft_strchr("<>| \t", lexer->c))
 		return (1);
 	return (0);
 }
