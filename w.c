@@ -44,10 +44,10 @@ int strmatch(char *str, char *pattern, int n, int m)
         }
 
     }
- 	for (int i = 0; i <= n; i++)
+ 	for (int i = 1; i <= n; i++)
 	{
-		for (int j = 0; j <= m; j++)
-			printf(" %d {%c}{%c} ", lookup[i][j], str[i], pattern[j]);
+		for (int j = 1; j <= m; j++)
+			printf(" %d {%c}{%c} ", lookup[i][j], str[i - 1], pattern[j - 1]);
 		printf("\n");
 	}
     return lookup[n][m];
@@ -76,7 +76,19 @@ int main(int argc, char **argv)
 
 int	m2(char *str, char *pattern, int n, int m)
 {
-	int i, j;
-	
+	if (*pattern == '*')
+	{
+		if (m2(str, pattern + 1, n, m))
+			return (1);
+		if (n && m2(str + 1, pattern, n - 1, m))
+			return (1);
+		return (0);
+	}
+	else if (*str == *pattern)
+	{
+		if (*str == '\0' && *pattern == '\0')
+			return (1);
+		return (m2(str + 1, pattern + 1, n - 1, m - 1));
+	}
 	return (0);
 }
