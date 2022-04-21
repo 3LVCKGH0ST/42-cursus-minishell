@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 04:39:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 04:54:06 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	exec_inter_check_file(char *str, DIR *dir)
 static void	exec_inter_check_script(char **str, char *arg)
 {
 	*str = arg;
-	if (*str[0] != '.' || *str[1] != '/')
+	if ((*str)[0] != '.' || (*str)[1] != '/')
 	{
 		write(2, "minishell: ", 12);
 		write(2, *str, ft_strlen(*str));

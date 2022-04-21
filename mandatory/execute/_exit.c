@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 03:28:09 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 04:22:36 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 04:51:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_exit(char	**args)
 {
-	int	is_int;
-	int	exit_code;
+	int			is_int;
+	long long	exit_code;
 
 	is_int = 1;
 	write(1, "exit\n", 5);
@@ -38,15 +38,16 @@ void	ft_exit(char	**args)
 	exit(exit_code % 256);
 }
 
-static long	check_ft_atoi_inter(int sign, long nbr, char c, int *is)
+static long long	check_ft_atoi_inter(int sign, unsigned long long \
+nbr, char c, int *is)
 {
 	nbr = nbr * 10 + c - '0';
-	if (nbr > 2147483648)
+	if (nbr > 9223372036854775808ULL)
 	{
 		*is = 0;
 		return (0);
 	}
-	if (nbr == 2147483648 && sign > 0)
+	if (nbr == 9223372036854775808ULL && sign > 0)
 	{
 		*is = 0;
 		return (0);
@@ -54,11 +55,11 @@ static long	check_ft_atoi_inter(int sign, long nbr, char c, int *is)
 	return (nbr);
 }
 
-int	ft_atoi_v2(const char *str, int *is_int)
+long long	ft_atoi_v2(const char *str, int *is_int)
 {
-	int		i;
-	long	nbr;
-	int		sign;
+	int					i;
+	unsigned long long	nbr;
+	int					sign;
 
 	i = 0;
 	sign = 1;
