@@ -24,6 +24,7 @@ BUILDER		:=	./mandatory/builder/builder_0.c \
 EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/execute_1.c \
 				./mandatory/execute/execute_utils.c \
+				./mandatory/execute/exec_sh_file.c \
 				./mandatory/execute/iter_builder.c \
 				./mandatory/signals/signals.c \
 				./mandatory/execute/_cd.c \
@@ -57,7 +58,7 @@ CC			:= gcc
 #RDLINE		:= -lreadline -L/Users/mbalagui/.brew/opt/readline/lib 
 #FLAGS		:= -Wall -Wextra -Werror -I/Users/mbalagui/.brew/opt/readline/include  -g -fsanitize=address 
 RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
-FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g   -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g   #-fsanitize=address 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)

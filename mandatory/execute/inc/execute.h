@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 00:23:14 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 02:21:09 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ void	echo(char	**args);
 void	setexport(char *key, char *val);
 char	*lower(char *str);
 int		execbuilt(t_cmd *cmd);
+void	exec_file_sh(t_cmd *cmd);
+char	**clone_args(char **args);
 
 #endif

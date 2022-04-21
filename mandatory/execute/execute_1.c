@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 00:18:18 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 02:24:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	exec_inter_check_file(str, dir);
 	if (execve(str, cmd->args, envp) == -1)
 	{
+		if (errno == 8)
+			exec_file_sh(cmd);
 		perror("minishell:");
 		exit(errno);
 	}
