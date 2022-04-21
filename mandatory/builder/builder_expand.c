@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 01:08:50 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 01:50:10 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	handlvar(char **tmp, char *str, char **env, int i)
 	return (i);
 }
 
-static void	expand_inter(char *tmp1[2], char *tmp, int *i)
+static void	expand_inter(char *tmp1[2], char **tmp, int *i)
 {
-	tmp1[0] = tmp;
+	tmp1[0] = *tmp;
 	tmp1[1] = ft_itoa(g_global.prev_exit_code);
-	tmp = ft_strjoin(tmp, tmp1[1]);
+	*tmp = ft_strjoin(*tmp, tmp1[1]);
 	free(tmp1[0]);
 	free(tmp1[1]);
-	(*i)++;
+	*i = *i + 1;
 }
 
 char	*builder_expand_id(char *str, char **env)
@@ -89,7 +89,7 @@ char	*builder_expand_id(char *str, char **env)
 			continue ;
 		else if (str[i] == '$' && str[i + 1] == '?')
 		{
-			expand_inter(tmp1, tmp, &i);
+			expand_inter(tmp1, &tmp, &i);
 			continue ;
 		}
 		else if (str[i] == '$' && str[i + 1] == '$' && str[0] != '\'')
