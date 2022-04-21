@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 01:51:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 03:36:00 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,7 @@ int	execbuilt(t_cmd *cmd)
 	else if ((!ft_strncmp(str, "export", ft_strlen("export"))))
 		return (free(str), export(cmd->args, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str, "exit", ft_strlen("exit"))))
-	{
-		free(str);
-		if (cmd->args[1])
-			exit(ft_atoi(cmd->args[1]));
-		else
-			exit(0);
-	}
+		return (free(str), ft_exit(cmd->args), 1);
 	else if ((!ft_strncmp(str, "cd", ft_strlen("cd"))))
 		return (free(str), change_dir(&(g_global.env), cmd->args[1]), 1);
 	else if ((!ft_strncmp(str, "pwd", ft_strlen("pwd"))))

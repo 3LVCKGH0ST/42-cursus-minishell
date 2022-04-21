@@ -28,6 +28,7 @@ EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/iter_builder.c \
 				./mandatory/signals/signals.c \
 				./mandatory/execute/_cd.c \
+				./mandatory/execute/_exit.c \
 				./mandatory/execute/_export.c \
 				./mandatory/execute/_echo.c \
 				./mandatory/execute/_env.c \

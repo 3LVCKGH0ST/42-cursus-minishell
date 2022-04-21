@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 02:21:09 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 03:56:08 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ char	*lower(char *str);
 int		execbuilt(t_cmd *cmd);
 void	exec_file_sh(t_cmd *cmd);
 char	**clone_args(char **args);
+void	ft_exit(char	**args);
+int		ft_atoi_v2(const char *str, int *is_int);
 
 #endif

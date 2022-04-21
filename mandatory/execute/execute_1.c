@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 02:24:47 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 04:39:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ static void	exec_inter_check_file(char *str, DIR *dir)
 	}
 }
 
+static void	exec_inter_check_script(char **str, char *arg)
+{
+	*str = arg;
+	if (*str[0] != '.' || *str[1] != '/')
+	{
+		write(2, "minishell: ", 12);
+		write(2, *str, ft_strlen(*str));
+		write(2, ": command not found\n", 21);
+		exit(127);
+	}
+}
+
 static void	exec_inter(t_cmd *cmd, char **envp)
 {
 	char	*str;
@@ -58,16 +70,14 @@ static void	exec_inter(t_cmd *cmd, char **envp)
 	(dir) && closedir(dir);
 	str = get_cmd_full_path(envp, cmd->args[0]);
 	if (!str)
-		str = cmd->args[0];
+		exec_inter_check_script(&str, cmd->args[0]);
 	dir = opendir(str);
 	exec_inter_check_file(str, dir);
-	if (execve(str, cmd->args, envp) == -1)
-	{
-		if (errno == 8)
-			exec_file_sh(cmd);
-		perror("minishell:");
-		exit(errno);
-	}
+	execve(str, cmd->args, envp);
+	if (errno == 8)
+		exec_file_sh(cmd);
+	perror("minishell:");
+	exit(errno);
 }
 
 static void	exec_cmd_inter(t_cmd *cmd, char **env, int fd_pipe_in)
