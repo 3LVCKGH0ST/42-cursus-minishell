@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 05:31:54 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/21 06:14:51 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
+	char	*str[2];
+
 	(void)argv;
 	createclone(&(g_global.env), envp);
 	createclone(&(g_global.exp), envp);
+	str[0] = get_env_var(g_global.env, "SHLVL");
+	argc = ft_atoi(ft_strchr(str[0], '=') + 1);
+	str[1] = ft_itoa(argc + 1);
+	setexport("SHLVL", str[1]);
+	free(str[1]);
 	g_global.envp = envp;
 	signal(SIGQUIT, SIG_IGN);
 	init_minishell();
