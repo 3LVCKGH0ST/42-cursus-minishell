@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 20:40:13 by asouinia          #+#    #+#             */
-/*   Updated: 2022/03/30 16:38:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:46:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void		ft_d_lstclear(t_d_list **lst, void (*del)(void *));
 void		ft_d_lstiter(t_d_list *lst, void (*f)(void *));
 void		ft_d_lstdelfront(t_d_list **lst, void (*del)(void *));
 void		ft_d_lstiter_back(t_d_list *lst, void (*f)(void *));
+void		ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode);
 #endif

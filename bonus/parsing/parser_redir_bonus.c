@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:49:46 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 05:55:41 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:33:48 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static void	redir_open_files_inter(t_token *token, t_ast *ast)
 {
-	if (token->type == TOKEN_RIN && (access(ast->child->value, F_OK) \
-	|| access(ast->child->value, W_OK)))
+	if (token->type == TOKEN_RIN && \
+	(access(ast->child->children->content, F_OK) \
+	|| access(ast->child->children->content, W_OK)))
 	{
 		g_global.fd_error = errno;
-		g_global.fd_file_error = ast->child->value;
+		g_global.fd_file_error = ast->child->children->content;
 	}
 	else if (token->type == TOKEN_ROUT)
-		ast->fd = open(ast->child->value, \
+		ast->fd = open(ast->child->children->content, \
 		O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (token->type == TOKEN_DROUT)
-		ast->fd = open(ast->child->value, \
+		ast->fd = open(ast->child->children->content, \
 		O_WRONLY | O_CREAT | O_APPEND, 0644);
 }
 
@@ -32,14 +33,14 @@ static void	redir_open_files(t_token *token, t_ast *ast)
 {
 	if (token->type == TOKEN_RIN)
 	{
-		if (access(ast->child->value, F_OK) \
-		|| access(ast->child->value, R_OK))
+		if (access(ast->child->children->content, F_OK) \
+		|| access(ast->child->children->content, R_OK))
 		{
 			g_global.fd_error = errno;
 			g_global.fd_file_error = ast->child->value;
 		}
 		else
-			ast->fd = open(ast->child->value, O_RDONLY);
+			ast->fd = open(ast->child->children->content, O_RDONLY);
 	}
 	else
 		redir_open_files_inter(token, ast);
@@ -58,17 +59,19 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	ast->child = parser_parse_id(parser);
 	if (!ast->child)
 		return (free_tree(ast), NULL);
-	if (check_outside_quotes(ast->child->value) && token->type != TOKEN_DRIN)
+	if (check_outside_quotes(ast->child->children->content) \
+	&& token->type != TOKEN_DRIN)
 	{
 		g_global.exit_code = 1;
 		write(2, "minishell: ", 12);
-		write(2, ast->child->value, ft_strlen(ast->child->value));
+		write(2, ast->child->children->content, \
+		ft_strlen(ast->child->children->content));
 		write(2, ": ambiguous redirect\n", 22);
 	}
 	if (!g_global.fd_error && token->type != TOKEN_DRIN)
 		redir_open_files(token, ast);
 	else if (token->type == TOKEN_DRIN)
-		ast->fd = here_doc(ast->child->value);
+		ast->fd = here_doc(ast->child->children->content);
 	return (ast);
 }
 

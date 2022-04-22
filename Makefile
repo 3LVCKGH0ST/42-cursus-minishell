@@ -80,6 +80,7 @@ EXECUTION_B	:=	./bonus/execute/execute_0_bonus.c \
 
 DLINKEDLIST	:=	./double_linked_list/s_d_list_0.c \
 				./double_linked_list/s_d_list_1.c \
+				./double_linked_list/s_d_list_3.c \
 
 LIBFTDIR	:= ./libft/
 LIBFT		:= ./libft/libft.a

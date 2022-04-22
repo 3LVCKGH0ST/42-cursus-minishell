@@ -20,6 +20,7 @@
 		"dirent.h": "c",
 		"execute.h": "c",
 		"signal.h": "c",
-		"signals.h": "c"
+		"signals.h": "c",
+		"builder_bonus.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:44 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:45:04 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,6 @@ t_builder	*builder_init_builder(t_builder_type type)
 		builder->cmd = NULL;
 	builder_init_builder_inter(builder);
 	return (builder);
-}
-
-/**
- * @brief will append a list to another list
- * 			 unlike ft_d_lstadd_back that add only one node
- * 
- * @param lst 
- * @param newnode list to append
- */
-void	ft_d_lstadd_back_v2(t_d_list **lst, t_d_list *newnode)
-{
-	t_d_list	*last;
-
-	if (!newnode)
-		exit(15);
-	if (*lst)
-	{
-		last = ft_d_lstlast(*lst);
-		newnode->prev = last;
-		last->next = newnode;
-	}
-	else
-		*lst = newnode;
 }
 
 /**

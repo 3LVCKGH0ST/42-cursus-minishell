@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:44 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:41:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_builder	*builder_build_list(t_ast *ast, char **env)
  */
 char	*builder_build_id(t_ast *ast, char **env)
 {
-	return (builder_expand_id(ast->value, env));
+	return (builder_expand_id(ast->children->content, env));
 }
 
 /**
