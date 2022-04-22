@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 02:05:50 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 03:22:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:02:19 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char	**parse_paths(void)
 {
-	int		i;
+	int		i[2];
 	int		k;
 	char	**paths;
 	char	*str;
 
-	paths = malloc(sizeof(char *) * (count_paths() + 2));
-	paths[count_paths() + 1] = NULL;
-
-	i = -1;
+	i[0] = -1;
+	i[1] = count_paths();
+	paths = malloc(sizeof(char *) * (i[1] + 2));
+	paths[i[1] + 1] = NULL;
 	k = -1;
 	str = ft_strchr(get_env_var(g_global.env, "PATH"), '=') + 1;
-	while (*(str + (k + 1)))
-		paths[++i] = fill_paths(str, &k);
+	while (i[0] < i[1])
+		paths[++(i[0])] = fill_paths(str, &k);
 	return (paths);
 }
 

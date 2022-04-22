@@ -91,7 +91,7 @@ CC			:= gcc
 #RDLINE		:= -lreadline -L/Users/mbalagui/.brew/opt/readline/lib 
 #FLAGS		:= -Wall -Wextra -Werror -I/Users/mbalagui/.brew/opt/readline/include  -g -fsanitize=address 
 RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
-FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g  #-fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g  -fsanitize=address 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)
