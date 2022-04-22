@@ -1,0 +1,11 @@
+Makefile
+bonus
+double_linked_list
+libft
+ls
+mandatory
+minishell
+s
+test.sh
+tofix
+w.c

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 04:48:31 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 03:22:25 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ void		exec_file_sh(t_cmd *cmd);
 char		**clone_args(char **args);
 void		ft_exit(char	**args);
 long long	ft_atoi_v2(const char *str, int *is_int);
+int			count_paths(void);
+char		*fill_paths(char *path, int *k);
+char		**parse_paths(void);
 
 #endif

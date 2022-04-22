@@ -24,6 +24,7 @@ BUILDER		:=	./mandatory/builder/builder_0.c \
 EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/execute_1.c \
 				./mandatory/execute/execute_utils.c \
+				./mandatory/execute/path_patch.c \
 				./mandatory/execute/exec_sh_file.c \
 				./mandatory/execute/iter_builder.c \
 				./mandatory/signals/signals.c \
@@ -61,6 +62,7 @@ BUILDER_B		:=	./bonus/builder/builder_0_bonus.c \
 EXECUTION_B	:=	./bonus/execute/execute_0_bonus.c \
 				./bonus/execute/execute_1_bonus.c \
 				./bonus/execute/execute_utils_bonus.c \
+				./bonus/execute/path_patch_bonus.c \
 				./bonus/execute/exec_sh_file_bonus.c \
 				./bonus/execute/iter_builder_bonus.c \
 				./bonus/signals/signals_bonus.c \
@@ -89,7 +91,7 @@ CC			:= gcc
 #RDLINE		:= -lreadline -L/Users/mbalagui/.brew/opt/readline/lib 
 #FLAGS		:= -Wall -Wextra -Werror -I/Users/mbalagui/.brew/opt/readline/include  -g -fsanitize=address 
 RDLINE		:= -lreadline -L/goinfre/asouinia/homebrew/opt/readline/lib 
-FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g  -fsanitize=address 
+FLAGS		:= -Wall -Wextra -Werror -I/goinfre/asouinia/homebrew/opt/readline/include  -g  #-fsanitize=address 
 .PHONY: all clean fclean re bonus
 
 all: $(NAME)

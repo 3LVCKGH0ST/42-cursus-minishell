@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 00:05:50 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 00:21:33 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 03:21:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,41 +42,20 @@ void	free_2d(char **ptr)
 	free(ptr);
 }
 
-char	**get_paths(char **envp)
-{
-	char	**paths;
-	char	**result;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	result = ft_split(get_env_var(envp, "PATH"), ':');
-	if (!result)
-		return (NULL);
-	while (result[i++])
-		;
-	paths = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	tmp = ft_substr(result[0], 4, ft_strlen(result[0]));
-	paths[0] = ft_strjoin(tmp, "/");
-	free(tmp);
-	while (result[++i])
-		paths[i] = ft_strjoin(result[i], "/");
-	free_2d(result);
-	paths[i] = NULL;
-	return (paths);
-}
-
 char	*get_cmd_full_path(char **envp, char *cmd)
 {
 	char	*path;
 	char	**all_paths;
 	int		i;
 
-	all_paths = get_paths(envp);
+	(void)envp;
+	if (cmd[0] == '.' && cmd[1] == '/')
+		return (NULL);
+	all_paths = parse_paths();
 	i = -1;
 	while (all_paths && all_paths[++i])
 	{
+	
 		path = ft_strjoin(all_paths[i], cmd);
 		if (!access(path, F_OK))
 			return (path);
