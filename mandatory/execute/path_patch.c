@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 02:05:50 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 04:02:19 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:12:57 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	count_paths(void)
 {
 	int		i;
 	int		count;
-	char 	*str;
+	char	*str;
 
 	i = -1;
 	count = 0;

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 00:05:50 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 03:21:43 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:12:48 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	i = -1;
 	while (all_paths && all_paths[++i])
 	{
-	
 		path = ft_strjoin(all_paths[i], cmd);
 		if (!access(path, F_OK))
 			return (path);

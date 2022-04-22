@@ -1,11 +1,6 @@
 export a="ls -la"
 $a
 
-
-export PATH=:$PATH
-ls
-
-
 export d="ls -la"
 $d
 total 4
@@ -24,7 +19,3 @@ ls -la
 echo "$d"
 ls           -la
 
-{{{{{{{{{{{{{{{{{shit}}}}}}}}}}}}}}}}}
-( echo ss || cat Makefile ) | cat
-ls | (echo ss || cat Makefile ) | cat
-{{{{{{{{{{{{{{{{{shit}}}}}}}}}}}}}}}}}
