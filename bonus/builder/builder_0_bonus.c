@@ -6,28 +6,11 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 07:41:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 08:45:37 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/builder_bonus.h"
-
-/**
- * @brief 	will build a Linked List of t_builder from a ast tree
- * 
- * @param ast 
- * @return t_d_list* 
- */
-t_d_list	*builder_build(t_ast *ast, char **env)
-{
-	if (ast == NULL)
-		return (NULL);
-	else if (ast->type == AST_PIPELINE)
-		return (builder_build_pipline(ast, env));
-	else if (ast->type == AST_OP)
-		return (builder_build_op(ast, env));
-	return (NULL);
-}
 
 /**
  * @brief will add the redirection to the right Linked List
@@ -49,6 +32,24 @@ char **env)
 		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content, env)));
 }
 
+static void	fill_all_args(t_d_list **tmp, t_d_list *args)
+{
+	t_d_list	*i;
+	t_d_list	*j;
+
+	i = args;
+	while (i)
+	{
+		j = ((t_ast *)i->content)->children;
+		while (j)
+		{
+			ft_d_lstadd_back(tmp, ft_d_lstnew(ft_strdup(j->content)));
+			j = j->next;
+		}
+		i = i->next;
+	}
+}
+
 /**
  * @brief will add the args to cmd and set redirections
  * 
@@ -58,19 +59,23 @@ char **env)
 t_builder	*builder_build_list(t_ast *ast, char **env)
 {
 	t_d_list	*tmp;
+	t_d_list	*tmp2;
 	t_builder	*build;
 	int			i;
 
 	i = 0;
-	tmp = ast->args;
+	tmp = NULL;
 	build = builder_init_builder(B_CMD);
+	fill_all_args(&tmp, ast->args);
 	build->cmd->args = malloc(sizeof(char *) * (ft_d_lstsize(tmp) + 1));
 	build->cmd->args[ft_d_lstsize(tmp)] = NULL;
+	tmp2 = tmp;
 	while (tmp)
 	{
-		build->cmd->args[i++] = builder_build_id((t_ast *)tmp->content, env);
+		build->cmd->args[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}
+	ft_d_lstclear(&tmp2, &free);
 	tmp = ast->redir;
 	while (tmp)
 	{

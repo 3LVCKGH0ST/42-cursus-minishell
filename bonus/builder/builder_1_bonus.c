@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 07:45:04 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 08:25:22 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,21 @@ t_d_list	*builder_build_op(t_ast *ast, char **env)
 	build->left = builder_build(ast->left, env);
 	build->right = builder_build(ast->right, env);
 	return (ft_d_lstnew(build));
+}
+
+/**
+ * @brief 	will build a Linked List of t_builder from a ast tree
+ * 
+ * @param ast 
+ * @return t_d_list* 
+ */
+t_d_list	*builder_build(t_ast *ast, char **env)
+{
+	if (ast == NULL)
+		return (NULL);
+	else if (ast->type == AST_PIPELINE)
+		return (builder_build_pipline(ast, env));
+	else if (ast->type == AST_OP)
+		return (builder_build_op(ast, env));
+	return (NULL);
 }

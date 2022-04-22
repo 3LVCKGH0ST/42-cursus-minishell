@@ -21,3 +21,5 @@ ls           -la
 
 bash-3.2$ < $asfas
 bash: $asfas: ambiguous redirect
+
+in minishell.c we need to chande the hardcoded if minishell is runned and exitcode to check of all cases after re expanding
