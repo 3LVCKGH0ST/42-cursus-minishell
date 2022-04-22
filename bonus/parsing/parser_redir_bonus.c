@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:49:46 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 07:33:48 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 09:36:12 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	ast->child = parser_parse_id(parser);
 	if (!ast->child)
 		return (free_tree(ast), NULL);
-	if (check_outside_quotes(ast->child->children->content) \
+	if (0 \
 	&& token->type != TOKEN_DRIN)
 	{
 		g_global.exit_code = 1;
@@ -71,7 +71,7 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	if (!g_global.fd_error && token->type != TOKEN_DRIN)
 		redir_open_files(token, ast);
 	else if (token->type == TOKEN_DRIN)
-		ast->fd = here_doc(ast->child->children->content);
+		ast->fd = here_doc(ast->child->value);
 	return (ast);
 }
 

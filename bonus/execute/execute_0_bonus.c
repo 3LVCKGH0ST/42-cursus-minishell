@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 09:08:02 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	execbuilt(t_cmd *cmd)
 	if ((!ft_strncmp(str, "env", ft_strlen("env"))))
 		return (free(str), showenv(g_global.env, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str, "export", ft_strlen("export"))))
-		return (free(str), export(cmd->args, cmd->inout[1]), 1);
+		return (free(str), ft_export(cmd->args, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str, "exit", ft_strlen("exit"))))
 		return (free(str), ft_exit(cmd->args), 1);
 	else if ((!ft_strncmp(str, "cd", ft_strlen("cd"))))
@@ -109,7 +109,7 @@ int	execbuilt(t_cmd *cmd)
 	return (free(str), 0);
 }
 
-void	export(char **args, int fd)
+void	ft_export(char **args, int fd)
 {
 	int		i;
 	char	*key;

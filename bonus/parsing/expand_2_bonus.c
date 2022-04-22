@@ -6,30 +6,56 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 04:55:39 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 05:53:56 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 10:12:47 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/parser_bonus.h"
 
-int	check_outside_quotes(char *str)
+t_d_list	*expand_word(char *str)
 {
-	int		i;
-	int		inside_quotes;
-	char	quote;
+	t_d_list	*tmp;
 
-	i = 0;
-	inside_quotes = 0;
-	while (str[i])
+	tmp = ft_d_lstnew(str);
+}
+
+t_d_list	*expand_layer1(char *str)
+{
+	t_d_list	*lst;
+	int			i;
+	char		*tmp;
+	char		*tmp1;
+
+	lst = NULL;
+	i = -1;
+	tmp = NULL;
+	while (str[++i])
 	{
-		if (str[i] == '"' || str[i] == '\'')
+		tmp = append_char(tmp, str[i]);
+		if ((str[i] == '"' || str[i] == '\''))
 		{
-			inside_quotes = !inside_quotes;
-			quote = str[i];
+			tmp = ft_skip_quotes(tmp, i);
+			continue ;
 		}
-		if (str[i] == '$' && !inside_quotes)
-			return (1);
-		i++;
 	}
-	return (0);
+	return (lst);
+}
+
+char	*ft_skip_quotes(char *str, int *i)
+{
+	return (str);
+}
+
+char	*append_char(char	*str, char c)
+{
+	char	*tmp0;
+	char	*tmp1;
+
+	if (!str)
+		str = ft_strdup("");
+	tmp1 = to_str(c);
+	tmp0 = ft_strjoin(str, tmp1);
+	free(str);
+	free(tmp1);
+	return (tmp0);
 }
