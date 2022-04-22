@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 00:05:50 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 04:12:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 06:29:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ char	*get_cmd_full_path(char **envp, char *cmd)
 	int		i;
 
 	(void)envp;
-	if (cmd[0] == '.' && cmd[1] == '/')
+	if ((cmd[0] == '.' && cmd[1] == '/'))
 		return (NULL);
+	if (cmd[0] == '/')
+		return (cmd);
 	all_paths = parse_paths();
 	i = -1;
 	while (all_paths && all_paths[++i])

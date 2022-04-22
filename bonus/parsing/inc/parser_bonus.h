@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:07 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:27:09 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 05:52:57 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void		parser_syntax_error(char *token_value);
 int			is_redir(t_token *token);
 int			is_op(t_token *token);
 int			here_doc(char *limiter);
+int			check_outside_quotes(char *str);
 
 #endif

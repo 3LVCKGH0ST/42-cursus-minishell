@@ -19,3 +19,5 @@ ls -la
 echo "$d"
 ls           -la
 
+bash-3.2$ < $asfas
+bash: $asfas: ambiguous redirect

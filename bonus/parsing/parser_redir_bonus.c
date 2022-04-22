@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:49:46 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:29:14 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 05:55:41 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	ast->child = parser_parse_id(parser);
 	if (!ast->child)
 		return (free_tree(ast), NULL);
+	if (check_outside_quotes(ast->child->value) && token->type != TOKEN_DRIN)
+	{
+		g_global.exit_code = 1;
+		write(2, "minishell: ", 12);
+		write(2, ast->child->value, ft_strlen(ast->child->value));
+		write(2, ": ambiguous redirect\n", 22);
+	}
 	if (!g_global.fd_error && token->type != TOKEN_DRIN)
 		redir_open_files(token, ast);
 	else if (token->type == TOKEN_DRIN)
