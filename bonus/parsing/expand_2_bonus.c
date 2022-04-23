@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 04:55:39 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 04:39:23 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 04:59:39 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,9 @@
 
 t_d_list	*expand_word(char *str)
 {
-	t_d_list	*tmp;
-
-	tmp = expand_layer1(get_expanded_word(str));
-	return (tmp);
-}
-
-t_d_list	*expand_layer1(char *str)
-{
 	t_d_list	*lst;
 	int			i;
-	int			stars;
+	char		*pattern;
 	int			*stars_idxs;
 
 	lst = NULL;
@@ -33,14 +25,14 @@ t_d_list	*expand_layer1(char *str)
 	{
 		if (str[i] != ' ')
 		{
-			stars = 0;
-			ft_d_lstadd_back(&lst, ft_d_lstnew(collect_str(&i, \
-			str, &stars_idxs, &stars)));
-			if (stars)
-				free(stars_idxs);
+			pattern = collect_str(&i, str, &stars_idxs);
+			if (stars_idxs[0] == -1)
+				ft_d_lstadd_back(&lst, ft_d_lstnew(pattern));
+			else
+				ft_d_lstadd_back_v2(&lst, get_matches(pattern, stars_idxs));
+			free(stars_idxs);
 		}
 	}
-	free(str);
 	return (lst);
 }
 
@@ -92,16 +84,16 @@ int	count_stars(char *str)
 	return (stars);
 }
 
-char	*collect_str(int *i, char *str, int **stars_idxs, int *stars)
+char	*collect_str(int *i, char *str, int **stars_idxs)
 {
 	char	*tmp;
 	int		j;
+	int		stars;
 
 	tmp = ft_strdup("");
-	*stars = count_stars(str);
+	stars = count_stars(str);
 	j = -1;
-	if (*stars)
-		*stars_idxs = malloc(sizeof(int) * (*stars));
+	*stars_idxs = malloc(sizeof(int) * (stars + 1));
 	while (str[*i] && str[*i] != ' ')
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
@@ -116,6 +108,7 @@ char	*collect_str(int *i, char *str, int **stars_idxs, int *stars)
 		(*i)++;
 	}
 	(*i)--;
+	(*stars_idxs)[++j] = -1;
 	return (tmp);
 }
 

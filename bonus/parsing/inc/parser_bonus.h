@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:07 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 04:37:58 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 05:47:03 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "print_tree_bonus.h"
 # include <errno.h>
 # include <readline/readline.h>
+# include <dirent.h>
 
 typedef struct s_parser
 {
@@ -49,12 +50,9 @@ char		*get_env_var(char **envp, char *env_var);
 char		*append_str(char	*str, char *c);
 char		*collect_str_quoted(int *i, char *str, char *prev);
 int			count_stars(char *str);
-char		*collect_str(int *i, char *str, int **stars_idxs, int *stars);
-
-int			skipsinglequotes(char **tmp, char *str, int i);
-void		varreplcae(char **tmp, char *cmd, char **env);
-int			handlvar(char **tmp, char *str, char **env, int i);
-char		*parser_expand_id(char *str, char **env);
-void		chartostr(char **str, char c);
+char		*collect_str(int *i, char *str, int **stars_idxs);
+t_d_list	*get_matches(char *pattern, int *stars_idxs);
+int			is_valid_star(int idx, int *stars_idxs);
+int			is_match_pattern(char *str, char *pattern, int s_p, int *stars);
 
 #endif

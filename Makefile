@@ -49,6 +49,7 @@ PARSING_B		:=	./bonus/parsing/ast_bonus.c \
 				./bonus/parsing/parser_redir_bonus.c \
 				./bonus/parsing/expand_2_bonus.c \
 				./bonus/parsing/expand_bonus.c \
+				./bonus/parsing/parser_wildcard_bonus.c \
 				./bonus/parsing/print_tree_0_bonus.c \
 				./bonus/parsing/print_tree_1_bonus.c \
 				./bonus/parsing/free_tree_0_bonus.c \
