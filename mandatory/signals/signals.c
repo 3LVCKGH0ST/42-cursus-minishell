@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   signals.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:28:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/20 22:12:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:00:43 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,16 @@ void	signal_ign2(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	exit(2);
+}
+
+int	is_minishell(void)
+{
+	int	i;
+
+	i = 0;
+	if (g_global.lastcmd[0] != '.' || g_global.lastcmd[1] != '/')
+		return (!ft_strncmp(g_global.lastcmd, "minishell", 10));
+	while (g_global.lastcmd[++i] == '/')
+		;
+	return (!ft_strncmp(g_global.lastcmd + i, "minishell", 10));
 }

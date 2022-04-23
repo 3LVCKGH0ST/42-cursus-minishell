@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/23 19:00:38 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:29:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	init_minishell_inter(char *str)
 		write(1, "\n", 1);
 	if (g_global.exit_code == 3)
 	{
-		if (is_minishell())
+		if (!is_minishell())
 			printf("Quit: %d\n", g_global.exit_code);
 		g_global.exit_code = 131;
 	}

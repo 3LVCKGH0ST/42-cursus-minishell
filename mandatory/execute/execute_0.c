@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_0.c                                        :+:      :+:    :+:   */
+/*   execute_0.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 03:18:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 18:53:59 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	execute(t_d_list *node)
 		write(2, "minishell: ", 12);
 		write(2, g_global.fd_file_error, ft_strlen(g_global.fd_file_error));
 		write(2, ": ambiguous redirect\n", 22);
+		g_global.exit_code = 1;
 	}
 	else if (g_global.fd_error)
 	{
@@ -100,7 +101,7 @@ int	execbuilt(t_cmd *cmd)
 	if ((!ft_strncmp(str, "env", ft_strlen("env"))))
 		return (free(str), showenv(g_global.env, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str, "export", ft_strlen("export"))))
-		return (free(str), export(cmd->args, cmd->inout[1]), 1);
+		return (free(str), ft_export(cmd->args, cmd->inout[1]), 1);
 	else if ((!ft_strncmp(str, "exit", ft_strlen("exit"))))
 		return (free(str), ft_exit(cmd->args), 1);
 	else if ((!ft_strncmp(str, "cd", ft_strlen("cd"))))
@@ -115,7 +116,7 @@ int	execbuilt(t_cmd *cmd)
 	return (free(str), 0);
 }
 
-void	export(char **args, int fd)
+void	ft_export(char **args, int fd)
 {
 	int		i;
 	char	*key;

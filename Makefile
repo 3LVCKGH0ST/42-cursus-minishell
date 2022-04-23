@@ -9,6 +9,10 @@ PARSING		:=	./mandatory/parsing/ast.c \
 				./mandatory/parsing/parser_1.c \
 				./mandatory/parsing/parser_2.c \
 				./mandatory/parsing/parser_redir.c \
+				./mandatory/parsing/expand_2.c \
+				./mandatory/parsing/expand.c \
+				./mandatory/parsing/expand_utils.c \
+				./mandatory/parsing/parser_wildcard.c \
 				./mandatory/parsing/print_tree_0.c \
 				./mandatory/parsing/print_tree_1.c \
 				./mandatory/parsing/free_tree_0.c \
@@ -17,7 +21,6 @@ PARSING		:=	./mandatory/parsing/ast.c \
 
 BUILDER		:=	./mandatory/builder/builder_0.c \
 				./mandatory/builder/builder_1.c \
-				./mandatory/builder/builder_expand.c \
 				./mandatory/builder/print_builder.c \
 				./mandatory/builder/free_builder.c\
 
@@ -38,6 +41,7 @@ EXECUTION	:=	./mandatory/execute/execute_0.c \
 				./mandatory/execute/_unset.c \
 				./mandatory/execute/strings.c \
 
+
 PARSING_B		:=	./bonus/parsing/ast_bonus.c \
 				./bonus/parsing/lexer_0_bonus.c \
 				./bonus/parsing/lexer_1_bonus.c \
@@ -49,6 +53,7 @@ PARSING_B		:=	./bonus/parsing/ast_bonus.c \
 				./bonus/parsing/parser_redir_bonus.c \
 				./bonus/parsing/expand_2_bonus.c \
 				./bonus/parsing/expand_bonus.c \
+				./bonus/parsing/expand_utils_bonus.c \
 				./bonus/parsing/parser_wildcard_bonus.c \
 				./bonus/parsing/print_tree_0_bonus.c \
 				./bonus/parsing/print_tree_1_bonus.c \
@@ -58,7 +63,6 @@ PARSING_B		:=	./bonus/parsing/ast_bonus.c \
 
 BUILDER_B		:=	./bonus/builder/builder_0_bonus.c \
 				./bonus/builder/builder_1_bonus.c \
-				./bonus/builder/builder_expand_bonus.c \
 				./bonus/builder/print_builder_bonus.c \
 				./bonus/builder/free_builder_bonus.c\
 

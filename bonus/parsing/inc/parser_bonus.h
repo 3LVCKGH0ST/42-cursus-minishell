@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:07 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 05:47:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 20:55:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,8 @@ char		*collect_str(int *i, char *str, int **stars_idxs);
 t_d_list	*get_matches(char *pattern, int *stars_idxs);
 int			is_valid_star(int idx, int *stars_idxs);
 int			is_match_pattern(char *str, char *pattern, int s_p, int *stars);
+void		free_2d_short(short ***arr, int len);
+short		**init_2d(int len1, int len2);
+short		**set_lookup(char *pattern, int *stars, char *str, int s_p);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_1.c                                         :+:      :+:    :+:   */
+/*   parser_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 00:01:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 09:38:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_ast	*parser_parse_id(t_parser *parser)
 	if (!parser_parser_advance(parser, TOKEN_ID))
 		return (NULL);
 	ast = ast_init_ast(AST_ID);
+	ast->children = expand_word(token->value);
 	ast->value = ft_strdup(token->value);
 	return (ast);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   execute.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 22:44:35 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 03:22:25 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/21 05:27:31 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/22 09:07:46 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			skiprtspace(char *str);
 int			checkspchar(char *k, char	*v);
 int			getlenenv(char	**env);
 void		showexport(int fd);
-void		export(char **args, int fd);
+void		ft_export(char **args, int fd);
 void		echo(char	**args);
 void		setexport(char *key, char *val);
 char		*lower(char *str);

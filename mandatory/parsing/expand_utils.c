@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                        :+:      :+:    :+:   */
+/*   expand_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:21:23 by asouinia         ###   ########.fr       */
+/*   Created: 2022/04/23 20:39:18 by asouinia          #+#    #+#             */
+/*   Updated: 2022/04/23 20:55:20 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./inc/ast.h"
+#include "./inc/parser.h"
 
-t_ast	*ast_init_ast(t_type_node type)
+void	free_2d_short(short ***arr, int len)
 {
-	t_ast	*ast;
+	int	i;
 
-	ast = (t_ast *)malloc(sizeof(t_ast));
-	if (!ast)
+	i = -1;
+	while (++i < len)
+		free((*arr)[i]);
+	free(*arr);
+}
+
+short	**init_2d(int len1, int len2)
+{
+	int		i;
+	short	**arr;
+
+	i = -1;
+	arr = (short **)malloc(sizeof(short *) * len1);
+	if (!arr)
 		return (NULL);
-	ast->type = type;
-	ast->args = NULL;
-	ast->redir = NULL;
-	ast->children = NULL;
-	ast->left = NULL;
-	ast->right = NULL;
-	ast->child = NULL;
-	ast->value = NULL;
-	ast->type_token = 0;
-	return (ast);
+	while (++i < len1)
+		arr[i] = (short *)malloc(sizeof(short) * len2);
+	ft_bzero(arr, sizeof(arr));
+	return (arr);
 }

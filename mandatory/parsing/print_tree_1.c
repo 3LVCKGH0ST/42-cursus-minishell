@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tree_1.c                                     :+:      :+:    :+:   */
+/*   print_tree_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 19:30:04 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 07:35:42 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:40:58 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 void	print_tree_id(t_ast *ast)
 {
+	t_d_list	*tmp;
+
 	ft_putstr_fd(" ", 1);
-	ft_putstr_fd(ast->value, 1);
+	tmp = ast->children;
+	while (tmp)
+	{
+		ft_putstr_fd((tmp->content), 1);
+		tmp = tmp->next;
+	}
 	ft_putchar_fd(' ', 1);
 }
 

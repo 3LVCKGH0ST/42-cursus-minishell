@@ -14,6 +14,7 @@
 
 void	free_tree_id(t_ast *ast)
 {
+	ft_d_lstclear(&ast->children, &free);
 	free(ast->value);
 	free(ast);
 }
