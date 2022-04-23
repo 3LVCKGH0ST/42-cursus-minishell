@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:58:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 05:54:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 06:38:06 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_match_pattern(char *str, char *pattern, int s_p, int *stars)
 		while (++j <= s_p)
 		{
 			if (pattern[j - 1] == '*' && is_valid_star(j - 1, stars))
-				lookup[i][j] = lookup[i][j - 1] || lookup[i - 1][j];
+				lookup[i][j] = (lookup[i][j - 1] || lookup[i - 1][j]);
 			else if (str[i - 1] == pattern[j - 1])
 				lookup[i][j] = lookup[i - 1][j - 1];
 			else

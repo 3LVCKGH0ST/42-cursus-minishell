@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:45:09 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 06:54:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	change_dir_inter(char **to)
 		}
 		*to = ft_strchr(*to, '=') + 1;
 	}
+	else if (ft_strncmp(*to, "~", 1) == 0)
+		*to = "/Users/asouinia";
 	return (0);
 }
 
