@@ -6,11 +6,27 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:58:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 06:38:06 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 07:18:05 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/parser_bonus.h"
+
+static char	*get_dir_name(char	*dirname, char *pattern)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	if (pattern[0] != '.' || pattern[1] != '/')
+		return (ft_strdup(dirname));
+	tmp = NULL;
+	tmp = append_char(tmp, '.');
+	while (pattern[++i] == '/')
+		tmp = append_char(tmp, '/');
+	tmp = append_str(tmp, ft_strdup(dirname));
+	return (tmp);
+}
 
 t_d_list	*get_matches(char *pattern, int *stars_idxs)
 {
@@ -26,7 +42,7 @@ t_d_list	*get_matches(char *pattern, int *stars_idxs)
 	dir = readdir(currdir);
 	while (dir)
 	{
-		tmp1 = ft_strdup(dir->d_name);
+		tmp1 = get_dir_name(dir->d_name, pattern);
 		if (is_match_pattern(tmp1, pattern, ft_strlen(pattern), stars_idxs))
 			ft_d_lstadd_back(&tmp, ft_d_lstnew(ft_strdup(tmp1)));
 		free(tmp1);
