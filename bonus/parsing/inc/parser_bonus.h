@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:07 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 00:14:20 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:42:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char		*ft_skip_var(char *str, char *prev, int *i);
 char		*get_expanded_word(char *str);
 char		*get_env_var(char **envp, char *env_var);
 char		*append_str(char	*str, char *c);
+char		*collect_str(int *i, char *str);
+char		*collect_str_quoted(int *i, char *str, char *prev);
 
 int			skipsinglequotes(char **tmp, char *str, int i);
 void		varreplcae(char **tmp, char *cmd, char **env);

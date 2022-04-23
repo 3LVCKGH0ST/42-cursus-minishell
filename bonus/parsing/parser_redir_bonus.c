@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:49:46 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 09:36:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 03:19:56 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	redir_open_files(t_token *token, t_ast *ast)
 		|| access(ast->child->children->content, R_OK))
 		{
 			g_global.fd_error = errno;
-			g_global.fd_file_error = ast->child->value;
+			g_global.fd_file_error = ast->child->children->content;
 		}
 		else
 			ast->fd = open(ast->child->children->content, O_RDONLY);
@@ -59,19 +59,16 @@ t_ast	*parser_parse_redir(t_parser *parser)
 	ast->child = parser_parse_id(parser);
 	if (!ast->child)
 		return (free_tree(ast), NULL);
-	if (0 \
+	if (ft_d_lstsize(ast->child->children) != 1 \
 	&& token->type != TOKEN_DRIN)
 	{
-		g_global.exit_code = 1;
-		write(2, "minishell: ", 12);
-		write(2, ast->child->children->content, \
-		ft_strlen(ast->child->children->content));
-		write(2, ": ambiguous redirect\n", 22);
+		g_global.fd_error = -1;
+		g_global.fd_file_error = ast->child->value;
 	}
-	if (!g_global.fd_error && token->type != TOKEN_DRIN)
+	else if (!g_global.fd_error && token->type != TOKEN_DRIN)
 		redir_open_files(token, ast);
 	else if (token->type == TOKEN_DRIN)
-		ast->fd = here_doc(ast->child->value);
+		ast->fd = here_doc(ast->child->children->content);
 	return (ast);
 }
 

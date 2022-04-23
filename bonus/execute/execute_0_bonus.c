@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 09:08:02 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 03:22:13 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,14 @@ void	execute(t_d_list *node)
 	char	*tmp;
 
 	((t_builder *)node->content)->pid = -1;
-	if (g_global.fd_error)
+	if (g_global.fd_error == -1)
+	{
+		write(2, "minishell: ", 12);
+		write(2, g_global.fd_file_error, ft_strlen(g_global.fd_file_error));
+		write(2, ": ambiguous redirect\n", 22);
+		g_global.exit_code = 1;
+	}
+	else if (g_global.fd_error)
 	{
 		errno = g_global.fd_error;
 		tmp = ft_strjoin("minishell: ", g_global.fd_file_error);
