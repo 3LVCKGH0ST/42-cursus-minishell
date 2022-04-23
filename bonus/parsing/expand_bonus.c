@@ -6,98 +6,95 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/22 20:40:45 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 00:47:39 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/parser_bonus.h"
 
-int	skipsinglequotes(char **tmp, char *str, int i)
+char	*append_char(char	*str, char c)
 {
-	i++;
-	while (str[i] && str[i])
-	{
-		if (str[i] == '\'')
-			break ;
-		chartostr(&(*tmp), str[i]);
-		i++;
-	}
-	return (i);
+	char	*tmp0;
+	char	*tmp1;
+
+	if (!str)
+		str = ft_strdup("");
+	tmp1 = to_str(c);
+	tmp0 = ft_strjoin(str, tmp1);
+	free(str);
+	free(tmp1);
+	return (tmp0);
 }
 
-void	varreplcae(char **tmp, char *cmd, char **env)
+char	*append_str(char	*str, char *c)
 {
-	char	*t;
-	int		i;
-	char	*c;
+	char	*tmp0;
 
-	i = -1;
-	c = ft_strjoin(cmd, "=");
-	while (env[++i])
-	{
-		if (ft_strncmp(env[i], c, ft_strlen(c)) == 0)
-		{
-			t = *tmp;
-			*tmp = ft_strjoin(*tmp, env[i] + ft_strlen(cmd) + 1);
-			free(c);
-			free(t);
-			return ;
-		}
-	}
+	if (!str)
+		str = ft_strdup("");
+	tmp0 = ft_strjoin(str, c);
+	free(str);
 	free(c);
+	return (tmp0);
 }
 
-int	handlvar(char **tmp, char *str, char **env, int i)
+static	char	*get_var_key(char *str)
 {
-	char	*cmd;
-	int		f;
-
-	i++;
-	f = i;
-	while (ft_isalnum(str[i]) || str[i] == '_')
-		i++;
-	cmd = ft_substr(str, f, i - f);
-	varreplcae(&(*tmp), cmd, env);
-	i--;
-	free(cmd);
-	return (i);
-}
-
-static void	parser_expand_inter(char *tmp1[2], char **tmp, int *i)
-{
-	tmp1[0] = *tmp;
-	tmp1[1] = ft_itoa(g_global.prev_exit_code);
-	*tmp = ft_strjoin(*tmp, tmp1[1]);
-	free(tmp1[0]);
-	free(tmp1[1]);
-	*i = *i + 1;
-}
-
-char	*parser_expand_id(char *str, char **env)
-{
-	char	*tmp;
-	char	*tmp1[2];
+	char	*key;
 	int		i;
 
-	i = -1;
-	tmp = malloc(1);
-	tmp[0] = 0;
-	while (str[++i])
+	i = 0;
+	key = ft_strdup("");
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
-		//if ((str[i] == '"' && str[0] != '\'') || \
-		//(str[i] == '\'' && str[0] == '\''))
-		//	continue ;
-		if (str[i] == '$' && str[i + 1] == '?')
-		{
-			parser_expand_inter(tmp1, &tmp, &i);
-			continue ;
-		}
-		else if (str[i] == '$' && str[i + 1] == '$' && str[0] != '\'')
-			chartostr(&tmp, str[i]);
-		else if (str[i] == '$' && str[0] != '\'')
-			i = handlvar(&tmp, str, env, i);
-		else
-			chartostr(&tmp, str[i]);
+		key = append_char(key, str[i]);
+		i++;
 	}
-	return (tmp);
+	return (key);
+}
+
+char	*ft_skip_var(char *str, char *prev, int *i)
+{
+	char	*value;
+	char	*key;
+	int		size;
+
+	size = 1;
+	if (str[(*i) + 1] == '?')
+		value = ft_itoa(g_global.prev_exit_code);
+	else if (str[(*i) + 1] == '$')
+		value = ft_itoa(getpid());
+	else
+	{
+		key = get_var_key(str + (*i) + 1);
+		value = get_env_var(g_global.env, key);
+		if (!value)
+			value = ft_strdup("");
+		else
+			value = ft_strdup(value);
+		size = ft_strlen(key);
+	}
+	prev = append_str(prev, value);
+	(*i) += size;
+	return (prev);
+}
+
+char	*ft_skip_quotes(char *str, char *prev, int *i)
+{
+	char	quote;
+
+	quote = str[(*i)++];
+	prev = append_char(prev, quote);
+	while (str[*i] && str[*i] != quote)
+	{
+		if (quote == '"' && (str[(*i)] == '$' && (str[(*i) + 1] == '$' \
+		|| str[(*i) + 1] == '?' || \
+		ft_isalnum(str[(*i) + 1]) || str[(*i) + 1] == '_')))
+			prev = ft_skip_var(str, prev, i);
+		else
+			prev = append_char(prev, str[*i]);
+		(*i)++;
+	}
+	prev = append_char(prev, quote);
+	return (prev);
 }
