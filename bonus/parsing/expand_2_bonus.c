@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 04:55:39 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 04:59:39 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 06:14:38 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_d_list	*expand_word(char *str)
 
 	lst = NULL;
 	i = -1;
+	str = get_expanded_word(str);
 	while (str[++i])
 	{
 		if (str[i] != ' ')
