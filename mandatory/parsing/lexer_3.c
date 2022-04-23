@@ -20,11 +20,7 @@
  */
 static t_token	*lexer_next_token_extra(t_lexer *lexer)
 {
-	if (lexer->c == '(')
-		return (lexer_set_token(lexer, "(", TOKEN_LPAREN));
-	else if (lexer->c == ')')
-		return (lexer_set_token(lexer, ")", TOKEN_RPAREN));
-	else if (lexer->c == '|')
+	if (lexer->c == '|')
 		return (lexer_set_token(lexer, "|", TOKEN_PIPE));
 	else if (lexer->c == '>')
 		return (lexer_set_token(lexer, ">", TOKEN_ROUT));
@@ -50,10 +46,6 @@ t_token	*lexer_next_token(t_lexer *lexer)
 	{
 		if (lexer->c == ' ' || lexer->c == '\t')
 			lexer_skip_whitespace_lexer(lexer);
-		else if (lexer->c == '|' && lexer->cc == '|')
-			return (lexer_set_token(lexer, "||", TOKEN_OR));
-		else if (lexer->c == '&' && lexer->cc == '&')
-			return (lexer_set_token(lexer, "&&", TOKEN_AND));
 		else if (lexer->c == '>' && lexer->cc == '>')
 			return (lexer_set_token(lexer, ">>", TOKEN_DROUT));
 		else if (lexer->c == '<' && lexer->cc == '<')

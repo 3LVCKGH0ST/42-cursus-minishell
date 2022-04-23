@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:58:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 20:55:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 21:40:12 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ t_d_list	*get_matches(char *pattern, int *stars_idxs)
 	dir = readdir(currdir);
 	while (dir)
 	{
-		tmp1 = get_dir_name(dir->d_name, pattern);
-		if (is_match_pattern(tmp1, pattern, ft_strlen(pattern), stars_idxs))
-			ft_d_lstadd_back(&tmp, ft_d_lstnew(ft_strdup(tmp1)));
-		free(tmp1);
+		if (dir->d_name[0] != '.')
+		{
+			tmp1 = get_dir_name(dir->d_name, pattern);
+			if (is_match_pattern(tmp1, pattern, ft_strlen(pattern), stars_idxs))
+				ft_d_lstadd_back(&tmp, ft_d_lstnew(ft_strdup(tmp1)));
+			free(tmp1);
+		}
 		dir = readdir(currdir);
 	}
 	if (!tmp)

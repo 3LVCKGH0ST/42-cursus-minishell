@@ -36,9 +36,7 @@ char	*to_str(char c)
  */
 int	is_reserved_token(t_lexer *lexer)
 {
-	if (lexer->c == '&' && lexer->cc == '&')
-		return (1);
-	if (ft_strchr("()<>| \t", lexer->c))
+	if (ft_strchr("<>| \t", lexer->c))
 		return (1);
 	return (0);
 }

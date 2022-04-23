@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/23 21:08:56 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 21:22:32 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_minishell(void)
 		signal(SIGINT, signal_init);
 		g_global.interupted = 0;
 		g_global.quited = 0;
-		str = readline("minishell-bonus-👌: ");
+		str = readline("minishell-👌: ");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 1);

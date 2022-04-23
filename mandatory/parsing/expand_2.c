@@ -27,7 +27,7 @@ t_d_list	*expand_word(char *str)
 		if (str[i] != ' ')
 		{
 			pattern = collect_str(&i, str, &stars_idxs);
-			if (stars_idxs[0] == -1)
+			if (1)
 				ft_d_lstadd_back(&lst, ft_d_lstnew(pattern));
 			else
 				ft_d_lstadd_back_v2(&lst, get_matches(pattern, stars_idxs));
