@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 06:14:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:00:38 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,22 @@ static void	init_minishell_inter(char *str)
 	g_global.exit_code = 0;
 	g_global.fd_error = 0;
 	g_global.here_docs = NULL;
+	g_global.lastcmd = NULL;
 	signal(SIGINT, SIG_IGN);
 	before_exec(str, g_global.env);
 	if (g_global.interupted && g_global.exit_code == 2)
 		g_global.exit_code = 130;
-	if (g_global.exit_code == 130 \
-	&& !(!ft_strncmp(str, "./minishell", 12) || \
-		!ft_strncmp(str, "./minishell ", 13)))
-	{
+	if (g_global.exit_code == 130 && !is_minishell())
 		write(1, "\n", 1);
-	}
 	if (g_global.exit_code == 3)
 	{
-		if (!(!ft_strncmp(str, "./minishell", 12) || \
-		!ft_strncmp(str, "./minishell ", 13)))
+		if (is_minishell())
 			printf("Quit: %d\n", g_global.exit_code);
 		g_global.exit_code = 131;
 	}
 	g_global.prev_exit_code = g_global.exit_code;
+	if (g_global.lastcmd)
+		free(g_global.lastcmd);
 }
 
 void	init_minishell(void)

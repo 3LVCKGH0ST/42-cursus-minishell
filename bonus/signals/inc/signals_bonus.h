@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:26:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:26:45 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:01:50 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 # include <readline/readline.h>
 # include <unistd.h>
 # include "../../inc/global_bonus.h"
+# include "../../../libft/libft.h"
 
 void	signal_init(int sig);
 void	signal_ign(int sig);
 void	signal_ign2(int sig);
+int		is_minishell(void);
+
 #endif
