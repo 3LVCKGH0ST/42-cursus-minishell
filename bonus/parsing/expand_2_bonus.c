@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 04:55:39 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 02:42:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 04:39:23 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,21 @@ t_d_list	*expand_layer1(char *str)
 {
 	t_d_list	*lst;
 	int			i;
+	int			stars;
+	int			*stars_idxs;
 
 	lst = NULL;
 	i = -1;
 	while (str[++i])
 	{
 		if (str[i] != ' ')
-			ft_d_lstadd_back(&lst, ft_d_lstnew(collect_str(&i, str)));
+		{
+			stars = 0;
+			ft_d_lstadd_back(&lst, ft_d_lstnew(collect_str(&i, \
+			str, &stars_idxs, &stars)));
+			if (stars)
+				free(stars_idxs);
+		}
 	}
 	free(str);
 	return (lst);
@@ -56,15 +64,53 @@ char	*get_expanded_word(char *str)
 	return (line);
 }
 
-char	*collect_str(int *i, char *str)
+int	count_stars(char *str)
+{
+	int		i;
+	int		stars;
+	char	quote;
+	int		inquote;
+
+	i = -1;
+	inquote = 0;
+	stars = 0;
+	while (str[++i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			if (inquote == 0)
+			{
+				quote = str[i];
+				inquote = 1;
+			}
+			else if (str[i] == quote)
+				inquote = 0;
+		}
+		else if (str[i] == '*' && !inquote)
+			stars++;
+	}
+	return (stars);
+}
+
+char	*collect_str(int *i, char *str, int **stars_idxs, int *stars)
 {
 	char	*tmp;
+	int		j;
 
 	tmp = ft_strdup("");
+	*stars = count_stars(str);
+	j = -1;
+	if (*stars)
+		*stars_idxs = malloc(sizeof(int) * (*stars));
 	while (str[*i] && str[*i] != ' ')
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
 			tmp = collect_str_quoted(i, str, tmp);
+		else if (str[*i] == '*')
+		{
+			tmp = append_char(tmp, str[*i]);
+			(*stars_idxs)[++j] = ft_strlen(tmp) - 1;
+		}
 		else
 			tmp = append_char(tmp, str[*i]);
 		(*i)++;

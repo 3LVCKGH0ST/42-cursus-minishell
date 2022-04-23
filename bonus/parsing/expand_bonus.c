@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:38:25 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/23 02:24:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 03:59:27 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*ft_skip_var(char *str, char *prev, int *i)
 		else
 			value = ft_strdup(ft_strchr(value, '=') + 1);
 		size = ft_strlen(key);
+		free(key);
 	}
 	prev = append_str(prev, value);
 	(*i) += size;
