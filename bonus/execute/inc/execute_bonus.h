@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:31 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 23:56:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/24 06:23:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define COMMAND_NOT_FOUND_ERROR 127
 
 void		iter_builder_pipline(t_d_list *build);
-void		iter_builder_op(t_builder *build);
+void		iter_builder_op(t_d_list *builder);
 void		iter_builder(t_d_list *build);
 void		execute(t_d_list *node);
 int			open_in_files(t_d_list *node);

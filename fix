@@ -2,3 +2,7 @@
 
  (cat  /dev/random || ls) | head -c3
  (cat || ls) | grep s
+
+
+bash-3.2$ export b  sad  dd =shit
+bash: export: `=shit': not a valid identifier
