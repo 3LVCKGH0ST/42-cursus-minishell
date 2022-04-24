@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 23:57:46 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/24 05:17:29 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	execute_inter(t_d_list *node)
 		((t_redir *)ft_d_lstlast(cmd->redir_out)->content)->fd;
 	else if (node->next)
 		cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
+	else
+		cmd->inout[1] = ((t_builder *)node->content)->inout[1];
 	if (cmd->args && cmd->args[0] && cmd->args[0][0])
 	{
 		((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env, \
@@ -48,7 +50,7 @@ void	execute(t_d_list *node)
 		print_error_fd(node);
 	else
 		execute_inter(node);
-	if (node->next)
+	if (node->next || ((t_builder *)node->content)->pipefd[1] != 1)
 		close(((t_builder *)node->content)->pipefd[1]);
 	if (node->prev)
 		close(((t_builder *)node->prev->content)->pipefd[0]);

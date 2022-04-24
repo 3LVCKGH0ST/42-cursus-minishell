@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/23 23:56:02 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/24 03:31:40 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	print_error_fd(t_d_list	*node)
 		write(2, ((t_builder *)node->content)->fd_file_error, \
 		ft_strlen(((t_builder *)node->content)->fd_file_error));
 		write(2, ": ambiguous redirect\n", 22);
-		g_global.exit_code = 1;
 	}
 	else if (((t_builder *)node->content)->fd_error)
 	{
@@ -50,6 +49,7 @@ void	print_error_fd(t_d_list	*node)
 		((t_builder *)node->content)->fd_file_error);
 		perror(tmp);
 		free(tmp);
-		g_global.exit_code = 1;
 	}
+	((t_builder *)node->content)->status = 1;
+	g_global.exit_code = 1;
 }

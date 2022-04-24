@@ -1,0 +1,4 @@
+ ./MiniShell
+
+ (cat  /dev/random || ls) | head -c3
+ (cat || ls) | grep s
