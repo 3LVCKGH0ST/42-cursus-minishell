@@ -92,6 +92,7 @@ t_parser *parser)
 		tmp = parser_parse_redir(parser);
 		if (!tmp)
 			return (free_tree(ast), 0);
+		set_err(ast);
 		ft_d_lstadd_back(&(ast->redir), ft_d_lstnew(tmp));
 	}
 	return (1);
