@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 04:55:39 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 20:33:10 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:37:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ t_d_list	*expand_word(char *str)
 		{
 			pattern = collect_str(&i, str, &stars_idxs);
 			if (stars_idxs[0] == -1)
-				ft_d_lstadd_back(&lst, ft_d_lstnew(pattern));
+				ft_d_lstadd_back(&lst, ft_d_lstnew(ft_strdup(pattern)));
 			else
 				ft_d_lstadd_back_v2(&lst, get_matches(pattern, stars_idxs));
 			free(stars_idxs);
+			free(pattern);
 		}
 	}
 	free(str);

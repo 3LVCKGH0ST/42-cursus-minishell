@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:31 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 09:07:46 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:56:53 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ long long	ft_atoi_v2(const char *str, int *is_int);
 int			count_paths(void);
 char		*fill_paths(char *path, int *k);
 char		**parse_paths(void);
+void		print_error_fd(t_d_list	*node);
 
 #endif

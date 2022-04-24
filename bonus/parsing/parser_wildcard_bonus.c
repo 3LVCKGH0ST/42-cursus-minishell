@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:58:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 21:40:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:37:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_d_list	*get_matches(char *pattern, int *stars_idxs)
 		dir = readdir(currdir);
 	}
 	if (!tmp)
-		tmp = ft_d_lstnew(pattern);
+		tmp = ft_d_lstnew(ft_strdup(pattern));
 	closedir(currdir);
 	return (tmp);
 }

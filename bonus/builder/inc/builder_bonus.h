@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:37 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 07:46:51 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 22:58:17 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_builder
 	t_d_list		*right;
 	int				pipefd[2];
 	int				inout[2];
+	int				fd_error;
+	char			*fd_file_error;
 	int				status;
 	pid_t			pid;
 }				t_builder;

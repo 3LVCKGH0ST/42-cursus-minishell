@@ -37,6 +37,8 @@ typedef struct s_ast
 	char			*value;
 	t_e_token		type_token;
 	int				fd;
+	int				fd_error;
+	char			*fd_file_error;
 }	t_ast;
 
 t_ast	*ast_init_ast(t_type_node type);

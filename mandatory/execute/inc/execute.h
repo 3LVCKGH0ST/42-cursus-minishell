@@ -61,5 +61,6 @@ long long	ft_atoi_v2(const char *str, int *is_int);
 int			count_paths(void);
 char		*fill_paths(char *path, int *k);
 char		**parse_paths(void);
+void		print_error_fd(t_d_list	*node);
 
 #endif

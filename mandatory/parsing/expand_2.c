@@ -28,10 +28,11 @@ t_d_list	*expand_word(char *str)
 		{
 			pattern = collect_str(&i, str, &stars_idxs);
 			if (1)
-				ft_d_lstadd_back(&lst, ft_d_lstnew(pattern));
+				ft_d_lstadd_back(&lst, ft_d_lstnew(ft_strdup(pattern)));
 			else
 				ft_d_lstadd_back_v2(&lst, get_matches(pattern, stars_idxs));
 			free(stars_idxs);
+			free(pattern);
 		}
 	}
 	free(str);

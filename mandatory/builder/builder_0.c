@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 21:09:08 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/24 00:02:17 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ char **env)
 		ft_d_lstnew(builder_build_redir((t_ast *)tmp->content, env)));
 }
 
-static void	fill_all_args(t_d_list **tmp, t_d_list *args)
+static void	fill_all_args(t_d_list **tmp, t_d_list *args, t_ast *ast, \
+t_builder *build)
 {
 	t_d_list	*i;
 	t_d_list	*j;
 
+	build->fd_error = ast->fd_error;
+	build->fd_file_error = ast->fd_file_error;
 	i = args;
 	while (i)
 	{
@@ -66,7 +69,7 @@ t_builder	*builder_build_list(t_ast *ast, char **env)
 	i = 0;
 	tmp = NULL;
 	build = builder_init_builder(B_CMD);
-	fill_all_args(&tmp, ast->args);
+	fill_all_args(&tmp, ast->args, ast, build);
 	build->cmd->args = malloc(sizeof(char *) * (ft_d_lstsize(tmp) + 1));
 	build->cmd->args[ft_d_lstsize(tmp)] = NULL;
 	tmp2 = tmp;

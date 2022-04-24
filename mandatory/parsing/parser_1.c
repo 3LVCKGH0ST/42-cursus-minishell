@@ -61,18 +61,18 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 	return (parser_parse_pipeline_inter(parser, ast));
 }
 
-t_ast	*parser_parse_id(t_parser *parser)
+static void	set_err(t_ast *ast)
 {
-	t_ast	*ast;
-	t_token	*token;
-
-	token = parser->token;
-	if (!parser_parser_advance(parser, TOKEN_ID))
-		return (NULL);
-	ast = ast_init_ast(AST_ID);
-	ast->children = expand_word(token->value);
-	ast->value = ft_strdup(token->value);
-	return (ast);
+	if (g_global.fd_error)
+	{
+		ast->fd_error = g_global.fd_error;
+		ast->fd_file_error = g_global.fd_file_error;
+	}
+	else
+	{
+		ast->fd_error = 0;
+		ast->fd_file_error = NULL;
+	}	
 }
 
 static int	parser_parse_list_inter(t_token *token, t_ast *ast, \

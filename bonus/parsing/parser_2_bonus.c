@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:41:54 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:21:10 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:39:46 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,19 @@ t_ast	*parser_parse_paren(t_parser *parser)
 	if (parser->token->type == TOKEN_ID)
 		return (free_tree(ast), \
 		parser_syntax_error(parser->token->value), NULL);
+	return (ast);
+}
+
+t_ast	*parser_parse_id(t_parser *parser)
+{
+	t_ast	*ast;
+	t_token	*token;
+
+	token = parser->token;
+	if (!parser_parser_advance(parser, TOKEN_ID))
+		return (NULL);
+	ast = ast_init_ast(AST_ID);
+	ast->children = expand_word(token->value);
+	ast->value = ft_strdup(token->value);
 	return (ast);
 }

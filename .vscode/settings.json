@@ -22,6 +22,7 @@
 		"signal.h": "c",
 		"signals.h": "c",
 		"builder_bonus.h": "c",
-		"signals_bonus.h": "c"
+		"signals_bonus.h": "c",
+		"execute_bonus.h": "c"
 	}
 }

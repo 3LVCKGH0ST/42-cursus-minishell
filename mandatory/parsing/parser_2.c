@@ -60,3 +60,17 @@ t_ast	*parser_parse_paren(t_parser *parser)
 		parser_syntax_error(parser->token->value), NULL);
 	return (ast);
 }
+
+t_ast	*parser_parse_id(t_parser *parser)
+{
+	t_ast	*ast;
+	t_token	*token;
+
+	token = parser->token;
+	if (!parser_parser_advance(parser, TOKEN_ID))
+		return (NULL);
+	ast = ast_init_ast(AST_ID);
+	ast->children = expand_word(token->value);
+	ast->value = ft_strdup(token->value);
+	return (ast);
+}

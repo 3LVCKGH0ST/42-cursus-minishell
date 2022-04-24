@@ -28,5 +28,8 @@ t_ast	*ast_init_ast(t_type_node type)
 	ast->child = NULL;
 	ast->value = NULL;
 	ast->type_token = 0;
+	ast->fd = 0;
+	ast->fd_error = 0;
+	ast->fd_file_error = NULL;
 	return (ast);
 }

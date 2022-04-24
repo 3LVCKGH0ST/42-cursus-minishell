@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 22:50:41 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 08:25:22 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:28:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static	void	builder_init_builder_inter(t_builder *builder)
 	builder->inout[1] = 1;
 	builder->inout[0] = 0;
 	builder->status = 0;
+	builder->fd_file_error = NULL;
+	builder->fd_error = 0;
 }
 
 /**

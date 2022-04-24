@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 18:53:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:57:46 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,9 @@ static void	execute_inter(t_d_list *node)
 
 void	execute(t_d_list *node)
 {
-	char	*tmp;
-
 	((t_builder *)node->content)->pid = -1;
-	if (g_global.fd_error == -1)
-	{
-		write(2, "minishell: ", 12);
-		write(2, g_global.fd_file_error, ft_strlen(g_global.fd_file_error));
-		write(2, ": ambiguous redirect\n", 22);
-		g_global.exit_code = 1;
-	}
-	else if (g_global.fd_error)
-	{
-		errno = g_global.fd_error;
-		tmp = ft_strjoin("minishell: ", g_global.fd_file_error);
-		perror(tmp);
-		free(tmp);
-	}
+	if (((t_builder *)node->content)->fd_error)
+		print_error_fd(node);
 	else
 		execute_inter(node);
 	if (node->next)

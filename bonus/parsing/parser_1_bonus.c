@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 19:43:29 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 09:38:29 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:39:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ t_ast	*parser_parse_pipeline(t_parser *parser)
 	return (parser_parse_pipeline_inter(parser, ast));
 }
 
-t_ast	*parser_parse_id(t_parser *parser)
+static void	set_err(t_ast *ast)
 {
-	t_ast	*ast;
-	t_token	*token;
-
-	token = parser->token;
-	if (!parser_parser_advance(parser, TOKEN_ID))
-		return (NULL);
-	ast = ast_init_ast(AST_ID);
-	ast->children = expand_word(token->value);
-	ast->value = ft_strdup(token->value);
-	return (ast);
+	if (g_global.fd_error)
+	{
+		ast->fd_error = g_global.fd_error;
+		ast->fd_file_error = g_global.fd_file_error;
+	}
+	else
+	{
+		ast->fd_error = 0;
+		ast->fd_file_error = NULL;
+	}	
 }
 
 static int	parser_parse_list_inter(t_token *token, t_ast *ast, \
@@ -92,6 +92,7 @@ t_parser *parser)
 		tmp = parser_parse_redir(parser);
 		if (!tmp)
 			return (free_tree(ast), 0);
+		set_err(tmp);
 		ft_d_lstadd_back(&(ast->redir), ft_d_lstnew(tmp));
 	}
 	return (1);
@@ -119,5 +120,7 @@ t_ast	*parser_parse_list(t_parser *parser)
 		return (free_tree(ast), \
 		parser_syntax_error(parser->token->value), NULL);
 	}
+	g_global.fd_error = 0;
+	g_global.fd_file_error = NULL;
 	return (ast);
 }

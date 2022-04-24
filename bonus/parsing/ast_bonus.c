@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:22:14 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:21:23 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:21:59 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ t_ast	*ast_init_ast(t_type_node type)
 	ast->child = NULL;
 	ast->value = NULL;
 	ast->type_token = 0;
+	ast->fd = 0;
+	ast->fd_error = 0;
+	ast->fd_file_error = NULL;
 	return (ast);
 }

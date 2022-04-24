@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 10:07:55 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:25:46 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/23 23:03:38 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_ast
 	char			*value;
 	t_e_token		type_token;
 	int				fd;
+	int				fd_error;
+	char			*fd_file_error;
 }	t_ast;
 
 t_ast	*ast_init_ast(t_type_node type);

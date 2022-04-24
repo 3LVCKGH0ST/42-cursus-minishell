@@ -42,14 +42,17 @@ t_d_list	*get_matches(char *pattern, int *stars_idxs)
 	dir = readdir(currdir);
 	while (dir)
 	{
-		tmp1 = get_dir_name(dir->d_name, pattern);
-		if (is_match_pattern(tmp1, pattern, ft_strlen(pattern), stars_idxs))
-			ft_d_lstadd_back(&tmp, ft_d_lstnew(ft_strdup(tmp1)));
-		free(tmp1);
+		if (dir->d_name[0] != '.')
+		{
+			tmp1 = get_dir_name(dir->d_name, pattern);
+			if (is_match_pattern(tmp1, pattern, ft_strlen(pattern), stars_idxs))
+				ft_d_lstadd_back(&tmp, ft_d_lstnew(ft_strdup(tmp1)));
+			free(tmp1);
+		}
 		dir = readdir(currdir);
 	}
 	if (!tmp)
-		tmp = ft_d_lstnew(pattern);
+		tmp = ft_d_lstnew(ft_strdup(pattern));
 	closedir(currdir);
 	return (tmp);
 }
