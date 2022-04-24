@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/22 01:50:25 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/24 03:25:30 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ void	iter_builder_op(t_builder *build)
 		iter_builder(build->right);
 		build->status = ((t_builder *)last->content)->status;
 	}
-	if (build->pipefd[1] != 1)
-		close(build->pipefd[1]);
 }
 
 void	iter_builder(t_d_list *build)
