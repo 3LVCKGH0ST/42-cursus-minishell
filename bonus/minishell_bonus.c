@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/27 03:47:11 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/27 03:55:53 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static int	before_exec_inter(t_lexer *lexer, t_parser *parser, t_ast *ast)
 		free_all(lexer, parser, ast, NULL);
 		return (0);
 	}
+	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
+	signal(SIGINT, signal_ign);
 	return (1);
 }
 
@@ -107,10 +109,6 @@ void	before_exec(char *str, char **envp)
 	if (!before_exec_inter(lexer, parser, ast))
 		return ;
 	builder = builder_build(ast, envp);
-	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
-	//signal(SIGINT, signal_ign);
-	signal(SIGINT, signal_ign);
-//void	signal_ign2(int sig)
 	if (((t_token *)lexer->tokens->content)->type != TOKEN_LPAREN && \
 	ast->type == AST_OP)
 		iter_builder_no(builder);
