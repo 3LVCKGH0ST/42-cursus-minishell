@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:33:26 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/23 23:33:26 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/27 03:47:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,15 @@ void	before_exec(char *str, char **envp)
 	if (!before_exec_inter(lexer, parser, ast))
 		return ;
 	builder = builder_build(ast, envp);
-	signal(SIGINT, signal_ign);
 	ft_d_lstclear(&(g_global.here_docs), &free_heredoc);
-	iter_builder(builder);
+	//signal(SIGINT, signal_ign);
+	signal(SIGINT, signal_ign);
+//void	signal_ign2(int sig)
+	if (((t_token *)lexer->tokens->content)->type != TOKEN_LPAREN && \
+	ast->type == AST_OP)
+		iter_builder_no(builder);
+	else
+		iter_builder(builder);
 	g_global.exit_code = \
 	((t_builder *)(ft_d_lstlast(builder)->content))->status;
 	if (WIFEXITED(g_global.exit_code))

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:13 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/26 20:41:07 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	showexport(int fd)
 
 void	setexport(char *key, char *val)
 {
-	if (checkspchar(key, NULL))
+	if (checkspchar(key, val))
 		return ;
 	if (!val)
 	{

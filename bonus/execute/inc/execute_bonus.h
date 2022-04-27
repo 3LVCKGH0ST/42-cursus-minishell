@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:31 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/24 06:23:07 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/27 03:34:01 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int			count_paths(void);
 char		*fill_paths(char *path, int *k);
 char		**parse_paths(void);
 void		print_error_fd(t_d_list	*node);
+void		iter_builder_no(t_d_list *builder);
+void		signal_ign(int sig);
 
 #endif

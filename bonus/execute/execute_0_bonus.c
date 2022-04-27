@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/24 06:27:12 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/26 22:25:16 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@ static void	execute_inter(t_d_list *node)
 	if (cmd->redir_in)
 		cmd->inout[0] = \
 		((t_redir *)ft_d_lstlast(cmd->redir_in)->content)->fd;
-	else if (node->prev)
-		cmd->inout[0] = ((t_builder *)node->prev->content)->pipefd[0];
 	else
 		cmd->inout[0] = ((t_builder *)node->content)->inout[0];
 	if (cmd->redir_out)
 		cmd->inout[1] = \
 		((t_redir *)ft_d_lstlast(cmd->redir_out)->content)->fd;
-	else if (node->next)
-		cmd->inout[1] = ((t_builder *)node->content)->pipefd[1];
 	else
 		cmd->inout[1] = ((t_builder *)node->content)->inout[1];
 	if (cmd->args && cmd->args[0] && cmd->args[0][0])
@@ -50,10 +46,6 @@ void	execute(t_d_list *node)
 		print_error_fd(node);
 	else
 		execute_inter(node);
-	if (node->next || ((t_builder *)node->content)->pipefd[1] != 1)
-		close(((t_builder *)node->content)->pipefd[1]);
-	if (node->prev)
-		close(((t_builder *)node->prev->content)->pipefd[0]);
 	if (node->content)
 		close_cmd_fds(node);
 }
