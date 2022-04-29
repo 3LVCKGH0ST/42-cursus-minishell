@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:28:44 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 19:00:43 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/27 00:41:52 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	is_minishell(void)
 {
 	int	i;
 
+	if (!g_global.lastcmd)
+		return (0);
 	i = 0;
 	if (g_global.lastcmd[0] != '.' || g_global.lastcmd[1] != '/')
 		return (!ft_strncmp(g_global.lastcmd, "minishell", 10));

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:34:10 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:59:11 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	print_error_fd(t_d_list	*node)
 		write(2, ((t_builder *)node->content)->fd_file_error, \
 		ft_strlen(((t_builder *)node->content)->fd_file_error));
 		write(2, ": ambiguous redirect\n", 22);
-		g_global.exit_code = 1;
 	}
 	else if (((t_builder *)node->content)->fd_error)
 	{
@@ -50,6 +49,14 @@ void	print_error_fd(t_d_list	*node)
 		((t_builder *)node->content)->fd_file_error);
 		perror(tmp);
 		free(tmp);
-		g_global.exit_code = 1;
 	}
+	((t_builder *)node->content)->status = 1;
+	g_global.exit_code = 1;
+}
+
+void	ft_err(char *str)
+{
+	ft_putstr_fd("export : `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("' : not a valid identifier\n", 2);
 }

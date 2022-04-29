@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 05:27:31 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 23:56:53 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:58:12 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define COMMAND_NOT_FOUND_ERROR 127
 
 void		iter_builder_pipline(t_d_list *build);
-void		iter_builder_op(t_builder *build);
+void		iter_builder_op(t_d_list *builder);
 void		iter_builder(t_d_list *build);
 void		execute(t_d_list *node);
 int			open_in_files(t_d_list *node);
@@ -46,12 +46,12 @@ char		*get_path(char **envp);
 void		unset_env(char ***env, char	*key);
 int			skiplfspace(char *str, int index);
 int			skiprtspace(char *str);
-int			checkspchar(char *k, char	*v);
+int			checkspchar(char *k, char	*v, int c);
 int			getlenenv(char	**env);
 void		showexport(int fd);
 void		ft_export(char **args, int fd);
 void		echo(char	**args);
-void		setexport(char *key, char *val);
+void		setexport(char *key, char *val, int c);
 char		*lower(char *str);
 int			execbuilt(t_cmd *cmd);
 void		exec_file_sh(t_cmd *cmd);
@@ -62,5 +62,8 @@ int			count_paths(void);
 char		*fill_paths(char *path, int *k);
 char		**parse_paths(void);
 void		print_error_fd(t_d_list	*node);
+void		iter_builder_no(t_d_list *builder);
+void		signal_ign(int sig);
+void		ft_err(char *str);
 
 #endif
