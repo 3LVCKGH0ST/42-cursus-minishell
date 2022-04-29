@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 17:34:58 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/23 18:53:59 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:22:53 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,13 @@ int	exec_cmmand(t_cmd *cmd, char **env, int fd_pipe_in)
 		exit(errno);
 	}
 	if (pid == 0)
+	{
+		if (!cmd->args[0][0])
+		{
+			write(2, "minishell: : command not found\n", 32);
+			exit(127);
+		}
 		exec_cmd_inter(cmd, env, fd_pipe_in);
+	}
 	return (pid);
 }

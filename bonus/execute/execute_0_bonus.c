@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 23:57:51 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/26 22:25:16 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:59:18 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute_inter(t_d_list *node)
 		((t_redir *)ft_d_lstlast(cmd->redir_out)->content)->fd;
 	else
 		cmd->inout[1] = ((t_builder *)node->content)->inout[1];
-	if (cmd->args && cmd->args[0] && cmd->args[0][0])
+	if (cmd->args && cmd->args[0])
 	{
 		((t_builder *)node->content)->pid = exec_cmmand(cmd, g_global.env, \
 		((t_builder *)node->content)->pipefd[0]);
@@ -112,13 +112,15 @@ void	ft_export(char **args, int fd)
 		key = ft_strdup(args[i]);
 		egale = ft_strchr(key, '=');
 		if (!egale)
-			setexport(key, NULL);
-		else
+			setexport(key, NULL, 1);
+		else if (key[0] != '=')
 		{
 			*egale = '\0';
 			value = ++egale;
-			setexport(key, value);
+			setexport(key, value, 1);
 		}
+		else
+			ft_err(key);
 		free(key);
 	}
 }

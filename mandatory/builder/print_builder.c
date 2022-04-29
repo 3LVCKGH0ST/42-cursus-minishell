@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 02:12:30 by asouinia          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:44 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/27 01:38:33 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,15 @@ void	print_builder(t_d_list *build)
 		return ;
 	b = (t_builder *)build->content;
 	if (b->type == B_CMD)
+	{
+		fprintf(stderr, "builder: CMD\n");
 		print_builder_pipline(build);
+	}
 	else if (b->type == B_OR || b->type == B_AND)
+	{
+		fprintf(stderr, "builder: OP\n");
 		print_builder_op((t_builder *)build->content);
+	}
 	else
 		printf("ERROR print builder\n");
 }

@@ -6,7 +6,7 @@
 /*   By: asouinia <asouinia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 20:32:13 by mbalagui          #+#    #+#             */
-/*   Updated: 2022/04/21 05:20:03 by asouinia         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:59:02 by asouinia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,11 @@ void	showexport(int fd)
 	}
 }
 
-void	setexport(char *key, char *val)
+void	setexport(char *key, char *val, int c)
 {
-	if (checkspchar(key, NULL))
+	if (key && key[0] == '_' && !key[1])
+		return ;
+	if (checkspchar(key, val, c))
 		return ;
 	if (!val)
 	{
